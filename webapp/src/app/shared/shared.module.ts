@@ -63,7 +63,10 @@ const materialModules = [
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
+    ...materialModules
+  ],
+  exports: [
+    ...materialModules
   ]
 })
 export class SharedModule { }
