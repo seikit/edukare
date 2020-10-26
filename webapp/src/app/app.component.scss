@@ -29,3 +29,8 @@ h1.app-name-pos {
      `<body>` to be our scrolling element for mobile layouts. */
   flex: 1 0 auto;
 }
+
+.card {
+  max-width: 100%;
+  margin: 10px;
+}
