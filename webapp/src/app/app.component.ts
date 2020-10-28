@@ -1,7 +1,7 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { MenuService } from './shared/menu.service';
-import { Menu } from './shared/models/menu.model';
+import { IMenu } from './shared/models/menu.model';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,7 @@ export class AppComponent {
   
   private _mobileQueryListener: () => void;
   mobileQuery: MediaQueryList;
-  menu: Menu[] = [];
+  menu: IMenu[] = [];
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private menuService: MenuService) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Menu } from './models/menu.model';
+import { IMenu } from './models/menu.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MenuService {
 
-  private menu: Menu[] = [];
-  private menuSecretaria: Menu[] = [
+  private menu: IMenu[] = [];
+  private menuSecretaria: IMenu[] = [
     {titulo: 'Home', link: '/home', icone: 'input'},
     {titulo: 'Processo seletivo', link: '/processo-seletivo', icone: 'input'},
     {titulo: 'Encaminhamento', link: '/encaminhamento', icone: 'arrow_right_alt'},
