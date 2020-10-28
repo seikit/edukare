@@ -1,5 +1,5 @@
-export class Menu {
-    titulo!: string;
-    link!: string;
-    icone!: string;
+export interface IMenu {
+    titulo: string;
+    link: string;
+    icone: string;
 }
