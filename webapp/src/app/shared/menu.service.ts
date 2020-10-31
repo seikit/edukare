@@ -8,7 +8,7 @@ export class MenuService {
 
   private menu: IMenu[] = [];
   private menuSecretaria: IMenu[] = [
-    {titulo: 'Home', link: '/home', icone: 'input'},
+    {titulo: 'Home', link: '/home', icone: 'home'},
     {titulo: 'Processo seletivo', link: '/processo-seletivo', icone: 'input'},
     {titulo: 'Encaminhamento', link: '/encaminhamento', icone: 'arrow_right_alt'},
     {titulo: 'Relatórios', link: '/relatorios', icone: 'dashboard'}

@@ -1,0 +1,176 @@
+<body>
+    <header>
+        <h1>Cadastro de processo seletivo</h1>
+    </header>
+
+    <main class="flex-container center container-size">
+        <mat-vertical-stepper [linear]="isNavegacaoLinear" #stepper>
+            <mat-step [stepControl]="formDescricao" label="Título/Descrição">
+              <form [formGroup]="formDescricao" class="flex-container">
+                
+                <mat-form-field>
+                    <mat-label>Título</mat-label>
+                    <input matInput #titulo maxlength="100" formControlName="titulo">
+                    <mat-hint align="end">{{titulo.value.length}} / 100</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Descrição</mat-label>
+                    <textarea matInput #descricao maxlength="250" formControlName="descricao"></textarea>
+                    <mat-hint align="end">{{descricao.value.length}} / 250</mat-hint>
+                </mat-form-field>
+              </form>
+            </mat-step>
+
+            <mat-step [stepControl]="formData" label="Datas">
+              <form [formGroup]="formData" class="flex-container">
+                
+                <mat-form-field>
+                    <mat-label>Início data de inscrição</mat-label>
+                    <input matInput [matDatepicker]="dtInscricao" formControlName="dtInicioInscricao" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="dtInscricao"></mat-datepicker-toggle>
+                    <mat-datepicker #dtInscricao></mat-datepicker>
+                </mat-form-field>
+    
+                <mat-form-field>
+                    <mat-label>Encerramento data de inscrição</mat-label>
+                    <input matInput [matDatepicker]="dtEncerramento" formControlName="dtEncerramentoInscricao" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="dtEncerramento"></mat-datepicker-toggle>
+                    <mat-datepicker #dtEncerramento></mat-datepicker>
+                </mat-form-field>
+              </form>
+            </mat-step>
+
+            <mat-step [stepControl]="formEtapa" label="Etapas">
+                <form [formGroup]="formEtapa" class="flex-container">
+                  
+                    <mat-form-field>
+                        <mat-label>Título da etapa</mat-label>
+                        <input matInput formControlName="titulo"/>
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                        <mat-label>Descrição</mat-label>
+                        <textarea matInput formControlName="descricao"></textarea>
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                        <mat-label>Data</mat-label>
+                        <input matInput [matDatepicker]="data" formControlName="data" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="data"></mat-datepicker-toggle>
+                        <mat-datepicker #data></mat-datepicker>
+                    </mat-form-field>
+    
+                    <button mat-raised-button type="button" (click)="incluirEtapa(formEtapa.value)"><mat-icon>add</mat-icon> Criar etapa</button>
+                </form>
+            </mat-step>
+
+            <!-- <mat-step label="Revisar e criar processo seletivo" *ngIf="formDescricao.valid && formData.valid && etapas.length > 0"> -->
+            <mat-step label="Revisar e criar processo seletivo">
+                <section class="flex-container">
+                    <mat-form-field>
+                        <mat-label>Título</mat-label>
+                        <input matInput value="{{ fd.titulo.value }}" readonly>
+                    </mat-form-field>
+        
+                    <mat-form-field>
+                        <mat-label>Descrição</mat-label>
+                        <textarea matInput value=" {{ fd.descricao.value }}" readonly></textarea>
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                        <mat-label>Data de inicio de inscrição</mat-label>
+                        <input matInput value="{{ fdt.dtInicioInscricao.value | date:'dd/MM/yyyy' }}" readonly>
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                        <mat-label>Data de encerramento de inscrição</mat-label>
+                        <input matInput value="{{ fdt.dtEncerramentoInscricao.value | date: 'dd/MM/yyyy' }}" readonly>
+                    </mat-form-field>
+                </section>
+
+                <section *ngIf="etapas.length > 0">
+                    <div class="margem-20">
+                        <mat-divider></mat-divider>
+                    </div>
+                    
+                    <section class="flex-container">
+                        <h3 class="margem-10-t">Etapas cadastradas</h3>
+                        <div *ngFor="let etapa of etapas">
+                            <mat-card class="flex-container margem-10-b">
+
+                                <mat-form-field>
+                                    <mat-label>Título da etapa</mat-label>
+                                    <input matInput value="{{ etapa.titulo }}" readonly/>
+                                </mat-form-field>
+                
+                                <mat-form-field>
+                                    <mat-label>Descrição</mat-label>
+                                    <textarea matInput value="{{ etapa.descricao }}" readonly></textarea>
+                                </mat-form-field>
+                
+                                <mat-form-field>
+                                    <mat-label>Data</mat-label>
+                                    <input matInput value="{{ etapa.data | date: 'dd/MM/yyyy'}}" readonly>                            
+                                </mat-form-field>
+
+                                <mat-card-actions>
+                                    <button mat-raised-button type="button" class="margem-10-b" (click)="excluirEtapa(etapa)"><mat-icon>delete</mat-icon></button>
+                                </mat-card-actions>
+                            </mat-card>                            
+                        </div>
+                    </section>
+                </section>
+                <button mat-raised-button type="button" (click)="validarFormulario()"><mat-icon>add</mat-icon>Criar Processo Seletivo</button>
+            </mat-step>            
+        </mat-vertical-stepper>
+        
+        <!-- <form [formGroup]="form" class="flex-container container-size" (ngSubmit)="onSubmit(form.value)">
+            <h2>Processo seletivo</h2>
+
+            <mat-form-field>
+                <mat-label>Título</mat-label>
+                <input matInput formControlName="titulo">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Início data de inscrição</mat-label>
+                <input matInput [matDatepicker]="dtInscricao" formControlName="dtInicioInscricao" readonly>
+                <mat-datepicker-toggle matSuffix [for]="dtInscricao"></mat-datepicker-toggle>
+                <mat-datepicker #dtInscricao></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Encerramento data de inscrição</mat-label>
+                <input matInput [matDatepicker]="dtEncerramento" formControlName="dtEncerramentoInscricao" readonly>
+                <mat-datepicker-toggle matSuffix [for]="dtEncerramento"></mat-datepicker-toggle>
+                <mat-datepicker #dtEncerramento></mat-datepicker>
+            </mat-form-field>
+
+            <section>
+                <h3>Cadastro de etapas</h3>
+
+                <mat-form-field>
+                    <mat-label>Título da etapa</mat-label>
+                    <input matInput formControlName="tituloEtapa"/>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Descrição</mat-label>
+                    <input matInput formControlName="descricaoEtapa">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Data</mat-label>
+                    <input matInput [matDatepicker]="data" formaControlName="dtEtapa" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="data"></mat-datepicker-toggle>
+                    <mat-datepicker #data></mat-datepicker>
+                </mat-form-field>
+
+                <button mat-raised-button type="button" (click)="incluirEtapa()"><mat-icon>plus</mat-icon> Incluir etapa</button>
+            </section>
+
+            <button mat-raised-button type="submit">Criar</button>
+        </form> -->
+    </main>
+</body>

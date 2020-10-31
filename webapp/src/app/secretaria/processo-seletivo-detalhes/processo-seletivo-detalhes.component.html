@@ -1,1 +1,31 @@
-<p>processo-seletivo-detalhes works!</p>
+<body>
+    <header>
+        <h1>Cadastro de processo seletivo</h1>
+    </header>
+
+    <main>
+        <form [formGroup]="form" class="flex-container flex-container-center container-size" [class.eh-mobile]="mobileQuery.matches" (ngSubmit)="onSubmit(form.value)">
+            <h2>Processo seletivo</h2>
+
+            <mat-form-field>
+                <mat-label>Início data de inscrição</mat-label>
+                <input matInput [matDatepicker]="dtInscricao" formControlName="dtInicioInscricao" readonly>
+                <mat-datepicker-toggle matSuffix [for]="dtInscricao"></mat-datepicker-toggle>
+                <mat-datepicker #dtInscricao></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Encerramento data de inscrição</mat-label>
+                <input matInput [matDatepicker]="dtEncerramento" formControlName="dtEncerramentoInscricao" readonly>
+                <mat-datepicker-toggle matSuffix [for]="dtEncerramento"></mat-datepicker-toggle>
+                <mat-datepicker #dtEncerramento></mat-datepicker>
+            </mat-form-field>
+
+
+
+            <button mat-raised-button type="submit">Criar</button>
+        </form>
+    </main>
+
+    <footer></footer>
+</body>

@@ -15,12 +15,11 @@ export class ProcessoSeletivoComponent implements OnInit {
   constructor(private processoSeletivoService: ProcessoSeletivoService, private router: Router) { }
 
   ngOnInit(): void {
-    this.processos = this.processoSeletivoService.carregar();
+    //this.processos = this.processoSeletivoService.carregar();
   }
 
   criar() {
-    this.router.navigate(['/processo-seletivo', 0])
-    this.processoSeletivoService.criarSalvar(this.processos[1]).subscribe(data => {debugger});
+    this.router.navigate(['/processo-seletivo/novo'])
   }
 
   visualizar(processo: IProcessoSeletivo) {

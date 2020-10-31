@@ -29,6 +29,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core/';
+import { MatStepperModule } from '@angular/material/stepper';
+import { ModalPadraoComponent } from './modais/modal-padrao/modal-padrao.component';
 
 const materialModules = [
   CdkTreeModule,
@@ -38,11 +42,13 @@ const materialModules = [
   MatCheckboxModule,
   MatChipsModule,
   MatDividerModule,
+  MatDatepickerModule,
   MatExpansionModule,
   MatIconModule,
-  MatInputModule,
+  MatInputModule,  
   MatListModule,
   MatMenuModule,
+  MatNativeDateModule,
   MatProgressSpinnerModule,
   MatPaginatorModule,
   MatRippleModule,
@@ -50,6 +56,7 @@ const materialModules = [
   MatSidenavModule,
   MatSnackBarModule,
   MatSortModule,
+  MatStepperModule,
   MatTableModule,
   MatTabsModule,
   MatToolbarModule,
@@ -61,7 +68,7 @@ const materialModules = [
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [ModalPadraoComponent],
   imports: [
     ...materialModules
   ],
