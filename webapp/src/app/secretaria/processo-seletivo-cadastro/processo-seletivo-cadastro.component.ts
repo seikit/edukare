@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ModalPadraoComponent } from 'src/app/shared/modais/modal-padrao/modal-padrao.component';
+import { Router } from '@angular/router';
+import { ModalSucessoComponent } from 'src/app/shared/modais/modal-sucesso/modal-sucesso.component';
 import { NotificacaoService } from 'src/app/shared/notificacao.service';
 import { IEtapa } from '../models/etapas.model';
 import { ProcessoSeletivo } from '../models/processo-seletivo';
@@ -15,7 +16,7 @@ export class ProcessoSeletivoCadastroComponent implements OnInit {
   isNavegacaoLinear = false;
   etapas: IEtapa[];  
 
-  constructor(private fb: FormBuilder, private notificacaoService: NotificacaoService, private processoSeletivoService: ProcessoSeletivoService) {
+  constructor(private fb: FormBuilder, private notificacaoService: NotificacaoService, private processoSeletivoService: ProcessoSeletivoService, private router: Router) {
     this.etapas = [];
     //this.etapas.push({id:1, titulo: 'prova', descricao:'Prova de títulos para comprovação de requisitos mínimos', candidatos:[], data: '10/15/2020', processoSeletivo: 1 });
   }
@@ -51,6 +52,7 @@ export class ProcessoSeletivoCadastroComponent implements OnInit {
   ngOnInit(): void {}
   
   incluirEtapa(e: IEtapa) {
+    
     if (!e.titulo || !e.descricao || !e.data) {
       this.notificacaoService.abrirSnackBar('Informe os dados da etapa!');
       return;
@@ -89,7 +91,13 @@ export class ProcessoSeletivoCadastroComponent implements OnInit {
     if (processo) {
       this.processoSeletivoService.criar(processo).subscribe(resp => {
         if (resp.ok) {
-          this.notificacaoService.abrirModal(ModalPadraoComponent)
+          const modal = this.notificacaoService.abrirModal(ModalSucessoComponent, {data: {titulo:"Sucesso!"}});
+          setTimeout(() => {
+            modal.close();
+            this.router.navigate(['/process-seletivo']);
+          }, 3000)
+        } else {
+
         }
       });
     }

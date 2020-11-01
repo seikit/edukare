@@ -125,52 +125,5 @@
             </mat-step>            
         </mat-vertical-stepper>
         
-        <!-- <form [formGroup]="form" class="flex-container container-size" (ngSubmit)="onSubmit(form.value)">
-            <h2>Processo seletivo</h2>
-
-            <mat-form-field>
-                <mat-label>Título</mat-label>
-                <input matInput formControlName="titulo">
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>Início data de inscrição</mat-label>
-                <input matInput [matDatepicker]="dtInscricao" formControlName="dtInicioInscricao" readonly>
-                <mat-datepicker-toggle matSuffix [for]="dtInscricao"></mat-datepicker-toggle>
-                <mat-datepicker #dtInscricao></mat-datepicker>
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>Encerramento data de inscrição</mat-label>
-                <input matInput [matDatepicker]="dtEncerramento" formControlName="dtEncerramentoInscricao" readonly>
-                <mat-datepicker-toggle matSuffix [for]="dtEncerramento"></mat-datepicker-toggle>
-                <mat-datepicker #dtEncerramento></mat-datepicker>
-            </mat-form-field>
-
-            <section>
-                <h3>Cadastro de etapas</h3>
-
-                <mat-form-field>
-                    <mat-label>Título da etapa</mat-label>
-                    <input matInput formControlName="tituloEtapa"/>
-                </mat-form-field>
-
-                <mat-form-field>
-                    <mat-label>Descrição</mat-label>
-                    <input matInput formControlName="descricaoEtapa">
-                </mat-form-field>
-
-                <mat-form-field>
-                    <mat-label>Data</mat-label>
-                    <input matInput [matDatepicker]="data" formaControlName="dtEtapa" readonly>
-                    <mat-datepicker-toggle matSuffix [for]="data"></mat-datepicker-toggle>
-                    <mat-datepicker #data></mat-datepicker>
-                </mat-form-field>
-
-                <button mat-raised-button type="button" (click)="incluirEtapa()"><mat-icon>plus</mat-icon> Incluir etapa</button>
-            </section>
-
-            <button mat-raised-button type="submit">Criar</button>
-        </form> -->
     </main>
 </body>

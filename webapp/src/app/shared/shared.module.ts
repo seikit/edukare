@@ -33,6 +33,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core/';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ModalPadraoComponent } from './modais/modal-padrao/modal-padrao.component';
+import { ModalSucessoComponent } from './modais/modal-sucesso/modal-sucesso.component';
 
 const materialModules = [
   CdkTreeModule,
@@ -68,7 +69,7 @@ const materialModules = [
 ];
 
 @NgModule({
-  declarations: [ModalPadraoComponent],
+  declarations: [ModalPadraoComponent, ModalSucessoComponent],
   imports: [
     ...materialModules
   ],
