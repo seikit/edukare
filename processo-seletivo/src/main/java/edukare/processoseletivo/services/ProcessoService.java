@@ -23,6 +23,8 @@ public class ProcessoService {
 
     public ProcessoSeletivo save(ProcessoSeletivo processoSeletivo) {
         log.debug("Request para criar um novo processo seletivo.");
-        return processoRepository.save(processoSeletivo);
+        ProcessoSeletivo p = processoRepository.save(processoSeletivo);
+        p.getEtapas().forEach(e -> e.setProcessoSeletivo(p));
+        return processoRepository.save(p);
     }
 }
