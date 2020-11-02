@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: processo-seletivo
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:db
+    username: sa
+  jpa:
+    repositories.bootstrap-mode: default
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        instance-id: ${spring.application.name}:${random.value}
+  liquibase:
+    enabled: false
+server:
+  port: 8081
