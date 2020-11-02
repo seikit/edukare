@@ -1,4 +1,5 @@
 import { ICandidatos } from './candidatos.model';
+import { IProcessoSeletivo } from './processo-seletivo';
 
 export interface IEtapa {
     id: number;
@@ -6,5 +7,5 @@ export interface IEtapa {
     descricao: string;
     data: string;
     candidatos: ICandidatos[];
-    processoSeletivo: number
+    processoSeletivo: IProcessoSeletivo;
 }

@@ -90,11 +90,11 @@ export class ProcessoSeletivoCadastroComponent implements OnInit {
     
     if (processo) {
       this.processoSeletivoService.criar(processo).subscribe(resp => {
-        if (resp.ok) {
-          const modal = this.notificacaoService.abrirModal(ModalSucessoComponent, {data: {titulo:"Sucesso!"}});
+        if (resp.status === 201) {
+          const modal = this.notificacaoService.abrirModal(ModalSucessoComponent, {data: {titulo:"Processo seletivo cadastrado!"}});
           setTimeout(() => {
             modal.close();
-            this.router.navigate(['/process-seletivo']);
+            modal.afterClosed().subscribe(() => this.router.navigate(['/processo-seletivo']));
           }, 3000)
         } else {
 

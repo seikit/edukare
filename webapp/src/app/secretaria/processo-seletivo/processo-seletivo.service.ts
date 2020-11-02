@@ -1,6 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UtilService } from 'src/app/shared/util.service';
 import { env } from 'src/environments/environment';
 import { IProcessoSeletivo } from '../models/processo-seletivo';
 
@@ -13,10 +14,11 @@ type ArrayResponseType = HttpResponse<IProcessoSeletivo[]>;
 export class ProcessoSeletivoService {
   PROCESSO_URL = env.GATEWAY_URL + env.PROCESSO_MS_URL;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private util: UtilService) { }
 
-  criar(processo: IProcessoSeletivo): Observable<ResponseType> {    
-    return this.http.post<IProcessoSeletivo>( this.PROCESSO_URL + '/processo', processo, { observe: 'response'});
+  criar(processo: IProcessoSeletivo): Observable<ResponseType> {
+    const obj = this.converterDataParaDataServidor(processo);
+    return this.http.post<IProcessoSeletivo>( this.PROCESSO_URL + '/processo', obj, { observe: 'response'});
   }
   
   carregar() {    
@@ -34,7 +36,7 @@ export class ProcessoSeletivoService {
     // return dadosTeste;
   }
 
-  deletar(processoId: number): number {
+  deletar(processoId: number | undefined): number {
     throw new Error('Method not implemented.');
   }
 
@@ -42,5 +44,16 @@ export class ProcessoSeletivoService {
     throw new Error('Method not implemented.');
   }
 
-  
+  converterDataParaDataServidor(processo: IProcessoSeletivo): IProcessoSeletivo | undefined {
+    if (processo == undefined) return undefined;
+    
+    processo.dtInicioInscricao = this.util.converterDataTimeParaData(processo.dtInicioInscricao);
+    processo.dtEncerramentoInscricao = this.util.converterDataTimeParaData(processo.dtEncerramentoInscricao);
+
+    processo.etapas.forEach(e => {
+      e.data = this.util.converterDataTimeParaData(e.data);
+    })
+    return processo;
+  }
+
 }
