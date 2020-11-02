@@ -21,19 +21,8 @@ export class ProcessoSeletivoService {
     return this.http.post<IProcessoSeletivo>( this.PROCESSO_URL + '/processo', obj, { observe: 'response'});
   }
   
-  carregar() {    
-    // const dadosTeste: IProcessoSeletivo[] = [
-    //   {id: 1, dtInicioInscricao: '01/10/2020',dtEncerramentoInscricao:'01/11/2020',titulo: 'Processo seletivo de professores temporários'},
-    //   {id: 2, dtInicioInscricao: '15/07/2020',dtEncerramentoInscricao:'01/11/2020',titulo: 'Processo seletivo de professores temporários'},
-    //   {id: 3, dtInicioInscricao: '01/11/2020',dtEncerramentoInscricao:'01/11/2020',titulo: 'Processo seletivo de professores temporários'},
-    //   {id: 4, dtInicioInscricao: '01/06/2019',dtEncerramentoInscricao:'01/11/2020',titulo: 'Processo seletivo de professores temporários'},
-    //   {id: 5, dtInicioInscricao: '01/10/2020',dtEncerramentoInscricao:'01/11/2020',titulo: 'Processo seletivo de professores temporários'},
-    //   {id: 6, dtInicioInscricao: '15/07/2020',dtEncerramentoInscricao:'01/11/2020',titulo: 'Processo seletivo de professores temporários'},
-    //   {id: 7, dtInicioInscricao: '01/11/2020',dtEncerramentoInscricao:'01/11/2020',titulo: 'Processo seletivo de professores temporários'},
-    //   {id: 8, dtInicioInscricao: '01/06/2019',dtEncerramentoInscricao:'01/11/2020',titulo: 'Processo seletivo de professores temporários'},
-    // ];
-
-    // return dadosTeste;
+  carregar(): Observable<ArrayResponseType> {    
+    return this.http.get<IProcessoSeletivo[]>(this.PROCESSO_URL + '/processos', { observe: 'response' });
   }
 
   deletar(processoId: number | undefined): number {
