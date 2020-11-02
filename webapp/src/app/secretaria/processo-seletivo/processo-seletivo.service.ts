@@ -1,7 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { env } from '../../../environments/environment';
+import { env } from 'src/environments/environment';
 import { IProcessoSeletivo } from '../models/processo-seletivo';
 
 type ResponseType = HttpResponse<IProcessoSeletivo>;
@@ -11,15 +11,15 @@ type ArrayResponseType = HttpResponse<IProcessoSeletivo[]>;
   providedIn: 'root'
 })
 export class ProcessoSeletivoService {
-  API_URL = env.apiUrl + 'processo-seletivo';
+  PROCESSO_URL = env.GATEWAY_URL + env.PROCESSO_MS_URL;
 
   constructor(private http: HttpClient) { }
 
-  criar(processo: IProcessoSeletivo): Observable<ResponseType> {
-    return this.http.post<IProcessoSeletivo>(this.API_URL, processo, { observe: 'response'});
+  criar(processo: IProcessoSeletivo): Observable<ResponseType> {    
+    return this.http.post<IProcessoSeletivo>( this.PROCESSO_URL + '/processo', processo, { observe: 'response'});
   }
   
-  carregar() {
+  carregar() {    
     // const dadosTeste: IProcessoSeletivo[] = [
     //   {id: 1, dtInicioInscricao: '01/10/2020',dtEncerramentoInscricao:'01/11/2020',titulo: 'Processo seletivo de professores temporários'},
     //   {id: 2, dtInicioInscricao: '15/07/2020',dtEncerramentoInscricao:'01/11/2020',titulo: 'Processo seletivo de professores temporários'},

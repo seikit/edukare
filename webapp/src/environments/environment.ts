@@ -4,7 +4,8 @@
 
 export const env = {
   production: false,
-  apiUrl: "http://localhost:8080/api/"
+  GATEWAY_URL: 'http://localhost:8080',
+  PROCESSO_MS_URL: '/processo-seletivo/api'
 };
 
 /*
