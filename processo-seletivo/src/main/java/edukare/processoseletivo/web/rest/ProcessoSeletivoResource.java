@@ -24,11 +24,6 @@ public class ProcessoSeletivoResource {
     @Autowired
     private ProcessoService processoService;
 
-    @GetMapping("/hello")
-    public String hello(){
-        return "Hello";
-    }
-
     @PostMapping("/processo")
     public ResponseEntity<ProcessoSeletivo> criarProcesso(@RequestBody ProcessoSeletivo processoSeletivo) throws URISyntaxException {
         log.debug("REST para criar um novo processo");

@@ -1,6 +1,7 @@
 package edukare.processoseletivo.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -20,8 +21,9 @@ public class Etapa {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate data;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "processo_seletivo_id")
+    @JsonIgnore
     private ProcessoSeletivo processoSeletivo;
 
     public Etapa() {
