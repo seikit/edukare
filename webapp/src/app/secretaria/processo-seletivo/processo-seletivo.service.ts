@@ -1,8 +1,8 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, pipe } from 'rxjs';
+import { Observable } from 'rxjs';
+import { env } from 'src/environments/environment';
 import { IProcessoSeletivo } from '../models/processo-seletivo';
-import { env } from '../../../environments/environment';
 
 type ResponseType = HttpResponse<IProcessoSeletivo>;
 type ArrayResponseType = HttpResponse<IProcessoSeletivo[]>;
@@ -11,27 +11,27 @@ type ArrayResponseType = HttpResponse<IProcessoSeletivo[]>;
   providedIn: 'root'
 })
 export class ProcessoSeletivoService {
-  API_URL = env.apiUrl + 'processo-seletivo';
+  PROCESSO_URL = env.GATEWAY_URL + env.PROCESSO_MS_URL;
 
   constructor(private http: HttpClient) { }
 
-  criarSalvar(processo: IProcessoSeletivo): Observable<ResponseType> {
-    return this.http.post<IProcessoSeletivo>(this.API_URL, processo, { observe: 'response'});
+  criar(processo: IProcessoSeletivo): Observable<ResponseType> {    
+    return this.http.post<IProcessoSeletivo>( this.PROCESSO_URL + '/processo', processo, { observe: 'response'});
   }
   
-  carregar(): IProcessoSeletivo[] {
-    const dadosTeste: IProcessoSeletivo[] = [
-      {id: 1, dtAberturaProcesso: '01/10/2020'},
-      {id: 2, dtAberturaProcesso: '15/07/2020'},
-      {id: 3, dtAberturaProcesso: '01/11/2020'},
-      {id: 4, dtAberturaProcesso: '01/06/2019'},
-      {id: 5, dtAberturaProcesso: '01/10/2020'},
-      {id: 6, dtAberturaProcesso: '15/07/2020'},
-      {id: 7, dtAberturaProcesso: '01/11/2020'},
-      {id: 8, dtAberturaProcesso: '01/06/2019'},
-    ];
+  carregar() {    
+    // const dadosTeste: IProcessoSeletivo[] = [
+    //   {id: 1, dtInicioInscricao: '01/10/2020',dtEncerramentoInscricao:'01/11/2020',titulo: 'Processo seletivo de professores temporários'},
+    //   {id: 2, dtInicioInscricao: '15/07/2020',dtEncerramentoInscricao:'01/11/2020',titulo: 'Processo seletivo de professores temporários'},
+    //   {id: 3, dtInicioInscricao: '01/11/2020',dtEncerramentoInscricao:'01/11/2020',titulo: 'Processo seletivo de professores temporários'},
+    //   {id: 4, dtInicioInscricao: '01/06/2019',dtEncerramentoInscricao:'01/11/2020',titulo: 'Processo seletivo de professores temporários'},
+    //   {id: 5, dtInicioInscricao: '01/10/2020',dtEncerramentoInscricao:'01/11/2020',titulo: 'Processo seletivo de professores temporários'},
+    //   {id: 6, dtInicioInscricao: '15/07/2020',dtEncerramentoInscricao:'01/11/2020',titulo: 'Processo seletivo de professores temporários'},
+    //   {id: 7, dtInicioInscricao: '01/11/2020',dtEncerramentoInscricao:'01/11/2020',titulo: 'Processo seletivo de professores temporários'},
+    //   {id: 8, dtInicioInscricao: '01/06/2019',dtEncerramentoInscricao:'01/11/2020',titulo: 'Processo seletivo de professores temporários'},
+    // ];
 
-    return dadosTeste;
+    // return dadosTeste;
   }
 
   deletar(processoId: number): number {

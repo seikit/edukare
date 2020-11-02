@@ -8,6 +8,8 @@ import { SharedModule } from './shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { SecretariaModule } from './secretaria/secretaria.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ModalPadraoComponent } from './shared/modais/modal-padrao/modal-padrao.component';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,10 @@ import { HttpClientModule } from '@angular/common/http';
     SecretariaModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}}
+  ],
+  entryComponents: [ModalPadraoComponent],
   bootstrap: [AppComponent],
   exports: []
 })
