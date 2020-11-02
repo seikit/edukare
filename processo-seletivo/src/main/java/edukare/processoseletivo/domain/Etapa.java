@@ -1,5 +1,7 @@
 package edukare.processoseletivo.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -15,19 +17,20 @@ public class Etapa {
     private String titulo;
     private String descricao;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate data;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "processo_seletivo_id")
     private ProcessoSeletivo processoSeletivo;
-    /*private LocalDate data;
-    private Candidato cadidato;
-    private ProcessoSeletivo processoSeletivo;*/
 
     public Etapa() {
     }
 
-    public Etapa(String titulo, String descricao) {
+    public Etapa(String titulo, String descricao, LocalDate data) {
         this.titulo = titulo;
         this.descricao = descricao;
+        this.data = data;
     }
 
     public Long getId() {
@@ -52,6 +55,14 @@ public class Etapa {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
     }
 
     public ProcessoSeletivo getProcessoSeletivo() {

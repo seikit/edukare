@@ -11,17 +11,6 @@ import java.util.Set;
 @Entity
 public class ProcessoSeletivo {
 
-
-
-    /*id: number;
-    titulo: string;
-    descricao: string;
-    situacao: string;
-    dtInicioInscricao: string;
-    dtEncerramentoInscricao: string;
-    candidatos: ICandidatos[];
-    etapas: IEtapa[];*/
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "processo_sequence")
     @SequenceGenerator(name = "processo_sequence")
@@ -35,6 +24,8 @@ public class ProcessoSeletivo {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dtInicioInscricao;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dtEncerramentoInscricao;
 
     @OneToMany(mappedBy = "processoSeletivo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -46,7 +37,6 @@ public class ProcessoSeletivo {
         this.titulo = titulo;
         this.descricao = descricao;
     }
-
 
     public Long getId() {
         return id;
