@@ -1,0 +1,24 @@
+.flex-container {
+    display: flex;    
+}
+
+.flex-container-sb {
+    justify-content: space-between;
+}
+
+.input-s {
+    width: 50px;
+}
+
+// Remove barra lateral do campo quando for tipo número
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+// Remove barra lateral do campo quando for tipo número
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

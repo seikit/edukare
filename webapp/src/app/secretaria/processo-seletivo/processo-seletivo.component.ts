@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalConfirmacaoCancelamentoComponent } from 'src/app/shared/modais/modal-confirmacao-cancelamento/modal-confirmacao-cancelamento.component';
+import { ModalSucessoComponent } from 'src/app/shared/modais/modal-sucesso/modal-sucesso.component';
+import { NotificacaoService } from 'src/app/shared/notificacao.service';
 import { IProcessoSeletivo } from '../models/processo-seletivo';
 import { ProcessoSeletivoService } from './processo-seletivo.service';
 
@@ -12,7 +15,7 @@ import { ProcessoSeletivoService } from './processo-seletivo.service';
 export class ProcessoSeletivoComponent implements OnInit {
   processos: IProcessoSeletivo[] = []; 
 
-  constructor(private processoSeletivoService: ProcessoSeletivoService, private router: Router) { }
+  constructor(private processoSeletivoService: ProcessoSeletivoService, private router: Router, private notificacaoService: NotificacaoService) { }
 
   ngOnInit(): void {
     this.processoSeletivoService.carregar().subscribe(resp => {
@@ -39,6 +42,23 @@ export class ProcessoSeletivoComponent implements OnInit {
   }
 
   cancelar(processo: IProcessoSeletivo) {
-    this.processoSeletivoService.cancelar(processo.id);
+    this.notificacaoService.abrirModal(ModalConfirmacaoCancelamentoComponent, {data: {processo}}).afterClosed().subscribe(cancelar => {
+      
+      if (cancelar == true) {
+        this.processoSeletivoService.cancelar(processo).subscribe(resp => {
+          if (resp.ok) {
+            const modal = this.notificacaoService.abrirModal(ModalSucessoComponent, {data: {titulo: "Processo seletivo cancelado!"}})
+            setTimeout(() => {
+              modal.close();
+              modal.afterClosed().subscribe(() => {
+                this.router.navigate(['/processo-seletivo']);
+              })
+            }, 3000)
+    
+          }
+        });
+      }
+    });
+
   }
 }
