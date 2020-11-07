@@ -1,31 +1,71 @@
 <body>
     <header>
-        <h1>Cadastro de processo seletivo</h1>
+        <h1>Processo seletivo: {{processo?.id}}</h1>
     </header>
 
-    <main>
-        <form [formGroup]="form" class="flex-container flex-container-center container-size" [class.eh-mobile]="mobileQuery.matches" (ngSubmit)="onSubmit(form.value)">
-            <h2>Processo seletivo</h2>
+    <main class="flex-container center container-size">
+        <form [formGroup]="form" class="flex-container" (ngSubmit)="salvarEdicao(form.value)">
+            <h3>Título / Descrição</h3>
+            <section class="flex-container">
+                <mat-form-field>
+                    <mat-label>Título</mat-label>
+                    <input matInput formControlName="titulo">                
+                </mat-form-field>
+    
+                <mat-form-field>
+                    <mat-label>Descrição</mat-label>
+                    <textarea matInput formControlName="descricao"></textarea>
+                </mat-form-field>        
+            </section>
 
-            <mat-form-field>
-                <mat-label>Início data de inscrição</mat-label>
-                <input matInput [matDatepicker]="dtInscricao" formControlName="dtInicioInscricao" readonly>
-                <mat-datepicker-toggle matSuffix [for]="dtInscricao"></mat-datepicker-toggle>
-                <mat-datepicker #dtInscricao></mat-datepicker>
-            </mat-form-field>
+            <section class="flex-container">
+                <h3>Datas</h3>
 
-            <mat-form-field>
-                <mat-label>Encerramento data de inscrição</mat-label>
-                <input matInput [matDatepicker]="dtEncerramento" formControlName="dtEncerramentoInscricao" readonly>
-                <mat-datepicker-toggle matSuffix [for]="dtEncerramento"></mat-datepicker-toggle>
-                <mat-datepicker #dtEncerramento></mat-datepicker>
-            </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Início data de inscrição</mat-label>
+                    <input matInput [matDatepicker]="dtInscricao" formControlName="dtInicioInscricao" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="dtInscricao"></mat-datepicker-toggle>
+                    <mat-datepicker #dtInscricao></mat-datepicker>
+                </mat-form-field>
+    
+                <mat-form-field>
+                    <mat-label>Encerramento data de inscrição</mat-label>
+                    <input matInput [matDatepicker]="dtEncerramento" formControlName="dtEncerramentoInscricao" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="dtEncerramento"></mat-datepicker-toggle>
+                    <mat-datepicker #dtEncerramento></mat-datepicker>
+                </mat-form-field>
+            </section>
 
+            <section class="flex-container">
+                <h3>Etapas cadastradas</h3>
+                
+                <ng-container formArrayName="etapas">
+                    <div *ngFor="let etapa of etapas.controls; index as i">
+                        <ng-container [formGroupName]="i">
+                            <mat-card class="flex-container margem-10-b">
+                                <mat-form-field>
+                                    <mat-label>Título da etapa</mat-label>
+                                    <input matInput formControlName="titulo"/>
+                                </mat-form-field>
+                
+                                <mat-form-field>
+                                    <mat-label>Descrição</mat-label>
+                                    <textarea matInput formControlName="descricao"></textarea>
+                                </mat-form-field>
+                
+                                <mat-form-field>
+                                    <mat-label>Data</mat-label>
+                                    <input matInput [matDatepicker]="dtEtapa" formControlName="data" readonly>
+                                    <mat-datepicker-toggle matSuffix [for]="dtEtapa"></mat-datepicker-toggle>
+                                    <mat-datepicker #dtEtapa></mat-datepicker>
+                                </mat-form-field>
+                            </mat-card>
+                        </ng-container>
+                    </div>
+                </ng-container>
 
-
-            <button mat-raised-button type="submit">Criar</button>
+            </section>
+            <button mat-raised-button type="submit"><mat-icon>add</mat-icon>Salvar edição</button>
         </form>
     </main>
-
-    <footer></footer>
 </body>
