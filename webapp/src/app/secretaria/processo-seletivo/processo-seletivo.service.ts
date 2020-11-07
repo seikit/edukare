@@ -33,6 +33,11 @@ export class ProcessoSeletivoService {
     throw new Error('Method not implemented.');
   }
 
+  atualizar(processo: IProcessoSeletivo): Observable<ResponseType> { 
+    const obj = this.converterDataParaDataServidor(processo);
+    return this.http.put<IProcessoSeletivo>(this.PROCESSO_URL + '/processo', obj, {observe: 'response'});
+  }
+
   converterDataParaDataServidor(processo: IProcessoSeletivo): IProcessoSeletivo | undefined {
     if (processo == undefined) return undefined;
     

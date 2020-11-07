@@ -16,7 +16,7 @@ export class ProcessoSeletivoComponent implements OnInit {
 
   ngOnInit(): void {
     this.processoSeletivoService.carregar().subscribe(resp => {
-      if (resp.ok) {
+      if (resp.ok) {        
         this.processos =  resp.body ? resp.body : [];
       }
     });
@@ -31,7 +31,7 @@ export class ProcessoSeletivoComponent implements OnInit {
   }
 
   editar(processo: IProcessoSeletivo) {
-    this.router.navigate(['/processo-seletivo', processo.id])
+    this.router.navigate(['/processo-seletivo', processo.id], {state: {data:processo}} );
   }
 
   deletar(processo: IProcessoSeletivo) {
