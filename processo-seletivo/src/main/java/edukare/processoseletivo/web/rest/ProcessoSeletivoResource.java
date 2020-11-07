@@ -37,6 +37,20 @@ public class ProcessoSeletivoResource {
                 .body(processo);
     }
 
+    @PutMapping("/processo")
+    public ResponseEntity<ProcessoSeletivo> atualizarProcesso(@RequestBody ProcessoSeletivo processoSeletivo) throws URISyntaxException {
+        log.debug("REST para atualizar um processo seletivo");
+        if (processoSeletivo.getId() != null) {
+            Boolean temProcessoSeletivo = processoService.findById(processoSeletivo.getId()).isPresent();
+            if (temProcessoSeletivo) {
+                return ResponseEntity.ok().body(this.processoService.atualizar(processoSeletivo));
+            }
+        }
+        return ResponseEntity
+                .badRequest()
+                .build();
+    }
+
     @GetMapping("/processos")
     public ResponseEntity<List<ProcessoSeletivo>> carregarTodosProcessos(Pageable pageable, UriComponentsBuilder uri) {
         log.debug("REST para carregar todos os processos.");
