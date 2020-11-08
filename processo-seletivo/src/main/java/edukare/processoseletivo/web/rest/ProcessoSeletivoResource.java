@@ -59,4 +59,16 @@ public class ProcessoSeletivoResource {
                 .ok()
                 .body(page.getContent());
     }
+
+    @DeleteMapping("/processo/{id}")
+    public ResponseEntity deletarProcesso(@PathVariable(value = "id") Long id) {
+        log.debug("REST para deletar um processo seletivo");
+        Boolean isDeletado = this.processoService.deletar(id);
+        if (!isDeletado) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().build();
+    }
+
+
 }

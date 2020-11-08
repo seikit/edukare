@@ -41,4 +41,14 @@ public class ProcessoService {
         log.debug("Request para carregar um registro por ID");
         return processoRepository.findById(id);
     }
+
+    public Boolean deletar(Long id) {
+        log.debug("Request para deletar um processo seletivo");
+        Boolean temProcesso = this.processoRepository.existsById(id);
+        if (temProcesso) {
+            processoRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }
