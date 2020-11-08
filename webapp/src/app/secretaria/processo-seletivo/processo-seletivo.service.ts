@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { UtilService } from 'src/app/shared/util.service';
 import { env } from 'src/environments/environment';
 import { IProcessoSeletivo } from '../models/processo-seletivo';
+import { Situacao } from '../models/situacao.enum';
 
 type ResponseType = HttpResponse<IProcessoSeletivo>;
 type ArrayResponseType = HttpResponse<IProcessoSeletivo[]>;
@@ -29,8 +30,9 @@ export class ProcessoSeletivoService {
     throw new Error('Method not implemented.');
   }
 
-  cancelar(processoId: any) {
-    throw new Error('Method not implemented.');
+  cancelar(processo: IProcessoSeletivo): Observable<ResponseType> {
+    processo.situacao = Situacao.CANCELADO;
+    return this.atualizar(processo);
   }
 
   atualizar(processo: IProcessoSeletivo): Observable<ResponseType> { 
