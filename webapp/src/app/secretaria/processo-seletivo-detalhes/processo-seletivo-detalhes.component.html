@@ -1,6 +1,7 @@
 <body>
-    <header>
-        <h1>Processo seletivo: {{processo?.id}}</h1>
+    <header>        
+        <h1 *ngIf="modo === 'edicao'">Editando processo seletivo: {{processo?.id}}</h1>
+        <h1 *ngIf="modo === 'visualizacao'">Visualizando processo seletivo: {{processo?.id}}</h1>
     </header>
 
     <main class="flex-container center container-size">
@@ -9,13 +10,18 @@
             <section class="flex-container">
                 <mat-form-field>
                     <mat-label>Título</mat-label>
-                    <input matInput formControlName="titulo">                
+                    <input matInput formControlName="titulo">
                 </mat-form-field>
     
                 <mat-form-field>
                     <mat-label>Descrição</mat-label>
                     <textarea matInput formControlName="descricao"></textarea>
-                </mat-form-field>        
+                </mat-form-field>
+                
+                <mat-form-field *ngIf="modo === 'visualizacao'">
+                    <mat-label>Situação</mat-label>
+                    <input matInput formControlName="situacao">
+                </mat-form-field>
             </section>
 
             <section class="flex-container">
@@ -65,7 +71,7 @@
                 </ng-container>
 
             </section>
-            <button mat-raised-button type="submit"><mat-icon>add</mat-icon>Salvar edição</button>
+            <button mat-raised-button *ngIf="modo === 'edicao'" type="submit"><mat-icon>add</mat-icon>Salvar edição</button>
         </form>
     </main>
 </body>
