@@ -1,7 +1,7 @@
 <body>
-    <header><h1>Cancelamento de processo seletivo</h1></header>
+    <header><h1>{{titulo}}</h1></header>
     <main>
-        <h4>Para confirmar digite o número do processo seletivo: <b>{{processo?.id}}</b></h4>
+        <h4>Para confirmar digite o número do processo seletivo: <b>{{processo?.id}}</b> e clique em Sim</h4>
         <mat-form-field class="input-s">
             <mat-label>Número</mat-label>
             <input matInput type="number" [formControl]="numeroProcesso"/>

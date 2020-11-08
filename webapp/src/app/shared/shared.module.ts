@@ -34,8 +34,8 @@ import { MatNativeDateModule } from '@angular/material/core/';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ModalPadraoComponent } from './modais/modal-padrao/modal-padrao.component';
 import { ModalSucessoComponent } from './modais/modal-sucesso/modal-sucesso.component';
-import { ModalConfirmacaoCancelamentoComponent } from './modais/modal-confirmacao-cancelamento/modal-confirmacao-cancelamento.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ModalConfirmarCancelamentoExclusaoComponent } from './modais/modal-confirmar-cancelamento-exclusao/modal-confirmar-cancelamento-exclusao.component';
 
 const materialModules = [
   CdkTreeModule,
@@ -72,7 +72,7 @@ const materialModules = [
 ];
 
 @NgModule({
-  declarations: [ModalPadraoComponent, ModalSucessoComponent, ModalConfirmacaoCancelamentoComponent],
+  declarations: [ModalPadraoComponent, ModalSucessoComponent, ModalConfirmarCancelamentoExclusaoComponent],
   imports: [
     ...materialModules
   ],
