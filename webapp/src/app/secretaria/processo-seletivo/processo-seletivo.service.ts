@@ -26,8 +26,8 @@ export class ProcessoSeletivoService {
     return this.http.get<IProcessoSeletivo[]>(this.PROCESSO_URL + '/processos', { observe: 'response' });
   }
 
-  deletar(processoId: number | undefined): number {
-    throw new Error('Method not implemented.');
+  deletar(id: number | undefined): Observable<ResponseType> {
+    return this.http.delete<IProcessoSeletivo>(this.PROCESSO_URL + `/processo/${id}`, {observe: 'response'});
   }
 
   cancelar(processo: IProcessoSeletivo): Observable<ResponseType> {

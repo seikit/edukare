@@ -12,11 +12,13 @@
         <div *ngFor="let proc of processos" class="flex-container">
           <mat-card class="margem-10 flex-item">
             <mat-card-title>Processo seletivo: {{proc.id}}</mat-card-title>
-            <mat-card-subtitle>Abertura: {{proc.dtInicioInscricao | date:'dd/MM/yyyy' }}</mat-card-subtitle>     
+            <mat-card-subtitle>Início data de inscrição: {{proc.dtInicioInscricao | date:'dd/MM/yyyy' }}</mat-card-subtitle>
+            <mat-card-subtitle>Situação: {{proc.situacao}}</mat-card-subtitle>
             <mat-card-actions>
               <button class="margem-5" mat-raised-button (click)="visualizar(proc)"><mat-icon>zoom_in</mat-icon></button>
-              <button class="margem-5" mat-raised-button (click)="editar(proc)"><mat-icon class="margem-5">create</mat-icon></button>              
-              <button class="margem-5" mat-raised-button (click)="cancelar(proc)"><mat-icon class="margem-5">cancel</mat-icon></button> 
+              <button *ngIf="proc.situacao !== 'CANCELADO'" class="margem-5" mat-raised-button (click)="editar(proc)"><mat-icon class="margem-5">create</mat-icon></button>
+              <button *ngIf="proc.situacao !== 'CANCELADO'" class="margem-5" mat-raised-button (click)="deletar(proc)"><mat-icon class="margem-5">delete</mat-icon></button>
+              <button *ngIf="proc.situacao !== 'CANCELADO'" class="margem-5" mat-raised-button (click)="cancelar(proc)"><mat-icon class="margem-5">cancel</mat-icon></button> 
             </mat-card-actions>
           </mat-card>
         </div>
