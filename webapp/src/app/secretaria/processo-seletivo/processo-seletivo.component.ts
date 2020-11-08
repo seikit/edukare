@@ -34,11 +34,11 @@ export class ProcessoSeletivoComponent implements OnInit {
   }
 
   visualizar(processo: IProcessoSeletivo) {
-    this.router.navigate(['/processo-seletivo', processo.id])
+    this.router.navigate(['/processo-seletivo', processo.id], {state: {data: processo, modo: 'visualizacao'}});
   }
 
   editar(processo: IProcessoSeletivo) {
-    this.router.navigate(['/processo-seletivo', processo.id], {state: {data:processo}} );
+    this.router.navigate(['/processo-seletivo', processo.id], {state: {data:processo, modo: 'edicao'}});
   }
 
   deletar(processo: IProcessoSeletivo) {

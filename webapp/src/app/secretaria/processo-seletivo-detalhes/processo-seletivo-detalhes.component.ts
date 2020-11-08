@@ -14,10 +14,12 @@ import { ProcessoSeletivoService } from '../processo-seletivo/processo-seletivo.
   styleUrls: ['./processo-seletivo-detalhes.component.scss']
 })
 export class ProcessoSeletivoDetalhesComponent implements OnInit {
-  processo: IProcessoSeletivo;  
+  processo: IProcessoSeletivo;
+  modo: String;
 
   constructor(private fb: FormBuilder, private processoSeletivoService: ProcessoSeletivoService, private notificacaoService: NotificacaoService, private router: Router) {
-    this.processo = new ProcessoSeletivo();    
+    this.processo = new ProcessoSeletivo();
+    this.modo = ''; 
   }
 
   form = this.fb.group({
@@ -32,6 +34,7 @@ export class ProcessoSeletivoDetalhesComponent implements OnInit {
 
   ngOnInit(): void {
     this.processo = history.state?.data;
+    this.modo = history.state?.modo;
 
     if (this.processo) {
       this.form.setValue({
@@ -46,6 +49,10 @@ export class ProcessoSeletivoDetalhesComponent implements OnInit {
       this.setarEtapa(this.processo.etapas);
     } else {
       this.router.navigate(['/processo-seletivo'])
+    }
+
+    if (this.modo === 'visualizacao') {
+      this.form.disable();
     }
   }
 
