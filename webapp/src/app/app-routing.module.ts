@@ -10,7 +10,8 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'processo-seletivo', component: ProcessoSeletivoComponent},
   {path: 'processo-seletivo/novo', component: ProcessoSeletivoCadastroComponent},
-  {path: 'processo-seletivo/:id', component: ProcessoSeletivoDetalhesComponent}
+  {path: 'processo-seletivo/:id', component: ProcessoSeletivoDetalhesComponent},
+  {path: 'candidato', loadChildren: () => import('./candidato/candidato.module').then(m => m.CandidatoModule) }
 ];
 
 @NgModule({

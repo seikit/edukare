@@ -1,0 +1,17 @@
+<body>
+    <header><h1>Processo seletivos com inscrições abertas</h1></header>
+    <main>
+        <section class="flex-container flex-container-wrap flex-container-start">
+            <div *ngFor="let proc of processos" class="flex-container">
+              <mat-card class="margem-10 flex-item">
+                <mat-card-subtitle>Início data de inscrição: {{proc.dtInicioInscricao | date:'dd/MM/yyyy' }}</mat-card-subtitle>
+                <mat-card-subtitle>Data de encerramento das inscrições: {{proc.dtEncerramentoInscricao | date:'dd/MM/yyyy' }}</mat-card-subtitle>
+                <mat-card-actions>
+                  <button class="margem-5" mat-raised-button (click)="visualizar(proc)"><mat-icon>zoom_in</mat-icon></button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+        </section>
+    </main>
+    <footer></footer>
+</body>
