@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepicker } from '@angular/material/datepicker';
@@ -37,22 +37,31 @@ export const DATA_MES_ANO = {
 })
 export class DadosPessoaisComponent implements OnInit {
   
-  // Validação CPF
-  cpfRegex = /(\d{3}.){2}(\d{3}-)(\d{2})/
+  // Validação CPF ex: 000.000.000-00
+  cpf = /(\d{3}.){2}(\d{3}-)(\d{2})/
+
+  // Validação email
+  email = /[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+  
+  // Validação Celular (xx)12345-6789
+  celular = /(\(\d{2}\))(\d{5}\-)(\d{4})/
+
+  // Validação Telefone fixo (xx)1234-6789
+  telefoneFixo = /(\(\d{2}\))(\d{4}\-)(\d{4})/
   
   // Validação naturalide - Cidade/Estado ex: Campo Grande/MS
-  naturalidadeRegex = /(\W)\/(\w{2})/
+  naturalidade = /(\D+\/)([A-Z]{2})$/
 
   form = this.fb.group({
     dadosPessoais: this.fb.group({
       nomeCompleto:['', [Validators.required, Validators.maxLength(40)]],
-      cpf: ['', [Validators.required, Validators.maxLength(14), Validators.pattern(this.cpfRegex)]],
+      cpf: ['', [Validators.required, Validators.maxLength(14), Validators.pattern(this.cpf)]],
       filiacao1: ['', Validators.required, Validators.maxLength(40)],
       filiacao2: ['', Validators.required, Validators.maxLength(40)],
-      email: ['', [Validators.required, Validators.maxLength(40), Validators.email]],
-      celular: ['', Validators.required, Validators.maxLength(14)],
-      telefoneFixo: ['', Validators.required, Validators.maxLength(13)],
-      naturalidade: ['', [Validators.required, Validators.maxLength(20), Validators.pattern(this.naturalidadeRegex)]]
+      email: ['', [Validators.required, Validators.maxLength(40), Validators.pattern(this.email)]],
+      celular: ['', [Validators.required, Validators.maxLength(14), Validators.pattern(this.celular)]],
+      telefoneFixo: ['', [Validators.maxLength(13), Validators.pattern(this.telefoneFixo)]],
+      naturalidade: ['', [Validators.required, Validators.maxLength(20), Validators.pattern(this.naturalidade)]]
     }),
 
     endereco: this.fb.group({
@@ -65,10 +74,12 @@ export class DadosPessoaisComponent implements OnInit {
 
     educacao: this.fb.group({
       nivelEscolaridade: ['SUPERIOR_COMPLETO', Validators.required],
+
+      titulos: this.fb.array([]),
       
       instituicaoEnsino1: ['', [Validators.required, Validators.maxLength(20)]],
       tituloCurso1: ['', [Validators.required, Validators.maxLength(20)]],
-      anoConclusao1: [moment(), [Validators.required, Validators.maxLength(20)]],
+      anoConclusao1: [moment(), [Validators.required, Validators.maxLength(20)]],      
 
       instituicaoEnsino2: ['', [Validators.required, Validators.maxLength(20)]],
       tituloCurso2: ['', [Validators.required, Validators.maxLength(20)]],
@@ -109,6 +120,14 @@ export class DadosPessoaisComponent implements OnInit {
     this.form.get('educacao')?.get('anoConclusao1')?.setValue(ctrlValue);
     datepicker.close();
   }
+
+  // criarFormGroupTitulo(titulo: ITitulo): FormGroup {
+  //   return this.fb.group({
+  //     instituicaoEnsino: ['', [Validators.required, Validators.maxLength(20)]],
+  //     tituloCurso: ['', [Validators.required, Validators.maxLength(20)]],
+  //     anoConclusao: ['', [Validators.required, Validators.maxLength(20)]],
+  //   });
+  // }
 
 
 }
