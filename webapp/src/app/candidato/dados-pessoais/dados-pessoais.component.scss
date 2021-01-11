@@ -1,0 +1,63 @@
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.container-size {
+    width: 500px;
+}
+
+// 320px — 480px: Mobile devices
+// 481px — 768px: iPads, Tablets
+// 769px — 1024px: Small screens, laptops
+// 1025px — 1200px: Desktops, large screens
+// 1201px and more —  Extra large screens, TV
+@media screen and (min-device-width: 320px) and (max-device-width: 480px) { 
+    .container-size {
+        width: 100%;
+    }
+}
+
+@media screen and (min-device-width: 481px) and (max-device-width: 768px) { 
+    .container-size {
+        width: 100%;
+    }
+}
+
+
+@media screen and (min-device-width: 769px) and (max-device-width: 1024px) {
+    .container-size {
+        width: 70%;
+    }
+}
+
+@media screen and (min-device-width: 1201px) {
+    .container-size {
+        width: 40%;
+    }
+}
+
+// Remove flechas quando tipo input é numero
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+mat-radio-button {
+    margin: 5px;
+}
+
+hr {
+    border: 1px solid #5c98d6;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+}
