@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepicker } from '@angular/material/datepicker';
 
 import * as _moment from 'moment';
 import { Moment } from 'moment';
+import { NotificacaoService } from 'src/app/shared/notificacao.service';
+import { IDadosCandidato } from '../models/dados-candidato';
 
 const moment = _moment;
 
@@ -37,19 +39,19 @@ export const DATA_MES_ANO = {
 })
 export class DadosPessoaisComponent implements OnInit {
   
-  // Validação CPF ex: 000.000.000-00
+  // Validação formato CPF ex: 000.000.000-00
   cpf = /(\d{3}.){2}(\d{3}-)(\d{2})/
 
-  // Validação email
+  // Validação formato email
   email = /[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
   
-  // Validação Celular (xx)12345-6789
+  // Validação formato Celular (xx)12345-6789
   celular = /(\(\d{2}\))(\d{5}\-)(\d{4})/
 
-  // Validação Telefone fixo (xx)1234-6789
+  // Validação formato Telefone fixo (xx)1234-6789
   telefoneFixo = /(\(\d{2}\))(\d{4}\-)(\d{4})/
   
-  // Validação naturalide - Cidade/Estado ex: Campo Grande/MS
+  // Validação formato naturalide - Cidade/Estado ex: Campo Grande/MS
   naturalidade = /(\D+\/)([A-Z]{2})$/
 
   form = this.fb.group({
@@ -75,37 +77,30 @@ export class DadosPessoaisComponent implements OnInit {
     educacao: this.fb.group({
       nivelEscolaridade: ['SUPERIOR_COMPLETO', Validators.required],
 
-      titulos: this.fb.array([]),
-      
-      instituicaoEnsino1: ['', [Validators.required, Validators.maxLength(20)]],
-      tituloCurso1: ['', [Validators.required, Validators.maxLength(20)]],
-      anoConclusao1: [moment(), [Validators.required, Validators.maxLength(20)]],      
-
-      instituicaoEnsino2: ['', [Validators.required, Validators.maxLength(20)]],
-      tituloCurso2: ['', [Validators.required, Validators.maxLength(20)]],
-      anoConclusao2: [moment(), [Validators.required, Validators.maxLength(20)]],
-
-      instituicaoEnsino3: ['', [Validators.required, Validators.maxLength(20)]],
-      tituloCurso3: ['', [Validators.required, Validators.maxLength(20)]],
-      anoConclusao3: [moment(), [Validators.required, Validators.maxLength(20)]],
-      
-      instituicaoEnsino4: ['', [Validators.required, Validators.maxLength(20)]],
-      tituloCurso4: ['', [Validators.required, Validators.maxLength(20)]],
-      anoConclusao4: [moment(), [Validators.required, Validators.maxLength(20)]],
-
-      instituicaoEnsino5: ['', [Validators.required, Validators.maxLength(20)]],
-      tituloCurso5: ['', [Validators.required, Validators.maxLength(20)]],
-      anoConclusao5: ['', [Validators.required, Validators.maxLength(20)]],
+      titulos: this.fb.array([
+        this.fb.group({
+          instituicaoEnsino: ['', [Validators.required, Validators.maxLength(50)]],
+          tituloCurso: ['', [Validators.required, Validators.maxLength(50)]],
+          anoConclusao: ['', [Validators.required, Validators.maxLength(50)]]
+        })        
+      ]),
     })
 
   })
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private notificacaoService: NotificacaoService) { 
+    
+  }
+
+  get titulos(): FormArray {
+    return this.form.get('educacao')?.get('titulos') as FormArray;
+  }
   
   ngOnInit(): void {}
 
-  submit(): void {
-    console.log(' Add dados pessoais ')
+  submit(dadosCandidato: IDadosCandidato): void {
+    // Validar dados formulario
+    debugger;
   }  
 
   setarAno(normalizedYear: Moment) {
@@ -121,13 +116,22 @@ export class DadosPessoaisComponent implements OnInit {
     datepicker.close();
   }
 
-  // criarFormGroupTitulo(titulo: ITitulo): FormGroup {
-  //   return this.fb.group({
-  //     instituicaoEnsino: ['', [Validators.required, Validators.maxLength(20)]],
-  //     tituloCurso: ['', [Validators.required, Validators.maxLength(20)]],
-  //     anoConclusao: ['', [Validators.required, Validators.maxLength(20)]],
-  //   });
-  // }
+  criarFormGroupTitulo(): FormGroup {
+    return this.fb.group({
+      instituicaoEnsino: ['', [Validators.required, Validators.maxLength(50)]],
+      tituloCurso: ['', [Validators.required, Validators.maxLength(50)]],
+      anoConclusao: ['', [Validators.required, Validators.maxLength(50)]],
+    });
+  }
 
+  adicionarTitulo():void {    
+    this.titulos.push(this.criarFormGroupTitulo());
+  }
 
+  removerTitulo(index: number):void {
+    if (index !== 0) {      
+      this.titulos.removeAt(index);
+      this.notificacaoService.abrirSnackBar('Título removido');
+    }
+  }
 }
