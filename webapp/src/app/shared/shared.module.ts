@@ -37,6 +37,8 @@ import { ModalPadraoComponent } from './modais/modal-padrao/modal-padrao.compone
 import { ModalSucessoComponent } from './modais/modal-sucesso/modal-sucesso.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalConfirmarCancelamentoExclusaoComponent } from './modais/modal-confirmar-cancelamento-exclusao/modal-confirmar-cancelamento-exclusao.component';
+import { MascaraDirectiveModule } from './diretivas/mascara/mascara.directive';
+import { SomenteNumeroDirectiveModule } from './diretivas/somenteNumero/somente-numero.directive';
 
 const materialModules = [
   CdkTreeModule,
@@ -70,7 +72,9 @@ const materialModules = [
   MatTreeModule,
   OverlayModule,
   PortalModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  MascaraDirectiveModule,
+  SomenteNumeroDirectiveModule
 ];
 
 @NgModule({

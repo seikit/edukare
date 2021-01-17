@@ -17,7 +17,7 @@
                         
                         <mat-form-field>
                             <mat-label>CPF</mat-label>
-                            <input type="text" matInput #cpf maxlength="14" formControlName="cpf">
+                            <input type="text" mascara='cpf' matInput #cpf maxlength="14" formControlName="cpf">
                             <mat-hint align="end">{{cpf.value.length}} / 14</mat-hint>
                         </mat-form-field>
 
@@ -35,19 +35,19 @@
 
                         <mat-form-field>
                             <mat-label>E-mail</mat-label>
-                            <input type="email" matInput #email maxlength="40" formControlName="email">
+                            <input type="emai" matInput #email maxlength="40" formControlName="email">
                             <mat-hint align="end">{{email.value.length}} / 40</mat-hint>
                         </mat-form-field>
 
                         <mat-form-field>
                             <mat-label>Celular</mat-label>
-                            <input type="text" matInput #celular maxlength="14" formControlName="celular">
+                            <input type="text" mascara="celular" matInput #celular maxlength="14" formControlName="celular">
                             <mat-hint align="end">{{celular.value.length}} / 14</mat-hint>
                         </mat-form-field>
 
                         <mat-form-field>
                             <mat-label>Telefone Fixo</mat-label>
-                            <input type="text" matInput #telefoneFixo maxlength="13" formControlName="telefoneFixo">
+                            <input type="text" mascara="telefone" matInput #telefoneFixo maxlength="13" formControlName="telefoneFixo">
                             <mat-hint align="end">{{telefoneFixo.value.length}} / 13</mat-hint>
                         </mat-form-field>
 
@@ -72,7 +72,7 @@
 
                         <mat-form-field>
                             <mat-label>Número</mat-label>
-                            <input type="number" matInput formControlName="numero">                            
+                            <input type="number" somenteNumero matInput formControlName="numero">                            
                         </mat-form-field>
 
                         <mat-form-field>
