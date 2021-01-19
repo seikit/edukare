@@ -8,6 +8,7 @@ import * as _moment from 'moment';
 import { Moment } from 'moment';
 import { NotificacaoService } from 'src/app/shared/notificacao.service';
 import { IDadosCandidato } from '../models/dados-candidato';
+import { DadosPessoaisService } from './dados-pessoais.service';
 
 const moment = _moment;
 
@@ -88,7 +89,7 @@ export class DadosPessoaisComponent implements OnInit {
 
   })
 
-  constructor(private fb: FormBuilder, private notificacaoService: NotificacaoService) { 
+  constructor(private fb: FormBuilder, private notificacaoService: NotificacaoService, private DadosPessoaisService: DadosPessoaisService) { 
     
   }
 
@@ -98,9 +99,10 @@ export class DadosPessoaisComponent implements OnInit {
   
   ngOnInit(): void {}
 
-  submit(dadosCandidato: IDadosCandidato): void {
-    // Validar dados formulario
-    debugger;
+  submit(dadosCandidato: IDadosCandidato): void {    
+    if (this.form.valid) {
+      this.DadosPessoaisService.salvar(dadosCandidato);
+    }    
   }  
 
   setarAno(normalizedYear: Moment) {
