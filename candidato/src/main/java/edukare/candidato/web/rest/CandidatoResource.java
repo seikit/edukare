@@ -15,7 +15,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/candidato")
 public class CandidatoResource {
 
     private final Logger log = LoggerFactory.getLogger(Candidato.class);
@@ -23,13 +23,13 @@ public class CandidatoResource {
     @Autowired
     private CandidatoService candidatoService;
 
-    @PostMapping("/dados-pessoais")
+    @PostMapping("/dados")
     public ResponseEntity<Candidato> salvarDadosPessoais(@RequestBody Candidato candidato) throws URISyntaxException {
         log.debug("REST para salvar o dados pessoais do candidato");
 
-        Candidato c = candidatoService.save(candidato);
+        Candidato can = candidatoService.save(candidato);
         return ResponseEntity
-                .created(new URI("/api/candidato/"+c))
-                .body(c);
+                .created(new URI("/api/candidato/" + can.getId()))
+                .body(can);
     }
 }
