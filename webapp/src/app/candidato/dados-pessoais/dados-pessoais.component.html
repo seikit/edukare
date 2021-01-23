@@ -1,1 +1,162 @@
-<p>dados-pessoais works!</p>
+<body>
+    <header>
+        <h1>Dados Pessoais</h1>
+        <h2>Cadastre os dados pessoais para utilizar nos processos seletivos abertos</h2>
+    </header>
+    <main class="container-size">        
+        <form [formGroup]="form" (ngSubmit)="submit(form.value)">
+            <mat-vertical-stepper linear #stepper>
+                <mat-step formGroupName="dadosPessoais" label="Dados Pessoais">
+                    <section class="flex-container">
+                        
+                        <mat-form-field>
+                            <mat-label>Nome Completo</mat-label>
+                            <input type="text" matInput #nomeCompleto maxlength="40" formControlName="nomeCompleto">
+                            <mat-hint align="end">{{nomeCompleto.value.length}} / 40</mat-hint>
+                        </mat-form-field>
+                        
+                        <mat-form-field>
+                            <mat-label>CPF</mat-label>
+                            <input type="text" mascara='cpf' matInput #cpf maxlength="14" formControlName="cpf">
+                            <mat-hint align="end">{{cpf.value.length}} / 14</mat-hint>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Filiação 1</mat-label>
+                            <input type="text" matInput #filiacao1 maxlength="40" formControlName="filiacao1">
+                            <mat-hint align="end">{{filiacao1.value.length}} / 40</mat-hint>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Filiação 2</mat-label>
+                            <input type="text" matInput #filiacao2 maxlength="40" formControlName="filiacao2">
+                            <mat-hint align="end">{{filiacao2.value.length}} / 40</mat-hint>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>E-mail</mat-label>
+                            <input type="emai" matInput #email maxlength="40" formControlName="email">
+                            <mat-hint align="end">{{email.value.length}} / 40</mat-hint>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Celular</mat-label>
+                            <input type="text" mascara="celular" matInput #celular maxlength="14" formControlName="celular">
+                            <mat-hint align="end">{{celular.value.length}} / 14</mat-hint>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Telefone Fixo</mat-label>
+                            <input type="text" mascara="telefone" matInput #telefoneFixo maxlength="13" formControlName="telefoneFixo">
+                            <mat-hint align="end">{{telefoneFixo.value.length}} / 13</mat-hint>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Natural de</mat-label>
+                            <input type="text" matInput #naturalidade maxlength="20" formControlName="naturalidade">
+                            <mat-hint align="end">{{naturalidade.value.length}} / 20</mat-hint>
+                            <mat-hint align="start">ex: Campo Grande/MS</mat-hint>
+                        </mat-form-field>
+                    </section>
+                </mat-step>
+
+                <mat-step formGroupName="endereco" label="Endereço de residência">
+                    <section class="flex-container">                      
+
+                        <mat-form-field>
+                            <mat-label>Logradouro</mat-label>
+                            <input type="text" matInput #rua maxlength="40" formControlName="rua">
+                            <mat-hint align="end">{{rua.value.length}} / 40</mat-hint>
+                            <mat-hint align="start">rua, avenida, travessia ...</mat-hint>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Número</mat-label>
+                            <input type="number" somenteNumero matInput formControlName="numero">                            
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Bairro</mat-label>
+                            <input type="text" matInput #bairro maxlength="20" formControlName="bairro">
+                            <mat-hint align="end">{{bairro.value.length}} / 20</mat-hint>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Cidade</mat-label>
+                            <input type="text" matInput #cidadeResidencia maxlength="20" formControlName="cidadeResidencia">
+                            <mat-hint align="end">{{cidadeResidencia.value.length}} / 20</mat-hint>
+                        </mat-form-field>                        
+
+                        <mat-form-field>
+                            <mat-label>Estado</mat-label>
+                            <input type="text" matInput #estadoResidencia maxlength="20" formControlName="estadoResidencia">
+                            <mat-hint align="end">{{estadoResidencia.value.length}} / 20</mat-hint>
+                        </mat-form-field>
+                    </section>                    
+                </mat-step>
+
+                <mat-step formGroupName="educacao" label="Educação">
+                    <section class="flex-container">
+                        <mat-form-field>
+                            <mat-label>Maior nível de escolaridade</mat-label>
+                            <select matNativeControl formControlName="nivelEscolaridade" #nvEscolaridade>
+                                <option value="SUPERIOR_COMPLETO" selected>Superior completo</option>
+                                <option value="ESPECIALIZACAO">Especialização</option>
+                                <option value="MESTRADO">Mestrado</option>
+                                <option value="DOUTORADO">Doutorado</option>
+                                <option value="POS_DOUTORADO">Pós-doutorado</option>
+                            </select>
+                            <mat-hint align="start" *ngIf="nvEscolaridade.value === 'ESPECIALIZACAO'">Mínimo de 360 horas</mat-hint>
+                        </mat-form-field>
+                        
+                        <h4>Informe até 5 títulos, 1 deve ser da gradução de ensino superior</h4>
+
+                        <ng-container formArrayName="titulos">
+                            <div *ngFor="let titulo of titulos.controls; index as i">
+                                <ng-container [formGroupName]="i">
+                                    <mat-card class="flex-container">                                        
+                                        <mat-card-subtitle>Título: {{i + 1}}</mat-card-subtitle>
+                                        
+                                        <mat-form-field>
+                                            <mat-label>Instituição de ensino</mat-label>
+                                            <input type="text" matInput #instituicaoEnsino1 maxlength="50" formControlName="instituicaoEnsino">
+                                            <mat-hint align="end">{{instituicaoEnsino1.value.length}} / 50</mat-hint>
+                                        </mat-form-field>           
+                
+                                        <mat-form-field>
+                                            <mat-label>Nome do curso</mat-label>
+                                            <input type="text" matInput #tituloCurso1 maxlength="50" formControlName="tituloCurso">
+                                            <mat-hint align="end">{{tituloCurso1.value.length}} / 50</mat-hint>
+                                        </mat-form-field>
+                
+                                        <mat-form-field>
+                                            <mat-label>Mês/ano de conclusão</mat-label>
+                                            <input matInput [matDatepicker]="dp" formControlName="anoConclusao">
+                                            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                                            <mat-datepicker #dp
+                                                            startView="multi-year"
+                                                            (yearSelected)="setarAno($event)"
+                                                            (monthSelected)="setarMes($event, dp)">
+                                            </mat-datepicker>
+                                        </mat-form-field>
+
+                                        <mat-card-footer class="flex-container" *ngIf="i !== 0">
+                                            <button mat-raised-button type="button" (click)="removerTitulo(i)"><mat-icon>delete</mat-icon>Remover titulo</button>
+                                        </mat-card-footer>
+                                    </mat-card>
+                                </ng-container>
+                            </div>                            
+                            <button mat-raised-button type="button" class="margin-top" *ngIf="titulos.length < 5" (click)="adicionarTitulo()"><mat-icon>add</mat-icon>Adicionar título</button>
+                            
+                        </ng-container>
+                    </section>
+
+                </mat-step>                
+            </mat-vertical-stepper>
+            <div class="flex-container">
+                <button mat-raised-button type="submit"><mat-icon>save</mat-icon>Salvar</button>
+            </div>
+        </form>
+    </main>
+    <footer></footer>
+</body>

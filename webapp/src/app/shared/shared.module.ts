@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatRippleModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
@@ -36,6 +37,8 @@ import { ModalPadraoComponent } from './modais/modal-padrao/modal-padrao.compone
 import { ModalSucessoComponent } from './modais/modal-sucesso/modal-sucesso.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalConfirmarCancelamentoExclusaoComponent } from './modais/modal-confirmar-cancelamento-exclusao/modal-confirmar-cancelamento-exclusao.component';
+import { MascaraDirectiveModule } from './diretivas/mascara/mascara.directive';
+import { SomenteNumeroDirectiveModule } from './diretivas/somenteNumero/somente-numero.directive';
 
 const materialModules = [
   CdkTreeModule,
@@ -43,6 +46,7 @@ const materialModules = [
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
+  MatRadioModule,
   MatChipsModule,
   MatDividerModule,
   MatDatepickerModule,
@@ -68,7 +72,9 @@ const materialModules = [
   MatTreeModule,
   OverlayModule,
   PortalModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  MascaraDirectiveModule,
+  SomenteNumeroDirectiveModule
 ];
 
 @NgModule({
