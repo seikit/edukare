@@ -67,4 +67,19 @@ public class InscricaoService {
         // TODO Implementar endpoint no microservico de processo setivo que retorna o status do processo.
         return true;
     }
+
+    public Set<Inscricao> carregarTodasInscricoesDoCandidato(Long candidatoId) {
+        log.debug("Request para carregar todas as inscrições um candidato");
+        return inscricaoRepository.findAllByCandidatoId(candidatoId);
+    }
+
+    public Optional<Inscricao> carregarInscricaoPorId(Long id) {
+        log.debug("Request para carregar uma inscrição por ID");
+        return inscricaoRepository.findById(id);
+    }
+
+    public void deletarInscricaoPorId(Long id) {
+        log.debug("Request para deletar uma inscricao por ID");
+        inscricaoRepository.deleteById(id);
+    }
 }
