@@ -27,7 +27,7 @@ public class CandidatoResource {
 
         Candidato can = candidatoService.save(candidato);
         return ResponseEntity
-                .created(new URI("/api/v1/candidatos/" + can.getId()))
+                .created(new URI("/candidatos/" + can.getId()))
                 .body(can);
     }
 

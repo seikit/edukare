@@ -26,6 +26,11 @@ public class Titulo {
     @JsonIgnore
     private Educacao educacao;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "inscricao_id")
+    @JsonIgnore
+    private Inscricao inscricao;
+
     public Titulo() {
     }
 
@@ -73,6 +78,14 @@ public class Titulo {
 
     public void setEducacao(Educacao educacao) {
         this.educacao = educacao;
+    }
+
+    public Inscricao getInscricao() {
+        return inscricao;
+    }
+
+    public void setInscricao(Inscricao inscricao) {
+        this.inscricao = inscricao;
     }
 
     @Override
