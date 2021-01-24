@@ -12,8 +12,13 @@ public class Titulo {
     @SequenceGenerator(name = "titulo_sequence")
     private Long id;
 
+    @Column(nullable = false)
     private String instituicaoEnsino;
+
+    @Column(nullable = false)
     private String tituloCurso;
+
+    @Column(nullable = false)
     private Integer anoConclusao;
 
     @ManyToOne(fetch = FetchType.LAZY)

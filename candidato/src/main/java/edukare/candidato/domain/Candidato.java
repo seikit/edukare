@@ -10,21 +10,35 @@ public class Candidato {
     @SequenceGenerator(name = "candidato_sequence")
     private Long id;
 
+    @Column(nullable = false)
     private String nomeCompleto;
+
+    @Column(nullable = false, unique = true)
     private String cpf;
+
+    @Column(nullable = false)
     private String filiacao1;
+
+    @Column(nullable = false)
     private String filiacao2;
+
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @Column(unique = true, nullable = false)
     private String celular;
+
     private String telefoneFixo;
+
+    @Column(nullable = false)
     private String naturalidade;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
+    @JoinColumn(name = "endereco_id", referencedColumnName = "id", nullable = false)
     private Endereco endereco;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "educacao_id", referencedColumnName = "id")
+    @JoinColumn(name = "educacao_id", referencedColumnName = "id", nullable = false)
     private Educacao educacao;
 
     public Candidato() {

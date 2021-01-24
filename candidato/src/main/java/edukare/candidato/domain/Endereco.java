@@ -1,5 +1,7 @@
 package edukare.candidato.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,13 +12,23 @@ public class Endereco {
     @SequenceGenerator(name = "endereco_sequence")
     private Long id;
 
+    @Column(nullable = false)
     private String rua;
+
+    @Column(nullable = false)
     private Long numero;
+
+    @Column(nullable = false)
     private String bairro;
+
+    @Column(nullable = false)
     private String cidadeResidencia;
+
+    @Column(nullable = false)
     private String estadoResidencia;
 
-    @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "endereco")
+    @JsonIgnore
     private Candidato candidato;
 
     public Endereco() {

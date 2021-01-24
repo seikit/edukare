@@ -1,5 +1,7 @@
 package edukare.candidato.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,13 +14,15 @@ public class Educacao {
     @SequenceGenerator(name = "educacao_sequence")
     private Long id;
 
+    @Column(nullable = false)
     private String nivelEscolaridade;
 
-
+    @Column(nullable = false, unique = true)
     @OneToMany(mappedBy = "educacao", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Titulo> titulos = new HashSet<>();
 
     @OneToOne(mappedBy = "educacao")
+    @JsonIgnore
     private Candidato candidato;
 
     public Educacao() {
