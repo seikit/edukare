@@ -1,5 +1,7 @@
 package edukare.candidato.domain;
 
+import edukare.candidato.enumeration.Situacao;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -13,19 +15,22 @@ public class Inscricao {
     @SequenceGenerator(name = "inscricao_sequence")
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Enumerated(EnumType.STRING)
+    private Situacao situacao;
+
+    @Column(nullable = false)
     private Long processoSeletivoId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private Long candidatoId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private LocalDateTime dataInscricao;
 
     @Column(nullable = false)
     private String nomeCompleto;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String cpf;
 
     @Column(nullable = false)
@@ -34,10 +39,10 @@ public class Inscricao {
     @Column(nullable = false)
     private String filiacao2;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String email;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String celular;
 
     private String telefoneFixo;
@@ -63,9 +68,6 @@ public class Inscricao {
     @Column(nullable = false)
     private String nivelEscolaridade;
 
-    /*@OneToMany(mappedBy = "inscricao")
-    private Set<Titulo> titulos = new HashSet<>();*/
-
     @Column(nullable = false)
     @OneToMany(mappedBy = "inscricao", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Titulo> titulos = new HashSet<>();
@@ -73,9 +75,10 @@ public class Inscricao {
     public Inscricao() {
     }
 
-    public Inscricao(Long processoSeletivoId, Long candidatoId, LocalDateTime dataInscricao, String nomeCompleto, String cpf, String filiacao1, String filiacao2, String email, String celular,
+    public Inscricao(Long processoSeletivoId, Situacao situacao, Long candidatoId, LocalDateTime dataInscricao, String nomeCompleto, String cpf, String filiacao1, String filiacao2, String email, String celular,
                      String telefoneFixo, String naturalidade, String rua, Long numero, String bairro, String cidadeResidencia, String estadoResidencia, String nivelEscolaridade, Set<Titulo> titulos) {
         this.processoSeletivoId = processoSeletivoId;
+        this.situacao = situacao;
         this.candidatoId = candidatoId;
         this.dataInscricao = dataInscricao;
         this.nomeCompleto = nomeCompleto;
@@ -101,6 +104,14 @@ public class Inscricao {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Situacao getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(Situacao situacao) {
+        this.situacao = situacao;
     }
 
     public Long getProcessoSeletivoId() {

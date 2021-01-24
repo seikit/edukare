@@ -4,7 +4,9 @@ import edukare.candidato.domain.Candidato;
 import edukare.candidato.domain.Inscricao;
 import edukare.candidato.domain.Titulo;
 import edukare.candidato.dto.InscricaoDto;
+import edukare.candidato.enumeration.Situacao;
 import edukare.candidato.repository.InscricaoRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,15 +42,22 @@ public class InscricaoService {
             Optional<Candidato> can = candidatoService.findById(candidatoId);
 
             if (can.isPresent() && verificarProcessoSeletivoAberto(processoId)) {
-                Candidato c = can.get();
+                Optional<Inscricao> insc = carregarCandidatoJaTemInscricaoAtivaNoProcesso(candidatoId, processoId);
 
+                if (insc.isPresent()) {
+                    Inscricao i = insc.get();
+                    i.setSituacao(Situacao.CANCELADA);
+                    this.salvar(i);
+                }
+
+                Candidato c = can.get();
                 Set<Titulo> titulos = new HashSet<>();
                 for (Titulo t: c.getEducacao().getTitulos()) {
                     Titulo tituloInscricao = new Titulo(t.getInstituicaoEnsino(),t.getTituloCurso(),t.getAnoConclusao());
                     titulos.add(tituloInscricao);
                 }
 
-                Inscricao inscricao = new Inscricao(processoId, candidatoId, LocalDateTime.now(), c.getNomeCompleto(), c.getCpf(), c.getFiliacao1(),
+                Inscricao inscricao = new Inscricao(processoId, Situacao.ATIVA, candidatoId, LocalDateTime.now(), c.getNomeCompleto(), c.getCpf(), c.getFiliacao1(),
                         c.getFiliacao2(), c.getEmail(), c.getCelular(), c.getTelefoneFixo(), c.getNaturalidade(), c.getEndereco().getRua(),c.getEndereco().getNumero(), c.getEndereco().getBairro(),
                         c.getEndereco().getCidadeResidencia(), c.getEndereco().getEstadoResidencia(), c.getEducacao().getNivelEscolaridade(), titulos);
 
@@ -81,5 +90,10 @@ public class InscricaoService {
     public void deletarInscricaoPorId(Long id) {
         log.debug("Request para deletar uma inscricao por ID");
         inscricaoRepository.deleteById(id);
+    }
+
+    public Optional<Inscricao> carregarCandidatoJaTemInscricaoAtivaNoProcesso(Long candidatoId, Long processoId) {
+        log.debug("Request para verificar se o candidato já tem inscricao neste processo seletivo");
+        return inscricaoRepository.findInscricaoByCandidatoIdAndProcessoSeletivoIdAndSituacaoEquals(candidatoId, processoId, Situacao.ATIVA);
     }
 }
