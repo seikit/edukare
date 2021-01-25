@@ -128,16 +128,17 @@
                                             <input type="text" matInput #tituloCurso1 maxlength="50" formControlName="tituloCurso">
                                             <mat-hint align="end">{{tituloCurso1.value.length}} / 50</mat-hint>
                                         </mat-form-field>
-                
+
                                         <mat-form-field>
                                             <mat-label>Mês/ano de conclusão</mat-label>
-                                            <input matInput [matDatepicker]="dp" formControlName="anoConclusao">
+                                            <input type="number" somenteNumero matInput [matDatepicker]="dp" disabled>
                                             <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                                             <mat-datepicker #dp
                                                             startView="multi-year"
-                                                            (yearSelected)="setarAno($event)"
-                                                            (monthSelected)="setarMes($event, dp)">
+                                                            (yearSelected)="setarAno($event, i)"
+                                                            disabled="false">
                                             </mat-datepicker>
+
                                         </mat-form-field>
 
                                         <mat-card-footer class="flex-container" *ngIf="i !== 0">
