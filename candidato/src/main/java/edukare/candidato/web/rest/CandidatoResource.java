@@ -1,6 +1,7 @@
 package edukare.candidato.web.rest;
 
 import edukare.candidato.domain.Candidato;
+import edukare.candidato.dto.CandidatoDto;
 import edukare.candidato.services.CandidatoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,13 +23,13 @@ public class CandidatoResource {
     private CandidatoService candidatoService;
 
     @PostMapping
-    public ResponseEntity<Candidato> salvarDadosPessoais(@RequestBody Candidato candidato) throws URISyntaxException {
+    public ResponseEntity<Candidato> salvarDadosPessoais(@RequestBody CandidatoDto candidatoDto) throws URISyntaxException {
         log.debug("REST para salvar o dados pessoais do candidato");
 
-        Candidato can = candidatoService.save(candidato);
+        Candidato can = candidatoService.save(candidatoDto.candidatoDtoToCandidato(candidatoDto));
         return ResponseEntity
-                .created(new URI("/candidatos/" + can.getId()))
-                .body(can);
+            .created(new URI("/candidatos/" + can.getId()))
+            .body(can);
     }
 
     @GetMapping("/{id}")
