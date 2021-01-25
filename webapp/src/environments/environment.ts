@@ -5,7 +5,8 @@
 export const env = {
   production: false,
   GATEWAY_URL: 'http://localhost:8080',
-  PROCESSO_MS_URL: '/processo-seletivo/api'
+  PROCESSO_MS_URL: '/processo-seletivo/api',
+  CANDIDATO_MS_URL: '/candidato/api'
 };
 
 /*

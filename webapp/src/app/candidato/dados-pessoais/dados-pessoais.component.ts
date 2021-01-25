@@ -6,18 +6,19 @@ import { MatDatepicker } from '@angular/material/datepicker';
 
 import * as _moment from 'moment';
 import { Moment } from 'moment';
+import { ModalSucessoComponent } from 'src/app/shared/modais/modal-sucesso/modal-sucesso.component';
 import { NotificacaoService } from 'src/app/shared/notificacao.service';
 import { IDadosCandidato } from '../models/dados-candidato';
 import { DadosPessoaisService } from './dados-pessoais.service';
 
 const moment = _moment;
 
-export const DATA_MES_ANO = {
+export const DATA_ANO = {
   parse: {
-    dateInput: 'MM/YYYY',
+    dateInput: 'YYYY',
   },
   display: {
-    dateInput: 'MM/YYYY',
+    dateInput: 'YYYY',
     monthYearLabel: 'MMM YYYY',
     dateA11yLabel: 'LL',
     monthYearA11yLabel: 'MMMM YYYY',
@@ -35,7 +36,7 @@ export const DATA_MES_ANO = {
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
     },
 
-    {provide: MAT_DATE_FORMATS, useValue: DATA_MES_ANO},
+    {provide: MAT_DATE_FORMATS, useValue: DATA_ANO},
   ],
 })
 export class DadosPessoaisComponent implements OnInit {
@@ -59,8 +60,8 @@ export class DadosPessoaisComponent implements OnInit {
     dadosPessoais: this.fb.group({
       nomeCompleto:['', [Validators.required, Validators.maxLength(40)]],
       cpf: ['', [Validators.required, Validators.maxLength(14), Validators.pattern(this.cpf)]],
-      filiacao1: ['', Validators.required, Validators.maxLength(40)],
-      filiacao2: ['', Validators.required, Validators.maxLength(40)],
+      filiacao1: ['', [Validators.required, Validators.maxLength(40)]],
+      filiacao2: ['', [Validators.required, Validators.maxLength(40)]],
       email: ['', [Validators.required, Validators.maxLength(40), Validators.pattern(this.email)]],
       celular: ['', [Validators.required, Validators.maxLength(14), Validators.pattern(this.celular)]],
       telefoneFixo: ['', [Validators.maxLength(13), Validators.pattern(this.telefoneFixo)]],
@@ -82,7 +83,7 @@ export class DadosPessoaisComponent implements OnInit {
         this.fb.group({
           instituicaoEnsino: ['', [Validators.required, Validators.maxLength(50)]],
           tituloCurso: ['', [Validators.required, Validators.maxLength(50)]],
-          anoConclusao: ['', [Validators.required, Validators.maxLength(50)]]
+          anoConclusao: ['', [Validators.required]]
         })        
       ]),
     })
@@ -100,22 +101,21 @@ export class DadosPessoaisComponent implements OnInit {
   ngOnInit(): void {}
 
   submit(dadosCandidato: IDadosCandidato): void {    
-    if (this.form.valid) {
-      this.DadosPessoaisService.salvar(dadosCandidato);
+    if (this.form.valid) {      
+      this.DadosPessoaisService.criar(dadosCandidato).subscribe(data => {
+        if (data.ok) {
+          const modal = this.notificacaoService.abrirModal(ModalSucessoComponent, {data: {titulo: "Dados cadastrados com sucesso!"}})
+          setTimeout(() => {
+            modal.close();
+          }, 3000)
+          
+        }
+      });
     }    
   }  
 
-  setarAno(normalizedYear: Moment) {
-    const ctrlValue = this.form.get('educacao')?.get('anoConclusao1')?.value;
-    ctrlValue.year(normalizedYear.year());
-    this.form.get('educacao')?.get('anoConclusao1')?.setValue(ctrlValue);
-  }
-
-  setarMes(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.form.get('educacao')?.get('anoConclusao1')?.value;
-    ctrlValue.month(normalizedMonth.month());
-    this.form.get('educacao')?.get('anoConclusao1')?.setValue(ctrlValue);
-    datepicker.close();
+  setarAno(normalizedYear: Moment, index: number) {    
+    this.titulos.at(index).get('anoConclusao')?.setValue(normalizedYear.year());    
   }
 
   criarFormGroupTitulo(): FormGroup {

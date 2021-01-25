@@ -31,5 +31,5 @@ interface IEducacao {
 interface ITitulo {
     instituicaoEnsino: string;
     tituloCurso: string;
-    anoConclusao: Date;
+    anoConclusao: Number;
 }
