@@ -39,6 +39,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ModalConfirmarCancelamentoExclusaoComponent } from './modais/modal-confirmar-cancelamento-exclusao/modal-confirmar-cancelamento-exclusao.component';
 import { MascaraDirectiveModule } from './diretivas/mascara/mascara.directive';
 import { SomenteNumeroDirectiveModule } from './diretivas/somenteNumero/somente-numero.directive';
+import { ModalConfirmarExclusaoGenericoComponent } from './modais/modal-confirmar-excluir-generico/modal-confirmar-exclusao-generico/modal-confirmar-exclusao-generico.component';
 
 const materialModules = [
   CdkTreeModule,
@@ -78,7 +79,7 @@ const materialModules = [
 ];
 
 @NgModule({
-  declarations: [ModalPadraoComponent, ModalSucessoComponent, ModalConfirmarCancelamentoExclusaoComponent],
+  declarations: [ModalPadraoComponent, ModalSucessoComponent, ModalConfirmarCancelamentoExclusaoComponent, ModalConfirmarExclusaoGenericoComponent],
   imports: [
     ...materialModules
   ],

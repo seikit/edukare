@@ -27,4 +27,8 @@ export class DadosPessoaisService {
   editar(candidato: IDadosCandidato): Observable<ResponseType> {
     return this.http.put<IDadosCandidato>(this.CANDIDATO_URL + '/v1/candidatos/', candidato, {observe: 'response'});
   }
+
+  excluirTitulo(id: number) {
+    return this.http.delete(this.CANDIDATO_URL + `/v1/titulos/${id}`, {observe: 'response'});
+  }
 }
