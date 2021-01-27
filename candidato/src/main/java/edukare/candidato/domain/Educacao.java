@@ -21,16 +21,16 @@ public class Educacao {
     @OneToMany(mappedBy = "educacao", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Titulo> titulos = new HashSet<>();
 
-    @OneToOne(mappedBy = "educacao")
-    @JsonIgnore
-    private Candidato candidato;
+//    @OneToOne(mappedBy = "educacao")
+//    @JsonIgnore
+//    private Candidato candidato;
 
     public Educacao() {
     }
 
     public Educacao(String nivelEscolaridade, Candidato candidato, Set<Titulo> titulos) {
         this.nivelEscolaridade = nivelEscolaridade;
-        this.candidato = candidato;
+
         this.setTitulos(titulos);
     }
 
@@ -62,13 +62,7 @@ public class Educacao {
         }
     }
 
-    public Candidato getCandidato() {
-        return candidato;
-    }
 
-    public void setCandidato(Candidato candidato) {
-        this.candidato = candidato;
-    }
 
     @Override
     public String toString() {
@@ -76,7 +70,6 @@ public class Educacao {
                 "id=" + id +
                 ", nivelEscolaridade='" + nivelEscolaridade + '\'' +
                 ", titulos=" + titulos +
-                ", candidato=" + candidato +
                 '}';
     }
 }

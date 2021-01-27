@@ -55,8 +55,15 @@ public class CandidatoDto {
     public Candidato candidatoDtoToCandidato(CandidatoDto c) {
         DadosPessoaisDto d = c.getDadosPessoais();
         Candidato candidato = new Candidato(
-                d.getNomeCompleto(), d.getCpf(), d.getFiliacao1(), d.getFiliacao2(), d.getEmail(), d.getCelular(), d.getTelefoneFixo(), d.getNaturalidade(), c.getEndereco(), c.getEducacao()
+                d.getId(), d.getNomeCompleto(), d.getCpf(), d.getFiliacao1(), d.getFiliacao2(), d.getEmail(), d.getCelular(), d.getTelefoneFixo(), d.getNaturalidade(), c.getEndereco(), c.getEducacao()
         );
         return candidato;
+    }
+
+    public CandidatoDto candidatoToCandidatoDto(Candidato candidato) {
+        DadosPessoaisDto d = new DadosPessoaisDto(
+                candidato.getId(),candidato.getNomeCompleto(), candidato.getCpf(), candidato.getFiliacao1(), candidato.getFiliacao2(), candidato.getEmail(), candidato.getCelular(), candidato.getTelefoneFixo(), candidato.getNaturalidade()
+        );
+        return new CandidatoDto(d, candidato.getEndereco(), candidato.getEducacao());
     }
 }
