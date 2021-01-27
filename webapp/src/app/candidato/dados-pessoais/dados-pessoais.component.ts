@@ -6,6 +6,8 @@ import { MatDatepicker } from '@angular/material/datepicker';
 
 import * as _moment from 'moment';
 import { Moment } from 'moment';
+import { Observable } from 'rxjs';
+import { ModalConfirmarCancelamentoExclusaoComponent } from 'src/app/shared/modais/modal-confirmar-cancelamento-exclusao/modal-confirmar-cancelamento-exclusao.component';
 import { ModalSucessoComponent } from 'src/app/shared/modais/modal-sucesso/modal-sucesso.component';
 import { NotificacaoService } from 'src/app/shared/notificacao.service';
 import { IDadosCandidato } from '../models/dados-candidato';
@@ -58,6 +60,7 @@ export class DadosPessoaisComponent implements OnInit {
 
   form = this.fb.group({
     dadosPessoais: this.fb.group({
+      id: [''],
       nomeCompleto:['', [Validators.required, Validators.maxLength(40)]],
       cpf: ['', [Validators.required, Validators.maxLength(14), Validators.pattern(this.cpf)]],
       filiacao1: ['', [Validators.required, Validators.maxLength(40)]],
@@ -69,6 +72,7 @@ export class DadosPessoaisComponent implements OnInit {
     }),
 
     endereco: this.fb.group({
+      id: [''],
       rua: ['', [Validators.required, Validators.maxLength(40)]],
       numero: ['', Validators.required],
       bairro: ['', [Validators.required, Validators.maxLength(20)]],
@@ -77,10 +81,12 @@ export class DadosPessoaisComponent implements OnInit {
     }),
 
     educacao: this.fb.group({
+      id: [''],
       nivelEscolaridade: ['SUPERIOR_COMPLETO', Validators.required],
 
       titulos: this.fb.array([
         this.fb.group({
+          id: [''],
           instituicaoEnsino: ['', [Validators.required, Validators.maxLength(50)]],
           tituloCurso: ['', [Validators.required, Validators.maxLength(50)]],
           anoConclusao: ['', [Validators.required]]
@@ -98,10 +104,32 @@ export class DadosPessoaisComponent implements OnInit {
     return this.form.get('educacao')?.get('titulos') as FormArray;
   }
   
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.DadosPessoaisService.carregarDados(1).subscribe( data => {
+      if (data.ok && data.body) {        
+        const size = data.body.educacao.titulos.length;        
+        for (let i = 0; i < size-1; i++) {
+          this.titulos.push(this.criarFormGroupTitulo());
+        }        
+        this.form.setValue(data.body);
+      }
+    })
+  }
 
   submit(dadosCandidato: IDadosCandidato): void {    
-    if (this.form.valid) {      
+    if (this.form.valid) { 
+      if (this.form.get('dadosPessoais')?.get('id')?.value) {
+        this.DadosPessoaisService.editar(dadosCandidato).subscribe(data => {
+          if (data.ok) {
+            const modal = this.notificacaoService.abrirModal(ModalSucessoComponent, {data: {titulo: "Dados editados com sucesso!"}})
+            setTimeout(() => {
+              modal.close();
+            }, 3000)            
+          }
+        })
+        return;
+      }
+      
       this.DadosPessoaisService.criar(dadosCandidato).subscribe(data => {
         if (data.ok) {
           const modal = this.notificacaoService.abrirModal(ModalSucessoComponent, {data: {titulo: "Dados cadastrados com sucesso!"}})
@@ -112,14 +140,11 @@ export class DadosPessoaisComponent implements OnInit {
         }
       });
     }    
-  }  
-
-  setarAno(normalizedYear: Moment, index: number) {    
-    this.titulos.at(index).get('anoConclusao')?.setValue(normalizedYear.year());    
   }
 
   criarFormGroupTitulo(): FormGroup {
     return this.fb.group({
+      id: [''],
       instituicaoEnsino: ['', [Validators.required, Validators.maxLength(50)]],
       tituloCurso: ['', [Validators.required, Validators.maxLength(50)]],
       anoConclusao: ['', [Validators.required, Validators.maxLength(50)]],
@@ -132,6 +157,7 @@ export class DadosPessoaisComponent implements OnInit {
 
   removerTitulo(index: number):void {
     if (index !== 0) {      
+      // TODO chamar modal para excluir titulo do banco      
       this.titulos.removeAt(index);
       this.notificacaoService.abrirSnackBar('Título removido');
     }

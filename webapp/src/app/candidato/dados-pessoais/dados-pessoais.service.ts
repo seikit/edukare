@@ -5,8 +5,8 @@ import { ICandidatos } from 'src/app/secretaria/models/candidatos.model';
 import { env } from 'src/environments/environment';
 import { IDadosCandidato } from '../models/dados-candidato';
 
-type ResponseType = HttpResponse<ICandidatos>;
-type ArrayResponseType = HttpResponse<ICandidatos[]>;
+type ResponseType = HttpResponse<IDadosCandidato>;
+type ArrayResponseType = HttpResponse<IDadosCandidato[]>;
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,15 @@ export class DadosPessoaisService {
 
   constructor(private http: HttpClient) { }
 
-  criar(candidato: IDadosCandidato): Observable<ResponseType> {    
+  criar(candidato: IDadosCandidato): Observable<ResponseType> {       
     return this.http.post<IDadosCandidato>(this.CANDIDATO_URL + '/v1/candidatos', candidato, {observe: 'response'})
+  }
+
+  carregarDados(candidatoId: number): Observable<ResponseType> {
+    return this.http.get<IDadosCandidato>(this.CANDIDATO_URL + '/v1/candidatos/' + candidatoId, {observe: 'response'});
+  }
+
+  editar(candidato: IDadosCandidato): Observable<ResponseType> {
+    return this.http.put<IDadosCandidato>(this.CANDIDATO_URL + '/v1/candidatos/', candidato, {observe: 'response'});
   }
 }

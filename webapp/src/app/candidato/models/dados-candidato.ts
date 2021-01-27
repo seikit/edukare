@@ -1,10 +1,13 @@
-export interface IDadosCandidato {
+import * as _moment from 'moment';
+
+export interface IDadosCandidato {    
     dadosPessoais: IDadosPessoais;
     endereco: IEndereco;
-    educacao: IEducacao[];   
+    educacao: IEducacao;   
 }
 
-interface IDadosPessoais {
+interface IDadosPessoais {  
+    id: number | null;      
     nomeCompleto: string;
     cpf: string;
     filiacao1: string;
@@ -15,7 +18,8 @@ interface IDadosPessoais {
     naturalidade: string;
 }
 
-interface IEndereco {
+interface IEndereco {    
+    id: number | null;
     rua: string;
     numero: number;
     bairro: string;
@@ -24,12 +28,14 @@ interface IEndereco {
 }
 
 interface IEducacao {
+    id: number | null;
     nivelEscolaridade: string;
     titulos: ITitulo[];
 }
 
 interface ITitulo {
+    id: number | null;
     instituicaoEnsino: string;
     tituloCurso: string;
-    anoConclusao: Number;
+    anoConclusao: number;
 }

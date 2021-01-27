@@ -99,7 +99,7 @@
                     <section class="flex-container">
                         <mat-form-field>
                             <mat-label>Maior nível de escolaridade</mat-label>
-                            <select matNativeControl formControlName="nivelEscolaridade" #nvEscolaridade>
+                            <select matNativeControl formControlName="nivelEscolaridade" #nvEscolaridade>                                              
                                 <option value="SUPERIOR_COMPLETO" selected>Superior completo</option>
                                 <option value="ESPECIALIZACAO">Especialização</option>
                                 <option value="MESTRADO">Mestrado</option>
@@ -130,15 +130,8 @@
                                         </mat-form-field>
 
                                         <mat-form-field>
-                                            <mat-label>Mês/ano de conclusão</mat-label>
-                                            <input type="number" somenteNumero matInput [matDatepicker]="dp" disabled>
-                                            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                                            <mat-datepicker #dp
-                                                            startView="multi-year"
-                                                            (yearSelected)="setarAno($event, i)"
-                                                            disabled="false">
-                                            </mat-datepicker>
-
+                                            <mat-label>Ano de conclusão</mat-label>
+                                            <input type="number" somenteNumero matInput formControlName="anoConclusao">
                                         </mat-form-field>
 
                                         <mat-card-footer class="flex-container" *ngIf="i !== 0">
