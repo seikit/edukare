@@ -1,0 +1,14 @@
+<body>
+    <header><h1>{{titulo}}</h1></header>
+    <main>
+        <h4>Para confirmar digite o número - {{indexItemSelecionado}}</h4>
+        <mat-form-field class="input-s">
+            <mat-label>Número</mat-label>
+            <input matInput type="number" [formControl]="numeroDigitado"/>
+        </mat-form-field>
+    </main>
+    <footer class="flex-container flex-container-sb">
+        <button mat-raised-button (click)="excluir(false)">Não</button>
+        <button [disabled]="indexItemSelecionado !== numeroDigitado.value" mat-raised-button (click)="excluir(true)">Sim</button>
+    </footer>
+</body>

@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepicker } from '@angular/material/datepicker';
 
 import * as _moment from 'moment';
-import { Moment } from 'moment';
-import { Observable } from 'rxjs';
-import { ModalConfirmarCancelamentoExclusaoComponent } from 'src/app/shared/modais/modal-confirmar-cancelamento-exclusao/modal-confirmar-cancelamento-exclusao.component';
+import { ModalConfirmarExclusaoGenericoComponent } from 'src/app/shared/modais/modal-confirmar-excluir-generico/modal-confirmar-exclusao-generico/modal-confirmar-exclusao-generico.component';
 import { ModalSucessoComponent } from 'src/app/shared/modais/modal-sucesso/modal-sucesso.component';
 import { NotificacaoService } from 'src/app/shared/notificacao.service';
-import { IDadosCandidato } from '../models/dados-candidato';
+import { IDadosCandidato, ITitulo } from '../models/dados-candidato';
 import { DadosPessoaisService } from './dados-pessoais.service';
 
 const moment = _moment;
@@ -155,11 +153,24 @@ export class DadosPessoaisComponent implements OnInit {
     this.titulos.push(this.criarFormGroupTitulo());
   }
 
-  removerTitulo(index: number):void {
-    if (index !== 0) {      
-      // TODO chamar modal para excluir titulo do banco      
+  removerTitulo(index: number, tituloId: number):void {
+    if (index !== 0 && tituloId) {            
+      this.notificacaoService.abrirModal(ModalConfirmarExclusaoGenericoComponent, {data: {'index': index, 'titulo': 'Excluir título!'}}).afterClosed().subscribe(excluir => {
+        if (excluir == true) {
+          this.DadosPessoaisService.excluirTitulo(tituloId).subscribe(resp => {
+            if (resp.ok) {
+              this.titulos.removeAt(index);
+              const modal = this.notificacaoService.abrirModal(ModalSucessoComponent, {data: {titulo: 'Título excluído'}})
+              setTimeout(() => {
+                modal.close();
+              }, 3000)
+            }
+          });
+        }
+      })
+    } else {
       this.titulos.removeAt(index);
-      this.notificacaoService.abrirSnackBar('Título removido');
     }
+
   }
 }
