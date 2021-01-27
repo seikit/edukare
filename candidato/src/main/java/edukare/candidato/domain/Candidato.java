@@ -13,7 +13,7 @@ public class Candidato {
     @Column(nullable = false)
     private String nomeCompleto;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String cpf;
 
     @Column(nullable = false)
@@ -22,10 +22,10 @@ public class Candidato {
     @Column(nullable = false)
     private String filiacao2;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String email;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String celular;
 
     private String telefoneFixo;
@@ -33,11 +33,11 @@ public class Candidato {
     @Column(nullable = false)
     private String naturalidade;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "endereco_id", referencedColumnName = "id", nullable = false)
     private Endereco endereco;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "educacao_id", referencedColumnName = "id", nullable = false)
     private Educacao educacao;
 
@@ -45,6 +45,20 @@ public class Candidato {
     }
 
     public Candidato(String nomeCompleto, String cpf, String filiacao1, String filiacao2, String email, String celular, String telefoneFixo, String naturalidade, Endereco endereco, Educacao educacao) {
+        this.nomeCompleto = nomeCompleto;
+        this.cpf = cpf;
+        this.filiacao1 = filiacao1;
+        this.filiacao2 = filiacao2;
+        this.email = email;
+        this.celular = celular;
+        this.telefoneFixo = telefoneFixo;
+        this.naturalidade = naturalidade;
+        this.endereco = endereco;
+        this.educacao = educacao;
+    }
+
+    public Candidato(Long id, String nomeCompleto, String cpf, String filiacao1, String filiacao2, String email, String celular, String telefoneFixo, String naturalidade, Endereco endereco, Educacao educacao) {
+        this.id = id;
         this.nomeCompleto = nomeCompleto;
         this.cpf = cpf;
         this.filiacao1 = filiacao1;

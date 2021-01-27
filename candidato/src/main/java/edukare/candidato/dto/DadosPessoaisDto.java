@@ -2,6 +2,7 @@ package edukare.candidato.dto;
 
 public class DadosPessoaisDto {
 
+    private Long id;
     private String nomeCompleto;
     private String cpf;
     private String filiacao1;
@@ -11,7 +12,8 @@ public class DadosPessoaisDto {
     private String telefoneFixo;
     private String naturalidade;
 
-    public DadosPessoaisDto(String nomeCompleto, String cpf, String filiacao1, String filiacao2, String email, String celular, String telefoneFixo, String naturalidade) {
+    public DadosPessoaisDto(Long id,String nomeCompleto, String cpf, String filiacao1, String filiacao2, String email, String celular, String telefoneFixo, String naturalidade) {
+        this.id = id;
         this.nomeCompleto = nomeCompleto;
         this.cpf = cpf;
         this.filiacao1 = filiacao1;
@@ -20,6 +22,14 @@ public class DadosPessoaisDto {
         this.celular = celular;
         this.telefoneFixo = telefoneFixo;
         this.naturalidade = naturalidade;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNomeCompleto() {

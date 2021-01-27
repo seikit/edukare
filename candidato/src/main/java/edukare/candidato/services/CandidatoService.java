@@ -1,12 +1,17 @@
 package edukare.candidato.services;
 
 import edukare.candidato.domain.Candidato;
+import edukare.candidato.domain.Titulo;
 import edukare.candidato.repository.CandidatoRepository;
+import edukare.candidato.repository.TituloRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CandidatoService {
@@ -14,6 +19,9 @@ public class CandidatoService {
 
     @Autowired
     private CandidatoRepository candidatoRepository;
+
+    @Autowired
+    private TituloRepository tituloRepository;
 
     public Candidato save(Candidato candidato) {
         log.debug("Request para salvar dados pessoais do candidato");
@@ -27,6 +35,6 @@ public class CandidatoService {
 
     public Candidato editar(Candidato candidato) {
         log.debug("Request para editar um candidato");
-        return this.save(candidato);
+        return candidatoRepository.save(candidato);
     }
 }

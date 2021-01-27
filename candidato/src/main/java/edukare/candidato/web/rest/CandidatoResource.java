@@ -25,7 +25,6 @@ public class CandidatoResource {
     @PostMapping
     public ResponseEntity<Candidato> salvarDadosPessoais(@RequestBody CandidatoDto candidatoDto) throws URISyntaxException {
         log.debug("REST para salvar o dados pessoais do candidato");
-
         Candidato can = candidatoService.save(candidatoDto.candidatoDtoToCandidato(candidatoDto));
         return ResponseEntity
             .created(new URI("/candidatos/" + can.getId()))
@@ -33,18 +32,19 @@ public class CandidatoResource {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Candidato> carregarDadosPessoais(@PathVariable Long id) {
+    public ResponseEntity<CandidatoDto> carregarDadosPessoais(@PathVariable Long id) {
         log.debug("REST para carregar o candidato por id");
         Optional<Candidato> optionalCandidato = candidatoService.findById(id);
         if (optionalCandidato.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(optionalCandidato.get());
+        return ResponseEntity.ok().body(new CandidatoDto().candidatoToCandidatoDto(optionalCandidato.get()));
     }
 
     @PutMapping
-    public ResponseEntity<Candidato> editarCandidato(@RequestBody Candidato candidato) throws URISyntaxException {
+    public ResponseEntity<Candidato> editarCandidato(@RequestBody CandidatoDto candidatoDto) throws URISyntaxException {
         log.debug("REST para editar os dados do candidato");
+        Candidato candidato = new CandidatoDto().candidatoDtoToCandidato(candidatoDto);
         if (candidatoService.findById(candidato.getId()).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
