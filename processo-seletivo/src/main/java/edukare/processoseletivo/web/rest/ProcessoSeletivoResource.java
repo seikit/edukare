@@ -14,9 +14,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Set;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/processos")
 public class ProcessoSeletivoResource {
 
     private final Logger log = LoggerFactory.getLogger(ProcessoSeletivo.class);
@@ -24,7 +25,7 @@ public class ProcessoSeletivoResource {
     @Autowired
     private ProcessoService processoService;
 
-    @PostMapping("/processo")
+    @PostMapping
     public ResponseEntity<ProcessoSeletivo> criarProcesso(@RequestBody ProcessoSeletivo processoSeletivo) throws URISyntaxException {
         log.debug("REST para criar um novo processo");
         if (processoSeletivo.getId() != null) {
@@ -37,7 +38,7 @@ public class ProcessoSeletivoResource {
                 .body(processo);
     }
 
-    @PutMapping("/processo")
+    @PutMapping
     public ResponseEntity<ProcessoSeletivo> atualizarProcesso(@RequestBody ProcessoSeletivo processoSeletivo) throws URISyntaxException {
         log.debug("REST para atualizar um processo seletivo");
         if (processoSeletivo.getId() != null) {
@@ -51,7 +52,7 @@ public class ProcessoSeletivoResource {
                 .build();
     }
 
-    @GetMapping("/processos")
+    @GetMapping
     public ResponseEntity<List<ProcessoSeletivo>> carregarTodosProcessos(Pageable pageable, UriComponentsBuilder uri) {
         log.debug("REST para carregar todos os processos.");
         Page<ProcessoSeletivo> page = processoService.findAll(pageable);
@@ -60,7 +61,7 @@ public class ProcessoSeletivoResource {
                 .body(page.getContent());
     }
 
-    @DeleteMapping("/processo/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity deletarProcesso(@PathVariable(value = "id") Long id) {
         log.debug("REST para deletar um processo seletivo");
         Boolean isDeletado = this.processoService.deletar(id);
@@ -68,6 +69,16 @@ public class ProcessoSeletivoResource {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/abertos")
+    public ResponseEntity<Set<ProcessoSeletivo>> carregarProcessosInscricoesAbertas() {
+        log.debug("REST para carregar processos abertos");
+        Set<ProcessoSeletivo> processos = this.processoService.carregarProcessosInscricoesAbertas();
+        if (!processos.isEmpty()) {
+            return ResponseEntity.ok(processos);
+        }
+        return ResponseEntity.notFound().build();
     }
 
 
