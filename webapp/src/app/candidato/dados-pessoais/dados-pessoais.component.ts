@@ -8,7 +8,7 @@ import * as _moment from 'moment';
 import { ModalConfirmarExclusaoGenericoComponent } from 'src/app/shared/modais/modal-confirmar-excluir-generico/modal-confirmar-exclusao-generico/modal-confirmar-exclusao-generico.component';
 import { ModalSucessoComponent } from 'src/app/shared/modais/modal-sucesso/modal-sucesso.component';
 import { NotificacaoService } from 'src/app/shared/notificacao.service';
-import { IDadosCandidato, ITitulo } from '../models/dados-candidato';
+import { IDadosCandidato } from '../models/dados-candidato';
 import { DadosPessoaisService } from './dados-pessoais.service';
 
 const moment = _moment;
