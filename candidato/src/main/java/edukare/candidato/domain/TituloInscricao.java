@@ -2,14 +2,15 @@ package edukare.candidato.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
-public class Titulo {
+public class TituloInscricao {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "titulo_sequence")
-    @SequenceGenerator(name = "titulo_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "titulo_inscricao_sequence")
+    @SequenceGenerator(name = "titulo_inscricao_sequence")
     private Long id;
 
     @Column(nullable = false)
@@ -22,14 +23,14 @@ public class Titulo {
     private Integer anoConclusao;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "educacao_id")
+    @JoinColumn(name = "inscricao_id")
     @JsonIgnore
-    private Educacao educacao;
+    private Inscricao inscricao;
 
-    public Titulo() {
+    public TituloInscricao() {
     }
 
-    public Titulo(String instituicaoEnsino, String tituloCurso, Integer anoConclusao) {
+    public TituloInscricao(String instituicaoEnsino, String tituloCurso, Integer anoConclusao) {
         this.instituicaoEnsino = instituicaoEnsino;
         this.tituloCurso = tituloCurso;
         this.anoConclusao = anoConclusao;
@@ -67,22 +68,22 @@ public class Titulo {
         this.anoConclusao = anoConclusao;
     }
 
-    public Educacao getEducacao() {
-        return educacao;
+    public Inscricao getInscricao() {
+        return inscricao;
     }
 
-    public void setEducacao(Educacao educacao) {
-        this.educacao = educacao;
+    public void setInscricao(Inscricao inscricao) {
+        this.inscricao = inscricao;
     }
 
     @Override
     public String toString() {
-        return "Titulo{" +
+        return "TituloInscricao{" +
                 "id=" + id +
                 ", instituicaoEnsino='" + instituicaoEnsino + '\'' +
                 ", tituloCurso='" + tituloCurso + '\'' +
                 ", anoConclusao=" + anoConclusao +
-                ", educacao=" + educacao +
+                ", inscricao=" + inscricao +
                 '}';
     }
 }

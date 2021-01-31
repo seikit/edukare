@@ -70,13 +70,13 @@ public class Inscricao {
 
     @Column(nullable = false)
     @OneToMany(mappedBy = "inscricao", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Titulo> titulos = new HashSet<>();
+    private Set<TituloInscricao> titulos = new HashSet<>();
 
     public Inscricao() {
     }
 
     public Inscricao(Long processoSeletivoId, Situacao situacao, Long candidatoId, LocalDateTime dataInscricao, String nomeCompleto, String cpf, String filiacao1, String filiacao2, String email, String celular,
-                     String telefoneFixo, String naturalidade, String rua, Long numero, String bairro, String cidadeResidencia, String estadoResidencia, String nivelEscolaridade, Set<Titulo> titulos) {
+                     String telefoneFixo, String naturalidade, String rua, Long numero, String bairro, String cidadeResidencia, String estadoResidencia, String nivelEscolaridade, Set<TituloInscricao> titulos) {
         this.processoSeletivoId = processoSeletivoId;
         this.situacao = situacao;
         this.candidatoId = candidatoId;
@@ -250,14 +250,14 @@ public class Inscricao {
         this.nivelEscolaridade = nivelEscolaridade;
     }
 
-    public Set<Titulo> getTitulos() {
+    public Set<TituloInscricao> getTitulos() {
         return titulos;
     }
 
-    public void setTitulos(Set<Titulo> titulos) {
+    public void setTitulos(Set<TituloInscricao> titulos) {
         this.titulos = titulos;
 
-        for(Titulo t : titulos) {
+        for(TituloInscricao t : titulos) {
             t.setInscricao(this);
         }
     }

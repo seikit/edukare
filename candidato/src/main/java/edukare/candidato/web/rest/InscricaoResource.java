@@ -66,6 +66,17 @@ public class InscricaoResource {
         return ResponseEntity.ok(insc.get());
     }
 
+    @GetMapping("/ativas/candidato")
+    private ResponseEntity<Inscricao> carregarInscricaoAtivaNoProcesso(@RequestParam Long candidatoId, @RequestParam Long processoSeletivoId) {
+        log.debug("REST para carregar inscrições ativas do candidato no processo");
+
+        Optional<Inscricao> insc = inscricaoService.carregarCandidatoJaTemInscricaoAtivaNoProcesso(candidatoId, processoSeletivoId);
+        if (insc.isPresent()) {
+            return ResponseEntity.ok(insc.get());
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity deletarInscricao(@PathVariable Long id) {
         log.debug("REST para deletar uma inscricao");
