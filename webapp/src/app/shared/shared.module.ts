@@ -40,6 +40,7 @@ import { ModalConfirmarCancelamentoExclusaoComponent } from './modais/modal-conf
 import { MascaraDirectiveModule } from './diretivas/mascara/mascara.directive';
 import { SomenteNumeroDirectiveModule } from './diretivas/somenteNumero/somente-numero.directive';
 import { ModalConfirmarExclusaoGenericoComponent } from './modais/modal-confirmar-excluir-generico/modal-confirmar-exclusao-generico/modal-confirmar-exclusao-generico.component';
+import { ModalConfirmacaoComponent } from './modais/modal-confirmacao/modal-confirmacao.component';
 
 const materialModules = [
   CdkTreeModule,
@@ -79,7 +80,7 @@ const materialModules = [
 ];
 
 @NgModule({
-  declarations: [ModalPadraoComponent, ModalSucessoComponent, ModalConfirmarCancelamentoExclusaoComponent, ModalConfirmarExclusaoGenericoComponent],
+  declarations: [ModalPadraoComponent, ModalSucessoComponent, ModalConfirmarCancelamentoExclusaoComponent, ModalConfirmarExclusaoGenericoComponent, ModalConfirmacaoComponent],
   imports: [
     ...materialModules
   ],
