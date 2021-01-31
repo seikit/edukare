@@ -3,6 +3,7 @@ package edukare.candidato.services;
 import edukare.candidato.domain.Candidato;
 import edukare.candidato.domain.Inscricao;
 import edukare.candidato.domain.Titulo;
+import edukare.candidato.domain.TituloInscricao;
 import edukare.candidato.dto.InscricaoDto;
 import edukare.candidato.enumeration.Situacao;
 import edukare.candidato.repository.InscricaoRepository;
@@ -51,9 +52,9 @@ public class InscricaoService {
                 }
 
                 Candidato c = can.get();
-                Set<Titulo> titulos = new HashSet<>();
+                Set<TituloInscricao> titulos = new HashSet<>();
                 for (Titulo t: c.getEducacao().getTitulos()) {
-                    Titulo tituloInscricao = new Titulo(t.getInstituicaoEnsino(),t.getTituloCurso(),t.getAnoConclusao());
+                    TituloInscricao tituloInscricao = new TituloInscricao(t.getInstituicaoEnsino(),t.getTituloCurso(),t.getAnoConclusao());
                     titulos.add(tituloInscricao);
                 }
 
