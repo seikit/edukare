@@ -4,7 +4,7 @@ import { IEtapa } from './etapas.model';
 import { Situacao } from './situacao.enum';
 
 export interface IProcessoSeletivo {
-    id: number | undefined;
+    id: number;
     titulo: string;
     descricao: string;
     situacao: string;
@@ -15,7 +15,7 @@ export interface IProcessoSeletivo {
 }
 
 export class ProcessoSeletivo implements IProcessoSeletivo {
-    id: number | undefined;
+    id: number;
     titulo: string;
     descricao: string;
     situacao: Situacao;
@@ -32,7 +32,7 @@ export class ProcessoSeletivo implements IProcessoSeletivo {
         this.dtEncerramentoInscricao = dtEncerramentoInscricao != undefined ? dtEncerramentoInscricao : "";
         this.candidatos = candidatos != undefined && candidatos.length > 0  ? candidatos : [];
         this.etapas = etapas != undefined && etapas.length > 0 ? etapas : [];
-        this.id = id != undefined ? id : undefined;
+        this.id = id != undefined ? id : 0;
     }
 
     construirNovoProcesso(formDescricao: FormGroup, formData: FormGroup, etapas: IEtapa[]): ProcessoSeletivo | null {
