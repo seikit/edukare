@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { IMenu } from './models/menu.model';
 
+const usuarioLogadoId = 1;
+
 @Injectable({
   providedIn: 'root'
 })
 export class MenuService {
-
+  
   private menu: IMenu[] = [];
   private menuSecretaria: IMenu[] = [
     {titulo: 'Home', link: '/home', icone: 'home'},
@@ -14,10 +16,10 @@ export class MenuService {
     {titulo: 'Relatórios', link: '/relatorios', icone: 'dashboard'}
   ];
 
-  private menuCandidato: IMenu[] = [
-    {titulo: 'Home', link:'candidato/home', icone: 'home'},
-    {titulo: 'Dados pessoais', link:'candidato/dados-pessoais', icone: 'account_box'},
-    {titulo: 'Minhas inscrições', link:'candidato/inscricoes', icone:'create'}
+  private menuCandidato: IMenu[] = [    
+    {titulo: 'Processos seletivos', link: `candidato/${usuarioLogadoId}/processos`, icone: 'input'},
+    {titulo: 'Dados pessoais', link:`candidato/${usuarioLogadoId}/dados-pessoais`, icone: 'account_box'},
+    {titulo: 'Minhas inscrições', link:`candidato/${usuarioLogadoId}/inscricoes`, icone:'create'}
   ]
   
   constructor() {
