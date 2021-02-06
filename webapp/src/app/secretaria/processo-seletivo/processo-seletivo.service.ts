@@ -52,4 +52,8 @@ export class ProcessoSeletivoService {
     return processo;
   }
 
+  carregarProcessoPorId(processoId: number): Observable<ResponseType> {
+    return this.http.get<IProcessoSeletivo>(this.PROCESSO_URL + `/v1/processos/${processoId}`, {observe: 'response'});
+  }
+
 }
