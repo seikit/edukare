@@ -1,7 +1,17 @@
-<h1 mat-dialog-title>{{titulo}}</h1>
+<body>
+  <header>
+    <h1 mat-dialog-title>{{titulo}}</h1>
+  </header>
 
-<div mat-dialog-content>{{mensagem}}</div>
+  <main>
+    <p>{{mensagem}}</p>
+  </main>
 
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Fechar</button>
-</div>
+  <footer>
+    <div mat-dialog-actions class="flex-container flex-end margem-5">
+      <button mat-raised-button (click)="fechar()">Fechar</button>
+    </div>
+  </footer>
+</body>
+
+
