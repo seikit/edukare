@@ -5,7 +5,9 @@ import edukare.candidato.domain.Inscricao;
 import edukare.candidato.domain.Titulo;
 import edukare.candidato.domain.TituloInscricao;
 import edukare.candidato.dto.InscricaoDto;
+import edukare.candidato.dto.ProcessoDto;
 import edukare.candidato.enumeration.Situacao;
+import edukare.candidato.feignClients.ProcessoSeletivoServiceClient;
 import edukare.candidato.repository.InscricaoRepository;
 
 import org.slf4j.Logger;
@@ -13,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
@@ -27,6 +30,9 @@ public class InscricaoService {
 
     @Autowired
     private CandidatoService candidatoService;
+
+    @Autowired
+    private ProcessoSeletivoServiceClient processoSeletivoServiceClient;
 
     public Inscricao salvar(Inscricao inscricao) {
         log.debug("Request para salvar uma inscricao");
@@ -96,5 +102,23 @@ public class InscricaoService {
     public Optional<Inscricao> carregarCandidatoJaTemInscricaoAtivaNoProcesso(Long candidatoId, Long processoId) {
         log.debug("Request para verificar se o candidato já tem inscricao neste processo seletivo");
         return inscricaoRepository.findInscricaoByCandidatoIdAndProcessoSeletivoIdAndSituacaoEquals(candidatoId, processoId, Situacao.ATIVA);
+    }
+
+    public Optional<Inscricao> findById(Long inscricaoId) {
+        log.debug("Request para carregar uma inscricao por Id");
+        return inscricaoRepository.findById(inscricaoId);
+    }
+
+    public Optional<Inscricao> cancelar(Inscricao inscricao) {
+        log.debug("Request para cancelar uma inscricao");
+        Optional<ProcessoDto> processo = processoSeletivoServiceClient.carregarProcessoPorId(inscricao.getProcessoSeletivoId());
+        if (processo.isPresent()) {
+            ProcessoDto p = processo.get();
+            if (!p.getSituacao().equals("CANCELADO") && LocalDate.now().isBefore(p.getDtEncerramentoInscricao())) {
+                inscricao.setSituacao(Situacao.CANCELADA);
+                return Optional.of(this.salvar(inscricao));
+            }
+        }
+        return Optional.empty();
     }
 }

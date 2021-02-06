@@ -2,6 +2,7 @@ package edukare.candidato.web.rest;
 
 import edukare.candidato.domain.Candidato;
 import edukare.candidato.domain.Inscricao;
+import edukare.candidato.dto.CandidatoDto;
 import edukare.candidato.dto.InscricaoDto;
 import edukare.candidato.services.CandidatoService;
 import edukare.candidato.services.InscricaoService;
@@ -87,5 +88,16 @@ public class InscricaoResource {
         return ResponseEntity.ok().build();
     }
 
-
+    @PutMapping
+    public ResponseEntity<Inscricao> cancelarInscricao(@RequestBody Inscricao inscricao) {
+        log.debug("REST para cancelar uma inscrição");
+        if (inscricaoService.findById(inscricao.getId()).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        Optional<Inscricao> insc = inscricaoService.cancelar(inscricao);
+        if (insc.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(insc.get());
+    }
 }
