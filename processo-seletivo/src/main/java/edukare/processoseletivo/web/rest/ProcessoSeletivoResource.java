@@ -14,6 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -79,6 +80,16 @@ public class ProcessoSeletivoResource {
             return ResponseEntity.ok(processos);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProcessoSeletivo> carregarProcessoPorId(@PathVariable Long id) {
+        log.debug("REST para carregar um processo seletivo por ID");
+        Optional<ProcessoSeletivo> processo = this.processoService.findById(id);
+        if (processo.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(processo.get());
     }
 
 
