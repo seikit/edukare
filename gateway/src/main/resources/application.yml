@@ -25,8 +25,15 @@ spring:
               - PrefixPath=/servico
             predicates:
               - Path=/api/**
+          - id: escola
+            uri: lb://escola
+            filters:
+              - PrefixPath=/servico
+            predicates:
+              - Path=/api/**
       consul:
         host: localhost
         port: 8500
         discovery:
           instance-id: ${spring.application.name}:${random.value}
+          register-health-check: true
