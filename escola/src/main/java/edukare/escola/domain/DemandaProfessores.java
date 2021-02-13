@@ -7,7 +7,7 @@ public class DemandaProfessores {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "demanda_professores_sequence")
-    @SequenceGenerator(name = "demanda_sequence")
+    @SequenceGenerator(name = "demanda_professores_sequence")
     private Long id;
 
     @Column(nullable = false)
@@ -25,6 +25,9 @@ public class DemandaProfessores {
 
     @Column(nullable = false)
     private Integer quantidade;
+
+    @Column(nullable = false)
+    private String justificativa;
 
 
     public DemandaProfessores() {
@@ -78,6 +81,14 @@ public class DemandaProfessores {
         this.quantidade = quantidade;
     }
 
+    public String getJustificativa() {
+        return justificativa;
+    }
+
+    public void setJustificativa(String justificativa) {
+        this.justificativa = justificativa;
+    }
+
     @Override
     public String toString() {
         return "DemandaProfessores{" +
@@ -87,6 +98,7 @@ public class DemandaProfessores {
                 ", semestre=" + semestre +
                 ", escola='" + escola + '\'' +
                 ", quantidade=" + quantidade +
+                ", justificativa='" + justificativa + '\'' +
                 '}';
     }
 }
