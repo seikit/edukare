@@ -21,6 +21,11 @@ export class MenuService {
     {titulo: 'Dados pessoais', link:`candidato/${usuarioLogadoId}/dados-pessoais`, icone: 'account_box'},
     {titulo: 'Minhas inscrições', link:`candidato/${usuarioLogadoId}/inscricoes`, icone:'create'}
   ]
+
+  private menuEscola: IMenu[] = [    
+    {titulo: 'Demandas', link: `escola/${usuarioLogadoId}`, icone: 'input'}   
+  ]
+
   
   constructor() {
     this.montarMenuPorPerfilLogado();
@@ -28,7 +33,7 @@ export class MenuService {
 
   private montarMenuPorPerfilLogado() {
     //this.menu.push(...this.menuSecretaria)
-    this.menu.push(...this.menuCandidato);
+    this.menu.push(...this.menuEscola);
   }
 
   getMenu() {

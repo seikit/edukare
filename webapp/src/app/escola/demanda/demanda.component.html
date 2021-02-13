@@ -1,0 +1,46 @@
+<body>
+    <header class="flex-container flex-start">
+      <h1>Demanda das escolas</h1>  
+    </header>
+      
+    <main>
+        <section class="flex-container">
+            <button mat-raised-button class="margem-10" (click)="criar()"><mat-icon>add</mat-icon> Nova demanda</button>
+        </section>
+
+        <section class="flex-container flex-container-wrap flex-container-start">
+            <div *ngFor="let dem of demandas" class="flex-container">
+            <mat-card class="margem-10 flex-item">
+                <mat-card-title>Demanda: {{dem.id}}</mat-card-title>
+                <mat-card-content class="flex-container coluna">
+                    <mat-form-field>
+                        <mat-label>Ano</mat-label>
+                        <input matInput type="number" value="{{dem.ano}}" readonly>                
+                    </mat-form-field>        
+                            
+                    <mat-form-field>
+                        <mat-label>Disciplina</mat-label>
+                        <input matInput type="text" value="{{dem.disciplina}}" readonly>  
+                    </mat-form-field>
+        
+                    <mat-form-field>
+                        <mat-label>Quantidade</mat-label>
+                        <input matInput type="number" value="{{dem.quantidade}}" readonly>
+                    </mat-form-field>        
+                   
+                </mat-card-content>
+                <mat-card-actions>
+                    <button class="margem-5" mat-raised-button (click)="visualizar(dem)"><mat-icon>zoom_in</mat-icon></button>
+                    <button class="margem-5" mat-raised-button (click)="editar(dem)"><mat-icon class="margem-5">create</mat-icon></button>
+                    <button class="margem-5" mat-raised-button (click)="deletar(dem)"><mat-icon class="margem-5">delete</mat-icon></button> 
+                    <!-- <button class="margem-5" mat-raised-button (click)="cancelar(dem)"><mat-icon class="margem-5">cancel</mat-icon></button>  -->
+                </mat-card-actions>
+            </mat-card>
+            </div>
+        </section>
+    </main>
+  
+    <footer class="flex-container flex-container-end margem-10">
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </footer>  
+</body>
