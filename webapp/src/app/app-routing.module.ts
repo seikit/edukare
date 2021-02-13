@@ -11,7 +11,8 @@ const routes: Routes = [
   {path: 'processo-seletivo', component: ProcessoSeletivoComponent},
   {path: 'processo-seletivo/novo', component: ProcessoSeletivoCadastroComponent},
   {path: 'processo-seletivo/:id', component: ProcessoSeletivoDetalhesComponent},
-  {path: 'candidato', loadChildren: () => import('./candidato/candidato.module').then(m => m.CandidatoModule) }
+  {path: 'candidato', loadChildren: () => import('./candidato/candidato.module').then(m => m.CandidatoModule) },
+  {path: 'escola', loadChildren: () => import('./escola/escola.module').then(m => m.EscolaModule) }
 ];
 
 @NgModule({

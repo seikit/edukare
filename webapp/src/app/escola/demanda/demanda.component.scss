@@ -1,0 +1,58 @@
+.flex-container {
+  display: flex;
+}
+
+.coluna {
+  flex-direction: column;
+}
+  
+.flex-container-start {
+  justify-content: start;
+}
+
+.flex-container-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-container-end {
+  justify-content: flex-end;
+}
+
+.flex-container-sb {
+  justify-content: space-between;
+}
+
+.flex-item {
+  flex: 1 0 21%;
+}
+
+.margem-5 {
+  margin: 5px; 
+}
+
+.margem-10 {
+  margin: 10px; 
+}
+
+.margem-b-10 {
+  margin-bottom: 10px; 
+}
+
+.margem-d-10 {
+  margin-right: 10px;
+}
+
+
+  // Remove flechas quando tipo input é numero
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+

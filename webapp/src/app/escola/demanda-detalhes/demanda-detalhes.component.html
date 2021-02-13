@@ -1,0 +1,46 @@
+<body>
+    <header><h1>Detalhe das demandas</h1></header>
+
+    <main class="flex-container center container-size">
+        <form [formGroup]="formDemanda" class="flex-container">
+            <mat-form-field>
+                <mat-label>Ano</mat-label>
+                <input matInput #ano type="number" formControlName="ano">                
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Escola</mat-label>
+                <input matInput #escola type="text" formControlName="escola"> 
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Disciplina</mat-label>
+                <select matNativeControl formControlName="disciplina">                                              
+                    <option *ngFor="let dis of disciplinas" value="{{dis}}">{{dis}}</option>                    
+                </select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Para o semestre</mat-label>
+                <select matNativeControl formControlName="semestre">                                              
+                    <option value="1">Primeiro semestre</option>
+                    <option value="2">Segundo semestre</option>                                                    
+                </select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Quantidade</mat-label>
+                <input matInput somenteNumero type="number" formControlName="quantidade">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Justificativa</mat-label>
+                <textarea matInput #justificativa maxlength="250" formControlName="justificativa"></textarea>
+                <mat-hint align="end">{{justificativa.value.length}} / 250</mat-hint>
+            </mat-form-field>
+
+            <button *ngIf="modo === 'edicao'" mat-raised-button type="button" (click)="validarFormulario()"><mat-icon>edit</mat-icon>Editar demanda</button>
+        </form>
+    </main>
+    <footer></footer>
+</body>
