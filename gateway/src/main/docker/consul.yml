@@ -1,7 +1,8 @@
 version: '3'
 services:
   consul:
-    image: consul:1.8.5
+    image: consul:1.9.3
+    container_name: consul
     ports:
       - 8300:8300
       - 8500:8500
