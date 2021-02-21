@@ -3,37 +3,61 @@ spring:
     name: gateway
   cloud:
       gateway:
+        default-filters:
+          - TokenRelay
         discovery:
           locator:
             enabled: true
-        globalcors:
-          cors-configurations:
-            '[/**]':
-              allowedOrigins: "http://localhost:4200"
-              allowedMethods: "*"
-              allowedHeaders: "*"
         routes:
           - id: processo-seletivo
             uri: lb://processo-service
             filters:
-              - PrefixPath=/servico
+              - RemoveRequestHeader=Cookie
             predicates:
               - Path=/api/**
           - id: candidato
             uri: lb://candidato
             filters:
-              - PrefixPath=/servico
+              - RemoveRequestHeader=Cookie
             predicates:
               - Path=/api/**
           - id: escola
             uri: lb://escola
             filters:
-              - PrefixPath=/servico
+              - RemoveRequestHeader=Cookie
             predicates:
               - Path=/api/**
+        globalcors:
+          corsConfigurations:
+            '[/**]':
+              allowedOrigins: "http://localhost:4200"
+              allowedMethods: "*"
+              allowedHeaders: "*"
       consul:
         host: localhost
         port: 8500
         discovery:
-          instance-id: ${spring.application.name}:${random.value}
+          prefer-ip-address: true
+          health-check-path: /management/health
+          instance-id: gateway:${spring.application.instance-id:${random.value}}
           register-health-check: true
+          service-name: gateway
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: gateway
+            client-secret: b382b7aa-1a69-42d2-a670-47cbeeed26db
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:9080/auth/realms/edukare
+
+server:
+  port: 8080
+management:
+  endpoints:
+    web:
+      base-path: /management
+      exposure:
+        include: ['gateway', 'health']
