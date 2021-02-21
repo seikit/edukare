@@ -8,6 +8,14 @@
   right: 0;
 }
 
+.container-flex {
+  display: flex;
+}
+
+.sb {
+  justify-content: space-between;
+}
+
 .eh-mobile .toolbar-pos {
   position: fixed;
   /* Make sure the toolbar will stay on top of the content as it scrolls past. */;

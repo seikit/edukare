@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { AuthService } from './auth/auth.service';
+import { LoginService } from './login/login.service';
 import { IMenu } from './models/menu.model';
 
 const usuarioLogadoId = 1;
@@ -7,7 +9,7 @@ const usuarioLogadoId = 1;
   providedIn: 'root'
 })
 export class MenuService {
-  
+
   private menu: IMenu[] = [];
   private menuSecretaria: IMenu[] = [
     {titulo: 'Home', link: '/home', icone: 'home'},
@@ -27,16 +29,20 @@ export class MenuService {
   ]
 
   
-  constructor() {
-    this.montarMenuPorPerfilLogado();
-  }
+  constructor(private authService: AuthService, private loginService: LoginService) {}
 
-  private montarMenuPorPerfilLogado() {
-    //this.menu.push(...this.menuSecretaria)
-    this.menu.push(...this.menuEscola);
-  }
-
-  getMenu() {
+  montarMenuPorPerfilLogado() {
+    if (this.loginService.estaLogado()) {
+      let roles = this.authService.getRoles();        
+      
+      if (roles.includes('CIDADAO')) {
+        this.menu.push(...this.menuCandidato);
+      } else if (roles.includes('SECRETARIA')) {
+        this.menu.push(...this.menuSecretaria)
+      } else if (roles.includes('ESCOLA')){
+        this.menu.push(...this.menuEscola);
+      }
+    }    
     return this.menu;
   }
 }

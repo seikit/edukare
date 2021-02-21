@@ -1,16 +1,26 @@
 <div class="container" [class.eh-mobile]="mobileQuery.matches">
-  <mat-toolbar color="primary" class="toolbar-pos">
-      <button mat-icon-button (click)="snav.toggle()">
-          <mat-icon>menu</mat-icon>
+  <mat-toolbar color="primary" class="toolbar-pos sb">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="app-name-pos">{{perfil}}</h1>    
+    
+    <div>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>settings</mat-icon>
       </button>
-    <h1 class="app-name-pos">Edukare - Secretaria</h1>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngIf="!estaLogado" (click)="logar()">Login</button>
+        <button mat-menu-item *ngIf="estaLogado" (click)="deslogar()">Logout</button>        
+      </mat-menu>
+    </div>
   </mat-toolbar>
 
   <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       
       <mat-nav-list>
-          <a class="menu" mat-list-item routerLink="{{item.link}}" *ngFor="let item of menu">
+          <a class="menu" mat-list-item routerLink="{{item.link}}" *ngFor="let item of _menu">
             <mat-icon class="margem-d-10">{{item.icone}}</mat-icon>
             <span>{{item.titulo}}</span>
           </a>
