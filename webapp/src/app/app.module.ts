@@ -10,6 +10,7 @@ import { SecretariaModule } from './secretaria/secretaria.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalPadraoComponent } from './shared/modais/modal-padrao/modal-padrao.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,13 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
     BrowserAnimationsModule,
     SharedModule,
     SecretariaModule,
-    HttpClientModule
+    HttpClientModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+          allowedUrls: ['http://localhost:8080/'],
+          sendAccessToken: true
+      }
+  })
   ],
   providers: [DatePipe,
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}}
