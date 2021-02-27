@@ -48,7 +48,7 @@ spring:
         registration:
           keycloak:
             client-id: gateway
-            client-secret: b382b7aa-1a69-42d2-a670-47cbeeed26db
+            client-secret: 7ffcac9a-228b-4632-a37d-6d369f5df39b
         provider:
           keycloak:
             issuer-uri: http://localhost:9080/auth/realms/edukare
