@@ -27,20 +27,16 @@ public class Endereco {
     @Column(nullable = false)
     private String estadoResidencia;
 
-    @OneToOne(mappedBy = "endereco")
-    @JsonIgnore
-    private Candidato candidato;
-
     public Endereco() {
     }
 
-    public Endereco(String rua, Long numero, String bairro, String cidadeResidencia, String estadoResidencia, Candidato candidato) {
+    public Endereco(String rua, Long numero, String bairro, String cidadeResidencia, String estadoResidencia) {
         this.rua = rua;
         this.numero = numero;
         this.bairro = bairro;
         this.cidadeResidencia = cidadeResidencia;
         this.estadoResidencia = estadoResidencia;
-        this.candidato = candidato;
+
     }
 
     public Long getId() {
@@ -91,14 +87,6 @@ public class Endereco {
         this.estadoResidencia = estadoResidencia;
     }
 
-    public Candidato getCandidato() {
-        return candidato;
-    }
-
-    public void setCandidato(Candidato candidato) {
-        this.candidato = candidato;
-    }
-
     @Override
     public String toString() {
         return "Endereco{" +
@@ -108,7 +96,6 @@ public class Endereco {
                 ", bairro='" + bairro + '\'' +
                 ", cidadeResidencia='" + cidadeResidencia + '\'' +
                 ", estadoResidencia='" + estadoResidencia + '\'' +
-                ", candidato=" + candidato +
                 '}';
     }
 }

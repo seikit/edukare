@@ -11,8 +11,9 @@ public class DadosPessoaisDto {
     private String celular;
     private String telefoneFixo;
     private String naturalidade;
+    private String emailUsuario;
 
-    public DadosPessoaisDto(Long id,String nomeCompleto, String cpf, String filiacao1, String filiacao2, String email, String celular, String telefoneFixo, String naturalidade) {
+    public DadosPessoaisDto(Long id,String nomeCompleto, String cpf, String filiacao1, String filiacao2, String email, String celular, String telefoneFixo, String naturalidade, String emailUsuario) {
         this.id = id;
         this.nomeCompleto = nomeCompleto;
         this.cpf = cpf;
@@ -22,6 +23,7 @@ public class DadosPessoaisDto {
         this.celular = celular;
         this.telefoneFixo = telefoneFixo;
         this.naturalidade = naturalidade;
+        this.emailUsuario = emailUsuario;
     }
 
     public Long getId() {
@@ -96,6 +98,14 @@ public class DadosPessoaisDto {
         this.naturalidade = naturalidade;
     }
 
+    public String getEmailUsuario() {
+        return emailUsuario;
+    }
+
+    public void setEmailUsuario(String emailUsuario) {
+        this.emailUsuario = emailUsuario;
+    }
+
     @Override
     public String toString() {
         return "DadosPessoaisDto{" +
@@ -107,6 +117,7 @@ public class DadosPessoaisDto {
                 ", celular='" + celular + '\'' +
                 ", telefoneFixo='" + telefoneFixo + '\'' +
                 ", naturalidade='" + naturalidade + '\'' +
+                ", emailUsuario='" + emailUsuario + '\'' +
                 '}';
     }
 }

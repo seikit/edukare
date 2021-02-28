@@ -7,7 +7,8 @@ export interface IDadosCandidato {
 }
 
 interface IDadosPessoais {  
-    id: number | null;      
+    id: number | null; 
+    emailUsuario: string;     
     nomeCompleto: string;
     cpf: string;
     filiacao1: string;

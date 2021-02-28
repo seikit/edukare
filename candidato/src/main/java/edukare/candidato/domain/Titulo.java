@@ -22,7 +22,7 @@ public class Titulo {
     private Integer anoConclusao;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "educacao_id")
+    @JoinColumn(name = "educacao_id", referencedColumnName = "id")
     @JsonIgnore
     private Educacao educacao;
 

@@ -11,6 +11,9 @@ public class Candidato {
     private Long id;
 
     @Column(nullable = false)
+    private String emailUsuario;
+
+    @Column(nullable = false)
     private String nomeCompleto;
 
     @Column(nullable = false)
@@ -33,18 +36,18 @@ public class Candidato {
     @Column(nullable = false)
     private String naturalidade;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "id", nullable = false)
     private Endereco endereco;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "educacao_id", referencedColumnName = "id", nullable = false)
     private Educacao educacao;
 
     public Candidato() {
     }
 
-    public Candidato(String nomeCompleto, String cpf, String filiacao1, String filiacao2, String email, String celular, String telefoneFixo, String naturalidade, Endereco endereco, Educacao educacao) {
+    public Candidato(String nomeCompleto, String cpf, String filiacao1, String filiacao2, String email, String celular, String telefoneFixo, String naturalidade, Endereco endereco, Educacao educacao, String emailUsuario) {
         this.nomeCompleto = nomeCompleto;
         this.cpf = cpf;
         this.filiacao1 = filiacao1;
@@ -55,9 +58,10 @@ public class Candidato {
         this.naturalidade = naturalidade;
         this.endereco = endereco;
         this.educacao = educacao;
+        this.emailUsuario = emailUsuario;
     }
 
-    public Candidato(Long id, String nomeCompleto, String cpf, String filiacao1, String filiacao2, String email, String celular, String telefoneFixo, String naturalidade, Endereco endereco, Educacao educacao) {
+    public Candidato(Long id, String nomeCompleto, String cpf, String filiacao1, String filiacao2, String email, String celular, String telefoneFixo, String naturalidade, Endereco endereco, Educacao educacao, String emailUsuario) {
         this.id = id;
         this.nomeCompleto = nomeCompleto;
         this.cpf = cpf;
@@ -69,6 +73,7 @@ public class Candidato {
         this.naturalidade = naturalidade;
         this.endereco = endereco;
         this.educacao = educacao;
+        this.emailUsuario = emailUsuario;
     }
 
     public Long getId() {
@@ -159,6 +164,14 @@ public class Candidato {
         this.educacao = educacao;
     }
 
+    public String getEmailUsuario() {
+        return emailUsuario;
+    }
+
+    public void setEmailUsuario(String emailUsuario) {
+        this.emailUsuario = emailUsuario;
+    }
+
     @Override
     public String toString() {
         return "Candidato{" +
@@ -173,6 +186,7 @@ public class Candidato {
                 ", naturalidade='" + naturalidade + '\'' +
                 ", endereco=" + endereco +
                 ", educacao=" + educacao +
+                ", emailUsuario=" + emailUsuario +
                 '}';
     }
 }
