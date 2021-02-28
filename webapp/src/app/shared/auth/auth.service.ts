@@ -1,8 +1,11 @@
 import { Injectable } from "@angular/core";
-import { OAuthService } from "angular-oauth2-oidc";
+import { OAuthService, UserInfo } from "angular-oauth2-oidc";
+import { BehaviorSubject } from "rxjs";
+import { Usuario } from "../models/usuario";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  usuarioLogado = new BehaviorSubject<Usuario>(new Usuario());
 
   constructor(private oauthService: OAuthService) {}
 
@@ -12,5 +15,15 @@ export class AuthService {
     const payloadDecodedJson = atob(payload);
     const payloadDecoded = JSON.parse(payloadDecodedJson);    
     return payloadDecoded.realm_access.roles;
+  }
+
+  carregarUsuarioLogado() {    
+    let usu = new Usuario();    
+    this.oauthService.loadUserProfile().then( (usuario: UserInfo) => {
+      usu.email = usuario.email;
+      usu.name = usuario.name;
+      this.usuarioLogado.next(usu);
+    })
+    
   }
 }

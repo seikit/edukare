@@ -49,6 +49,7 @@ export class AppComponent {
       if(this.estaLogado) {
         this._menu = this.menuService.montarMenuPorPerfilLogado();
         this.getPapel();
+        this.carregarUsuario();
       }
     })
   }
@@ -68,6 +69,10 @@ export class AppComponent {
     this.loginService.deslogar();
   }
 
+  carregarUsuario() {
+    this.authService.carregarUsuarioLogado();
+  }
+  
   getPapel() {
     const roles = this.authService.getRoles();
     if (roles.includes('CIDADAO')) {
