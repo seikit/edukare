@@ -1,7 +1,5 @@
 package edukare.candidato.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,12 +16,8 @@ public class Educacao {
     private String nivelEscolaridade;
 
     @Column(nullable = false, unique = true)
-    @OneToMany(mappedBy = "educacao", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "educacao", cascade = CascadeType.ALL)
     private Set<Titulo> titulos = new HashSet<>();
-
-//    @OneToOne(mappedBy = "educacao")
-//    @JsonIgnore
-//    private Candidato candidato;
 
     public Educacao() {
     }
@@ -61,8 +55,6 @@ public class Educacao {
             b.setEducacao(this);
         }
     }
-
-
 
     @Override
     public String toString() {

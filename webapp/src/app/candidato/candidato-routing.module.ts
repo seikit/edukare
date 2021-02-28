@@ -7,7 +7,7 @@ import { ProcessosComponent } from './processos/processos.component';
 
 const routes: Routes = [  
   { path: ':id/processos', component: ProcessosComponent },
-  { path: ':id/dados-pessoais', component: DadosPessoaisComponent},
+  { path: 'dados-pessoais', component: DadosPessoaisComponent},
   { path: ':id/inscricoes', component: InscricoesComponent}
 ];
 

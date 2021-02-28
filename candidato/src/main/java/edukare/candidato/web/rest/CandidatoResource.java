@@ -41,6 +41,16 @@ public class CandidatoResource {
         return ResponseEntity.ok().body(new CandidatoDto().candidatoToCandidatoDto(optionalCandidato.get()));
     }
 
+    @GetMapping()
+    public ResponseEntity<CandidatoDto> carregarDadosPessoaisPorEmail(@RequestParam String email) {
+        log.debug("REST para carregar dados do candidato por email");
+        Optional<Candidato> can = candidatoService.findByEmail(email);
+        if (can.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(new CandidatoDto().candidatoToCandidatoDto(can.get()));
+    }
+
     @PutMapping
     public ResponseEntity<Candidato> editarCandidato(@RequestBody CandidatoDto candidatoDto) throws URISyntaxException {
         log.debug("REST para editar os dados do candidato");

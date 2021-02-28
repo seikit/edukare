@@ -5,8 +5,10 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MatDatepicker } from '@angular/material/datepicker';
 
 import * as _moment from 'moment';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 import { ModalConfirmarExclusaoGenericoComponent } from 'src/app/shared/modais/modal-confirmar-excluir-generico/modal-confirmar-exclusao-generico/modal-confirmar-exclusao-generico.component';
 import { ModalSucessoComponent } from 'src/app/shared/modais/modal-sucesso/modal-sucesso.component';
+import { Usuario } from 'src/app/shared/models/usuario';
 import { NotificacaoService } from 'src/app/shared/notificacao.service';
 import { IDadosCandidato } from '../models/dados-candidato';
 import { DadosPessoaisService } from './dados-pessoais.service';
@@ -40,6 +42,7 @@ export const DATA_ANO = {
   ],
 })
 export class DadosPessoaisComponent implements OnInit {
+  usuarioLogado: Usuario = new Usuario();
   
   // Validação formato CPF ex: 000.000.000-00
   cpf = /(\d{3}.){2}(\d{3}-)(\d{2})/
@@ -59,6 +62,7 @@ export class DadosPessoaisComponent implements OnInit {
   form = this.fb.group({
     dadosPessoais: this.fb.group({
       id: [''],
+      emailUsuario: [''],
       nomeCompleto:['', [Validators.required, Validators.maxLength(40)]],
       cpf: ['', [Validators.required, Validators.maxLength(14), Validators.pattern(this.cpf)]],
       filiacao1: ['', [Validators.required, Validators.maxLength(40)]],
@@ -94,7 +98,10 @@ export class DadosPessoaisComponent implements OnInit {
 
   })
 
-  constructor(private fb: FormBuilder, private notificacaoService: NotificacaoService, private DadosPessoaisService: DadosPessoaisService) { 
+  constructor(private fb: FormBuilder, private notificacaoService: NotificacaoService, private DadosPessoaisService: DadosPessoaisService, private authService: AuthService) { 
+    this.authService.usuarioLogado.subscribe((usuario: Usuario) => {
+      this.usuarioLogado = usuario;
+    })
     
   }
 
@@ -103,15 +110,16 @@ export class DadosPessoaisComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.DadosPessoaisService.carregarDados(1).subscribe( data => {
-      if (data.ok && data.body) {        
-        const size = data.body.educacao.titulos.length;        
-        for (let i = 0; i < size-1; i++) {
-          this.titulos.push(this.criarFormGroupTitulo());
-        }        
-        this.form.setValue(data.body);
-      }
-    })
+      this.form.get('dadosPessoais')?.get('emailUsuario')?.setValue(this.usuarioLogado.email);
+      this.DadosPessoaisService.carregarDados(this.usuarioLogado.email).subscribe( data => {
+        if (data.ok && data.body) {
+          const size = data.body.educacao.titulos.length;
+          for (let i = 0; i < size-1; i++) {
+            this.titulos.push(this.criarFormGroupTitulo());
+          }
+          this.form.setValue(data.body);
+        }
+      })
   }
 
   submit(dadosCandidato: IDadosCandidato): void {    
@@ -152,7 +160,7 @@ export class DadosPessoaisComponent implements OnInit {
   adicionarTitulo():void {    
     this.titulos.push(this.criarFormGroupTitulo());
   }
-
+  
   removerTitulo(index: number, tituloId: number):void {
     if (index !== 0 && tituloId) {            
       this.notificacaoService.abrirModal(ModalConfirmarExclusaoGenericoComponent, {data: {'index': index, 'titulo': 'Excluir título!'}}).afterClosed().subscribe(excluir => {

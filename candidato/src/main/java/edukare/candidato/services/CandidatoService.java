@@ -37,4 +37,9 @@ public class CandidatoService {
         log.debug("Request para editar um candidato");
         return candidatoRepository.save(candidato);
     }
+
+    public Optional<Candidato> findByEmail(String email) {
+        log.debug("Request para carregar o candidato por email");
+        return candidatoRepository.findCandidatoByEmailUsuario(email);
+    }
 }

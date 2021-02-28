@@ -20,7 +20,7 @@ export class MenuService {
 
   private menuCandidato: IMenu[] = [    
     {titulo: 'Processos seletivos', link: `candidato/${usuarioLogadoId}/processos`, icone: 'input'},
-    {titulo: 'Dados pessoais', link:`candidato/${usuarioLogadoId}/dados-pessoais`, icone: 'account_box'},
+    {titulo: 'Dados pessoais', link:`candidato/dados-pessoais`, icone: 'account_box'},
     {titulo: 'Minhas inscrições', link:`candidato/${usuarioLogadoId}/inscricoes`, icone:'create'}
   ]
 
