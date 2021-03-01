@@ -1,0 +1,17 @@
+version: "2"
+services:
+  processo-seletivo:
+    build: .
+    container_name: processo-seletivo
+    mem_limit: 256m
+    mem_reservation: 128M
+    environment:
+      KEYCLOAK_HOST: keycloak
+      CONSUL_HOST: consul
+    ports:
+      - 8081:8081
+
+networks:
+  default:
+    external:
+      name: docker_default
