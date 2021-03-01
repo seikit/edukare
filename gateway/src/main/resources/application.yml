@@ -10,7 +10,7 @@ spring:
             enabled: true
         routes:
           - id: processo-seletivo
-            uri: lb://processo-service
+            uri: lb://processo-seletivo
             filters:
               - RemoveRequestHeader=Cookie
             predicates:
@@ -30,11 +30,11 @@ spring:
         globalcors:
           corsConfigurations:
             '[/**]':
-              allowedOrigins: "http://localhost:4200"
+              allowedOrigins: "*"
               allowedMethods: "*"
               allowedHeaders: "*"
       consul:
-        host: localhost
+        host: ${CONSUL_HOST:localhost}
         port: 8500
         discovery:
           prefer-ip-address: true
@@ -51,7 +51,7 @@ spring:
             client-secret: 7ffcac9a-228b-4632-a37d-6d369f5df39b
         provider:
           keycloak:
-            issuer-uri: http://localhost:9080/auth/realms/edukare
+            issuer-uri: http://${KEYCLOAK_HOST:localhost}:9080/auth/realms/edukare
 
 server:
   port: 8080

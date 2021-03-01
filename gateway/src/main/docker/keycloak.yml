@@ -1,14 +1,21 @@
-version: '3'
+version: "2"
 services:
   keycloak:
+    mem_limit: 512M
+    mem_reservation: 128M
     image: jboss/keycloak:12.0.2
     container_name: keycloak
+    command: ['-b',
+              '0.0.0.0',
+              '-Djboss.socket.binding.port-offset=1000']
     volumes:
-      - ./realm-config/edukare-realm.json:/realm-config/edukare-export.json
+      - ./realm-config/edukare-export.json:/realm-config/edukare-export.json
     environment:
-      - KEYCLOAK_IMPORT=/realm-config/edukare-realm.json
+      - KEYCLOAK_IMPORT=/realm-config/edukare-export.json
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=admin
       - DB_VENDOR=h2
     ports:
-      - 9080:8080
+      - 9080:9080
+      - 9443:9443
+      - 10990:10990

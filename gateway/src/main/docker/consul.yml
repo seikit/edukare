@@ -1,6 +1,8 @@
-version: '3'
+version: '2'
 services:
   consul:
+    mem_limit: 128M
+    mem_reservation: 128M
     image: consul:1.9.3
     container_name: consul
     ports:
