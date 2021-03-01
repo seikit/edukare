@@ -16,7 +16,7 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .authorizeExchange()
                 .pathMatchers("/management/health").permitAll()
-                .pathMatchers("/escola/**", "/processo-service/**", "/candidato/**").permitAll()
+                .pathMatchers("/escola/**", "/processo-seletivo/**", "/candidato/**").permitAll()
                 .and()
                 .oauth2Login()
                 .and()

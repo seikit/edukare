@@ -1,0 +1,17 @@
+version: "2"
+services:
+  candidato:
+    build: .
+    container_name: candidato
+    mem_limit: 256m
+    mem_reservation: 128M
+    environment:
+      KEYCLOAK_HOST: keycloak
+      CONSUL_HOST: consul
+    ports:
+      - 8082:8082
+
+networks:
+  default:
+    external:
+      name: docker_default
