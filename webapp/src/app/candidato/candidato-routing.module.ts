@@ -6,9 +6,9 @@ import { InscricoesComponent } from './inscricoes/inscricoes.component';
 import { ProcessosComponent } from './processos/processos.component';
 
 const routes: Routes = [  
-  { path: ':id/processos', component: ProcessosComponent },
+  { path: 'processos', component: ProcessosComponent },
   { path: 'dados-pessoais', component: DadosPessoaisComponent},
-  { path: ':id/inscricoes', component: InscricoesComponent}
+  { path: 'inscricoes', component: InscricoesComponent}
 ];
 
 @NgModule({

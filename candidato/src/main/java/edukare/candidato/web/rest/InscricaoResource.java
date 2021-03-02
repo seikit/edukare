@@ -35,21 +35,21 @@ public class InscricaoResource {
 
         if (insc.isPresent()) {
             return ResponseEntity
-                    .created(URI.create("/candidatos/" + insc.get().getCandidatoId() + "/inscricoes/" + insc.get().getId()))
+                    .created(URI.create("/inscricoes/" + insc.get().getId()))
                     .body(insc.get());
         }
         return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping("/candidato/{id}")
-    private ResponseEntity<Set<Inscricao>> carregarTodasInscricoesDoCandidato(@PathVariable Long id) {
+    @GetMapping("/candidato")
+    private ResponseEntity<Set<Inscricao>> carregarTodasInscricoesDoCandidato(@RequestParam String email) {
         log.debug("REST para carregar todas as inscrições de um candidato");
 
-        Optional<Candidato> can = candidatoService.findById(id);
+        Optional<Candidato> can = candidatoService.findByEmail(email);
         if (can.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        Set<Inscricao> inscricoes = inscricaoService.carregarTodasInscricoesDoCandidato(id);
+        Set<Inscricao> inscricoes = inscricaoService.carregarTodasInscricoesDoCandidato(email);
         if (!inscricoes.isEmpty()) {
             return ResponseEntity.ok(inscricoes);
         }
@@ -68,10 +68,10 @@ public class InscricaoResource {
     }
 
     @GetMapping("/ativas/candidato")
-    private ResponseEntity<Inscricao> carregarInscricaoAtivaNoProcesso(@RequestParam Long candidatoId, @RequestParam Long processoSeletivoId) {
+    private ResponseEntity<Inscricao> carregarInscricaoAtivaNoProcesso(@RequestParam String email, @RequestParam Long processoSeletivoId) {
         log.debug("REST para carregar inscrições ativas do candidato no processo");
 
-        Optional<Inscricao> insc = inscricaoService.carregarCandidatoJaTemInscricaoAtivaNoProcesso(candidatoId, processoSeletivoId);
+        Optional<Inscricao> insc = inscricaoService.carregarCandidatoJaTemInscricaoAtivaNoProcesso(email, processoSeletivoId);
         if (insc.isPresent()) {
             return ResponseEntity.ok(insc.get());
         }
@@ -89,12 +89,12 @@ public class InscricaoResource {
     }
 
     @PutMapping
-    public ResponseEntity<Inscricao> cancelarInscricao(@RequestBody Inscricao inscricao) {
+    public ResponseEntity<Inscricao> cancelarInscricao(@RequestBody Inscricao inscricao, @RequestHeader("Authorization") String token) {
         log.debug("REST para cancelar uma inscrição");
         if (inscricaoService.findById(inscricao.getId()).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        Optional<Inscricao> insc = inscricaoService.cancelar(inscricao);
+        Optional<Inscricao> insc = inscricaoService.cancelar(inscricao, token);
         if (insc.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
