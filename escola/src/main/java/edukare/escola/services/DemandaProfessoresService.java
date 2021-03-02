@@ -35,4 +35,7 @@ public class DemandaProfessoresService {
     }
 
 
+    public Set<DemandaProfessores> carregarDemandasPorEscolaId(Long id) {
+        return this.demandaProfessoresRepository.findDemandaProfessoresByEscolaId(id);
+    }
 }

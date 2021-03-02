@@ -15,6 +15,10 @@ export class DemandaService {
   ESCOLA_URL = env.GATEWAY_URL + env.ESCOLA_MS_URL;
   
   constructor(private http: HttpClient) { }
+
+  carregarDemandasDaEscola(id: number | undefined): Observable<ArrayResponseType> {
+    return this.http.get<IDemanda[]>(this.ESCOLA_URL + `/v1/demandas/escola/${id}`, { observe: 'response' } );
+  } 
   
   carregar(): Observable<ArrayResponseType> {       
     return this.http.get<IDemanda[]>(this.ESCOLA_URL + '/v1/demandas', { observe: 'response' });

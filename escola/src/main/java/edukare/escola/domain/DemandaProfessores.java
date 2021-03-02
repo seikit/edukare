@@ -19,16 +19,17 @@ public class DemandaProfessores {
     @Column(nullable = false)
     private Integer semestre;
 
-
     @Column(nullable = false)
     private String escola;
+
+    @Column(nullable = false)
+    private Long escolaId;
 
     @Column(nullable = false)
     private Integer quantidade;
 
     @Column(nullable = false)
     private String justificativa;
-
 
     public DemandaProfessores() {
     }
@@ -73,6 +74,14 @@ public class DemandaProfessores {
         this.escola = escola;
     }
 
+    public Long getEscolaId() {
+        return escolaId;
+    }
+
+    public void setEscolaId(Long escolaId) {
+        this.escolaId = escolaId;
+    }
+
     public Integer getQuantidade() {
         return quantidade;
     }
@@ -97,6 +106,7 @@ public class DemandaProfessores {
                 ", disciplina='" + disciplina + '\'' +
                 ", semestre=" + semestre +
                 ", escola='" + escola + '\'' +
+                ", escolaId='" + escolaId + '\'' +
                 ", quantidade=" + quantidade +
                 ", justificativa='" + justificativa + '\'' +
                 '}';

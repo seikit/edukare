@@ -5,9 +5,9 @@ import { DemandaDetalhesComponent } from './demanda-detalhes/demanda-detalhes.co
 import { DemandaComponent } from './demanda/demanda.component';
 
 const routes: Routes = [  
-  { path: ':id', component: DemandaComponent },
-  { path: ':id/nova', component: DemandaCadastroComponent },
-  { path: ':id/demanda/:demandaId', component: DemandaDetalhesComponent }
+  { path: '', component: DemandaComponent },
+  { path: 'nova-demanda', component: DemandaCadastroComponent },
+  { path: 'demanda/:demandaId', component: DemandaDetalhesComponent }
 ];
 
 @NgModule({
