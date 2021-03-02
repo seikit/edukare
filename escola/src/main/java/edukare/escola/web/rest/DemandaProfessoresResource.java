@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1/demandas")
@@ -35,6 +36,16 @@ public class DemandaProfessoresResource {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(demanda.get());
+    }
+
+    @GetMapping("/escola/{id}")
+    public ResponseEntity<Set<DemandaProfessores>> carregarDemandasPorEscolaId(@PathVariable Long id) {
+        log.debug("REST para carregar demandas por id da escola");
+        Set<DemandaProfessores> demandas = this.demandaProfessoresService.carregarDemandasPorEscolaId(id);
+        if(demandas.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(demandas);
     }
 
     @PostMapping

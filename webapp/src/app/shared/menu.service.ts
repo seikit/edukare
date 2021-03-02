@@ -25,7 +25,7 @@ export class MenuService {
   ]
 
   private menuEscola: IMenu[] = [    
-    {titulo: 'Demandas', link: `escola/${usuarioLogadoId}`, icone: 'input'}   
+    {titulo: 'Demandas', link: `escola`, icone: 'input'}
   ]
 
   
