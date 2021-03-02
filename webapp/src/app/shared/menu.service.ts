@@ -19,12 +19,14 @@ export class MenuService {
   ];
 
   private menuCandidato: IMenu[] = [    
-    {titulo: 'Processos seletivos', link: `candidato/${usuarioLogadoId}/processos`, icone: 'input'},
+    {titulo: 'Home', link: '/home', icone: 'home'},
+    {titulo: 'Processos seletivos', link: `candidato/processos`, icone: 'input'},
     {titulo: 'Dados pessoais', link:`candidato/dados-pessoais`, icone: 'account_box'},
-    {titulo: 'Minhas inscrições', link:`candidato/${usuarioLogadoId}/inscricoes`, icone:'create'}
+    {titulo: 'Minhas inscrições', link:`candidato/inscricoes`, icone:'create'}
   ]
 
-  private menuEscola: IMenu[] = [    
+  private menuEscola: IMenu[] = [
+    {titulo: 'Home', link: '/home', icone: 'home'},
     {titulo: 'Demandas', link: `escola`, icone: 'input'}
   ]
 

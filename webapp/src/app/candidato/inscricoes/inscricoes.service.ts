@@ -16,18 +16,19 @@ export class InscricoesService {
     
     constructor(private http: HttpClient, private utilService: UtilService) { }
 
-    inscrever(processoId: number, candidatoId: number) {
-        const inscricao: any = {'processoSeletivoId': processoId, 'candidatoId': candidatoId}
+    inscrever(processoId: number, email: string | undefined) {
+        const inscricao: any = {'processoSeletivoId': processoId, 'emailUsuario': email}
         return this.http.post(this.CANDIDATO_URL + `/v1/inscricoes/`, inscricao, {observe: 'response'});        
     }
 
-    carregarInscricoesAtivas(processoId: number, candidatoId: number) {
-        const params = this.utilService.criarParametrosUrl({'processoSeletivoId': processoId, 'candidatoId': candidatoId})        
+    carregarInscricoesAtivas(processoId: number, email: string | undefined) {
+        const params = this.utilService.criarParametrosUrl({'processoSeletivoId': processoId, 'email': email})        
         return this.http.get(this.CANDIDATO_URL + `/v1/inscricoes/ativas/candidato`, {params: params, observe: 'response'});
     }
 
-    carregarTodasInscricoes(candidatoId: number): Observable<ArrayResponseType> {
-        return this.http.get<IInscricao[]>(this.CANDIDATO_URL + `/v1/inscricoes/candidato/${candidatoId}`, {observe: 'response'});
+    carregarTodasInscricoes(email: string | undefined): Observable<ArrayResponseType> {
+        const parametros = this.utilService.criarParametrosUrl({'email': email});
+        return this.http.get<IInscricao[]>(this.CANDIDATO_URL + `/v1/inscricoes/candidato`, {params: parametros, observe: 'response'});
     }
 
     cancelarInscricao(inscricao: IInscricao): Observable<ResponseType> {

@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -42,14 +43,14 @@ public class InscricaoService {
     public Optional<Inscricao> inscreverCandidato(InscricaoDto inscricaoDto) {
         log.debug("Request para inscrever um candidato");
 
-        Long candidatoId = inscricaoDto.getCandidatoId();
+        String emailUsuario = inscricaoDto.getEmailUsuario();
         Long processoId = inscricaoDto.getProcessoSeletivoId();
 
-        if (candidatoId != null && processoId != null) {
-            Optional<Candidato> can = candidatoService.findById(candidatoId);
+        if (emailUsuario != null && processoId != null) {
+            Optional<Candidato> can = candidatoService.findByEmail(emailUsuario);
 
             if (can.isPresent() && verificarProcessoSeletivoAberto(processoId)) {
-                Optional<Inscricao> insc = carregarCandidatoJaTemInscricaoAtivaNoProcesso(candidatoId, processoId);
+                Optional<Inscricao> insc = carregarCandidatoJaTemInscricaoAtivaNoProcesso(emailUsuario, processoId);
 
                 if (insc.isPresent()) {
                     Inscricao i = insc.get();
@@ -64,7 +65,7 @@ public class InscricaoService {
                     titulos.add(tituloInscricao);
                 }
 
-                Inscricao inscricao = new Inscricao(processoId, Situacao.ATIVA, candidatoId, LocalDateTime.now(), c.getNomeCompleto(), c.getCpf(), c.getFiliacao1(),
+                Inscricao inscricao = new Inscricao(processoId, emailUsuario, Situacao.ATIVA, LocalDateTime.now(), c.getNomeCompleto(), c.getCpf(), c.getFiliacao1(),
                         c.getFiliacao2(), c.getEmail(), c.getCelular(), c.getTelefoneFixo(), c.getNaturalidade(), c.getEndereco().getRua(),c.getEndereco().getNumero(), c.getEndereco().getBairro(),
                         c.getEndereco().getCidadeResidencia(), c.getEndereco().getEstadoResidencia(), c.getEducacao().getNivelEscolaridade(), titulos);
 
@@ -84,9 +85,9 @@ public class InscricaoService {
         return true;
     }
 
-    public Set<Inscricao> carregarTodasInscricoesDoCandidato(Long candidatoId) {
+    public Set<Inscricao> carregarTodasInscricoesDoCandidato(String email) {
         log.debug("Request para carregar todas as inscrições um candidato");
-        return inscricaoRepository.findAllByCandidatoId(candidatoId);
+        return inscricaoRepository.findAllByEmailUsuario(email);
     }
 
     public Optional<Inscricao> carregarInscricaoPorId(Long id) {
@@ -99,9 +100,9 @@ public class InscricaoService {
         inscricaoRepository.deleteById(id);
     }
 
-    public Optional<Inscricao> carregarCandidatoJaTemInscricaoAtivaNoProcesso(Long candidatoId, Long processoId) {
+    public Optional<Inscricao> carregarCandidatoJaTemInscricaoAtivaNoProcesso(String email, Long processoId) {
         log.debug("Request para verificar se o candidato já tem inscricao neste processo seletivo");
-        return inscricaoRepository.findInscricaoByCandidatoIdAndProcessoSeletivoIdAndSituacaoEquals(candidatoId, processoId, Situacao.ATIVA);
+        return inscricaoRepository.findInscricaoByEmailUsuarioAndProcessoSeletivoIdAndSituacaoEquals(email, processoId, Situacao.ATIVA);
     }
 
     public Optional<Inscricao> findById(Long inscricaoId) {
@@ -109,9 +110,9 @@ public class InscricaoService {
         return inscricaoRepository.findById(inscricaoId);
     }
 
-    public Optional<Inscricao> cancelar(Inscricao inscricao) {
+    public Optional<Inscricao> cancelar(Inscricao inscricao, String token) {
         log.debug("Request para cancelar uma inscricao");
-        Optional<ProcessoDto> processo = processoSeletivoServiceClient.carregarProcessoPorId(inscricao.getProcessoSeletivoId());
+        Optional<ProcessoDto> processo = processoSeletivoServiceClient.carregarProcessoPorId(token, inscricao.getProcessoSeletivoId());
         if (processo.isPresent()) {
             ProcessoDto p = processo.get();
             if (!p.getSituacao().equals("CANCELADO") && LocalDate.now().isBefore(p.getDtEncerramentoInscricao())) {

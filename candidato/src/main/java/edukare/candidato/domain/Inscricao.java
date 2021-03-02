@@ -15,14 +15,14 @@ public class Inscricao {
     @SequenceGenerator(name = "inscricao_sequence")
     private Long id;
 
+    @Column(nullable = false)
+    private String emailUsuario;
+
     @Enumerated(EnumType.STRING)
     private Situacao situacao;
 
     @Column(nullable = false)
     private Long processoSeletivoId;
-
-    @Column(nullable = false)
-    private Long candidatoId;
 
     @Column(nullable = false)
     private LocalDateTime dataInscricao;
@@ -75,11 +75,11 @@ public class Inscricao {
     public Inscricao() {
     }
 
-    public Inscricao(Long processoSeletivoId, Situacao situacao, Long candidatoId, LocalDateTime dataInscricao, String nomeCompleto, String cpf, String filiacao1, String filiacao2, String email, String celular,
+    public Inscricao(Long processoSeletivoId, String emailUsuario, Situacao situacao, LocalDateTime dataInscricao, String nomeCompleto, String cpf, String filiacao1, String filiacao2, String email, String celular,
                      String telefoneFixo, String naturalidade, String rua, Long numero, String bairro, String cidadeResidencia, String estadoResidencia, String nivelEscolaridade, Set<TituloInscricao> titulos) {
         this.processoSeletivoId = processoSeletivoId;
+        this.emailUsuario = emailUsuario;
         this.situacao = situacao;
-        this.candidatoId = candidatoId;
         this.dataInscricao = dataInscricao;
         this.nomeCompleto = nomeCompleto;
         this.cpf = cpf;
@@ -106,6 +106,14 @@ public class Inscricao {
         this.id = id;
     }
 
+    public String getEmailUsuario() {
+        return emailUsuario;
+    }
+
+    public void setEmailUsuario(String emailUsuario) {
+        this.emailUsuario = emailUsuario;
+    }
+
     public Situacao getSituacao() {
         return situacao;
     }
@@ -120,14 +128,6 @@ public class Inscricao {
 
     public void setProcessoSeletivoId(Long processoSeletivoId) {
         this.processoSeletivoId = processoSeletivoId;
-    }
-
-    public Long getCandidatoId() {
-        return candidatoId;
-    }
-
-    public void setCandidatoId(Long candidatoId) {
-        this.candidatoId = candidatoId;
     }
 
     public LocalDateTime getDataInscricao() {
@@ -266,8 +266,8 @@ public class Inscricao {
     public String toString() {
         return "Inscricao{" +
                 "id=" + id +
+                "emailUsuario=" + emailUsuario +
                 ", processoSeletivoId=" + processoSeletivoId +
-                ", candidatoId=" + candidatoId +
                 ", dataInscricao=" + dataInscricao +
                 ", nomeCompleto='" + nomeCompleto + '\'' +
                 ", cpf='" + cpf + '\'' +

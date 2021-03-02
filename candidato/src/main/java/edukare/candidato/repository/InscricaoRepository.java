@@ -11,6 +11,6 @@ import java.util.Set;
 @Repository
 public interface InscricaoRepository extends JpaRepository<Inscricao, Long> {
 
-    Set<Inscricao> findAllByCandidatoId(Long id);
-    Optional<Inscricao> findInscricaoByCandidatoIdAndProcessoSeletivoIdAndSituacaoEquals(Long candidatoId, Long processoSeletivoId, Situacao situacao);
+    Set<Inscricao> findAllByEmailUsuario(String email);
+    Optional<Inscricao> findInscricaoByEmailUsuarioAndProcessoSeletivoIdAndSituacaoEquals(String email, Long processoSeletivoId, Situacao situacao);
 }

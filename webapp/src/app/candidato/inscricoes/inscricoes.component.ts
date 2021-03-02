@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IProcessoSeletivo } from 'src/app/secretaria/models/processo-seletivo';
 import { ProcessoSeletivoService } from 'src/app/secretaria/processo-seletivo/processo-seletivo.service';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 import { ModalConfirmacaoComponent } from 'src/app/shared/modais/modal-confirmacao/modal-confirmacao.component';
 import { ModalPadraoComponent } from 'src/app/shared/modais/modal-padrao/modal-padrao.component';
 import { ModalSucessoComponent } from 'src/app/shared/modais/modal-sucesso/modal-sucesso.component';
+import { Usuario } from 'src/app/shared/models/usuario';
 import { NotificacaoService } from 'src/app/shared/notificacao.service';
 import { IInscricao } from '../models/inscricao';
 import { InscricoesService } from './inscricoes.service';
@@ -14,24 +16,23 @@ import { InscricoesService } from './inscricoes.service';
   templateUrl: './inscricoes.component.html',
   styleUrls: ['./inscricoes.component.scss']
 })
-export class InscricoesComponent implements OnInit {
-  candidatoId: number = 0;
+export class InscricoesComponent implements OnInit {  
   inscricoes: IInscricao[];
+  usuarioLogado: Usuario = new Usuario();
 
-  constructor(private notificacaoService: NotificacaoService, private route: ActivatedRoute, private inscricoesService : InscricoesService, private processoService: ProcessoSeletivoService) {
+  constructor(private authService: AuthService, private notificacaoService: NotificacaoService, private route: ActivatedRoute, private inscricoesService : InscricoesService, private processoService: ProcessoSeletivoService) {
     this.inscricoes = [];
+    this.authService.usuarioLogado.subscribe((usu: Usuario) => {
+      this.usuarioLogado = usu;
+    })
    }
 
-  ngOnInit(): void {
-    const candidatoId = this.route.snapshot.paramMap.get('id');
-    if (candidatoId) {
-      this.candidatoId = Number.parseInt(candidatoId);
-    }
+  ngOnInit(): void {    
     this.carregarInscricoes();
   }
 
   carregarInscricoes(): void {
-    this.inscricoesService.carregarTodasInscricoes(this.candidatoId).subscribe( res => {
+    this.inscricoesService.carregarTodasInscricoes(this.usuarioLogado.email).subscribe( res => {
       if (res.ok && res.body) {
         this.inscricoes = res.body;
       }

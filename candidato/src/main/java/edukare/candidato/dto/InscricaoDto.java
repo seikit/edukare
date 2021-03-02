@@ -3,11 +3,11 @@ package edukare.candidato.dto;
 public class InscricaoDto {
 
     private Long processoSeletivoId;
-    private Long candidatoId;
+    private String emailUsuario;
 
-    public InscricaoDto(Long processoSeletivoId, Long candidatoId) {
+    public InscricaoDto(Long processoSeletivoId, String emailUsuario) {
         this.processoSeletivoId = processoSeletivoId;
-        this.candidatoId = candidatoId;
+        this.emailUsuario = emailUsuario;
     }
 
     public Long getProcessoSeletivoId() {
@@ -18,19 +18,19 @@ public class InscricaoDto {
         this.processoSeletivoId = processoSeletivoId;
     }
 
-    public Long getCandidatoId() {
-        return candidatoId;
+    public String getEmailUsuario() {
+        return emailUsuario;
     }
 
-    public void setCandidatoId(Long candidatoId) {
-        this.candidatoId = candidatoId;
+    public void setEmailUsuario(String emailUsuario) {
+        this.emailUsuario = emailUsuario;
     }
 
     @Override
     public String toString() {
         return "InscricaoDto{" +
                 "processoSeletivoId=" + processoSeletivoId +
-                ", candidatoId=" + candidatoId +
+                ", emailUsuario=" + emailUsuario +
                 '}';
     }
 }
