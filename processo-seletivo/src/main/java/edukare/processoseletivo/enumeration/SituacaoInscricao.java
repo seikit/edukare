@@ -1,13 +1,13 @@
-package edukare.candidato.enumeration;
+package edukare.processoseletivo.enumeration;
 
-public enum Situacao {
+public enum SituacaoInscricao {
     CANCELADA("CANCELADA"),
     ATIVA("ATIVA"),
     PROCESSADA("PROCESSADA");
 
     public final String situacao;
 
-    Situacao(String situacao) {
+    SituacaoInscricao(String situacao) {
         this.situacao = situacao;
     }
 }

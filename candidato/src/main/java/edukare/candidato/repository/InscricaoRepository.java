@@ -13,4 +13,5 @@ public interface InscricaoRepository extends JpaRepository<Inscricao, Long> {
 
     Set<Inscricao> findAllByEmailUsuario(String email);
     Optional<Inscricao> findInscricaoByEmailUsuarioAndProcessoSeletivoIdAndSituacaoEquals(String email, Long processoSeletivoId, Situacao situacao);
+    Set<Inscricao> findAllBySituacaoAndProcessoSeletivoId(Situacao situacao, Long id);
 }

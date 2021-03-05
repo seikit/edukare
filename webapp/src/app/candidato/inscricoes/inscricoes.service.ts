@@ -16,12 +16,12 @@ export class InscricoesService {
     
     constructor(private http: HttpClient, private utilService: UtilService) { }
 
-    inscrever(processoId: number, email: string | undefined) {
+    inscrever(processoId: number | undefined, email: string | undefined) {
         const inscricao: any = {'processoSeletivoId': processoId, 'emailUsuario': email}
         return this.http.post(this.CANDIDATO_URL + `/v1/inscricoes/`, inscricao, {observe: 'response'});        
     }
 
-    carregarInscricoesAtivas(processoId: number, email: string | undefined) {
+    carregarInscricoesAtivas(processoId: number | undefined, email: string | undefined) {
         const params = this.utilService.criarParametrosUrl({'processoSeletivoId': processoId, 'email': email})        
         return this.http.get(this.CANDIDATO_URL + `/v1/inscricoes/ativas/candidato`, {params: params, observe: 'response'});
     }

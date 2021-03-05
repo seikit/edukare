@@ -17,8 +17,9 @@
             <mat-card-actions>
               <button class="margem-5" mat-raised-button (click)="visualizar(proc)"><mat-icon>zoom_in</mat-icon></button>
               <button *ngIf="proc.situacao !== 'CANCELADO'" class="margem-5" mat-raised-button (click)="editar(proc)"><mat-icon class="margem-5">create</mat-icon></button>
-              <button *ngIf="proc.situacao !== 'CANCELADO'" class="margem-5" mat-raised-button (click)="deletar(proc)"><mat-icon class="margem-5">delete</mat-icon></button>
+              <!-- <button *ngIf="proc.situacao !== 'CANCELADO'" class="margem-5" mat-raised-button (click)="deletar(proc)"><mat-icon class="margem-5">delete</mat-icon></button> -->
               <button *ngIf="proc.situacao !== 'CANCELADO'" class="margem-5" mat-raised-button (click)="cancelar(proc)"><mat-icon class="margem-5">cancel</mat-icon></button> 
+              <button *ngIf="proc.situacao !== 'CANCELADO'" class="margem-5" mat-raised-button (click)="selecionarCandidato(proc)"><mat-icon class="margem-5">grading</mat-icon></button> 
             </mat-card-actions>
           </mat-card>
         </div>
