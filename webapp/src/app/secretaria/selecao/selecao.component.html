@@ -1,0 +1,139 @@
+<body>    
+    <header class="flex-header flex-container-sb">
+      <h1>Seleção de candidatos</h1>      
+      <button class="header-item" [disabled]="!selecionados.hasValue()" mat-raised-button (click)="efetivarSelecionadosEmProfessores()">Efetivar inscritos<mat-icon>done</mat-icon></button>
+    </header>
+
+      
+    <main>
+        <table mat-table [dataSource]="dados" class="mat-elevation-z8">                
+            <ng-container matColumnDef="selecao">
+                <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? toggleGeral() : null"
+                                [checked]="selecionados.hasValue() && todosSelecionados()"
+                                [indeterminate]="selecionados.hasValue() && !todosSelecionados()">
+                </mat-checkbox>
+                </th>
+
+                <td mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selecionados.toggle(row) : null"
+                                [checked]="selecionados.isSelected(row)">
+                </mat-checkbox>
+                </td>
+            </ng-container>              
+            
+            <ng-container matColumnDef="nome">
+                <th mat-header-cell *matHeaderCellDef> Nome </th>
+                <td mat-cell *matCellDef="let insc"> {{insc.nomeCompleto}} </td>
+            </ng-container>              
+            
+            <ng-container matColumnDef="cpf">
+                <th mat-header-cell *matHeaderCellDef> CPF </th>
+                <td mat-cell *matCellDef="let insc"> {{insc.cpf}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="processoId">
+                <th mat-header-cell *matHeaderCellDef> Processo seletivo </th>
+                <td mat-cell *matCellDef="let insc"> {{insc.processoSeletivoId}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="celular">
+                <th mat-header-cell *matHeaderCellDef> Celular </th>
+                <td mat-cell *matCellDef="let insc"> {{insc.celular}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> Email </th>
+                <td mat-cell *matCellDef="let insc"> {{insc.email}} </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="colunas"></tr>
+            <tr mat-row *matRowDef="let row; columns: colunas;"
+                (click)="selecionados.toggle(row)">
+            </tr>
+        </table>
+            
+        <!-- <mat-selection-list #shoes>
+            <mat-list-option *ngFor="let insc of inscritos" (change)="selecionar(insc)">
+                {{insc.nomeCompleto}} |  {{insc.email}} | {{insc.celular}}     
+            </mat-list-option>                
+        </mat-selection-list> -->
+        <!-- <div *ngFor="let insc of inscritos" >
+            <mat-accordion multi>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Inscrito</mat-panel-title>  
+                        <mat-panel-description>
+                            {{insc.nomeCompleto}}                                
+                        </mat-panel-description>
+                        <mat-checkbox class="margem-d-25" (change)="selecionar(insc)"> Selecionar </mat-checkbox>
+                    </mat-expansion-panel-header>
+                        
+                        <section class="flex-container">
+                            <mat-card class="flex-item">
+                                <mat-form-field>
+                                    <mat-label>CPF</mat-label>
+                                    <input matInput type="text" value="{{insc.cpf}}" disabled>                                    
+                                </mat-form-field>
+        
+                                <mat-form-field>
+                                    <mat-label>Processo seletivo N</mat-label>
+                                    <input matInput type="text" value="{{insc.processoSeletivoId}}" disabled>                                    
+                                </mat-form-field>
+        
+                                <mat-form-field>
+                                    <mat-label>Celular</mat-label>
+                                    <input matInput type="text" value="{{insc.celular}}" disabled>                                    
+                                </mat-form-field>
+        
+                                <mat-form-field>
+                                    <mat-label>Telefone Fixo</mat-label>
+                                    <input matInput type="text" value="{{insc.telefoneFixo}}" disabled>                                    
+                                </mat-form-field>
+        
+                                <mat-form-field>
+                                    <mat-label>Email</mat-label>
+                                    <input matInput type="text" value="{{insc.email}}" disabled>                                    
+                                </mat-form-field>
+        
+                                <mat-form-field>
+                                    <mat-label>Rua</mat-label>                                
+                                    <input matInput type="text" value="{{insc.rua}}" disabled>
+                                </mat-form-field>
+    
+                                <mat-form-field>
+                                    <mat-label>Bairro</mat-label>                                
+                                    <input matInput type="text" value="{{insc.bairro}}" disabled>
+                                </mat-form-field>
+    
+                                <mat-form-field>
+                                    <mat-label>Numero</mat-label>                                
+                                    <input matInput type="text" value="{{insc.numero}}" disabled>
+                                </mat-form-field>
+                            </mat-card>                                   
+                        </section>
+
+                        <section *ngFor="let t of insc.titulos" class="flex-container">
+                            <mat-card class="flex-item">
+                                <mat-form-field>
+                                    <mat-label>Instituição de ensino</mat-label>
+                                    <input matInput type="text" value="{{t.instituicaoEnsino}}" disabled>                                    
+                                </mat-form-field>
+    
+                                <mat-form-field>
+                                    <mat-label>Título do curso</mat-label>
+                                    <input matInput type="text" value="{{t.tituloCurso}}" disabled>                                    
+                                </mat-form-field>
+    
+                                <mat-form-field>
+                                    <mat-label>Ano conclusão</mat-label>
+                                    <input matInput type="text" value="{{t.anoConclusao}}" disabled>                                    
+                                </mat-form-field>                                
+                            </mat-card>
+                        </section>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div> -->
+    </main>
+</body>

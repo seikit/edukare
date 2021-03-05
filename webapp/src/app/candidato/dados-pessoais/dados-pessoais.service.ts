@@ -1,7 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ICandidatos } from 'src/app/secretaria/models/candidatos.model';
+import { ICandidato } from 'src/app/secretaria/models/candidato.model';
 import { UtilService } from 'src/app/shared/util.service';
 import { env } from 'src/environments/environment';
 import { IDadosCandidato } from '../models/dados-candidato';

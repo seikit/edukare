@@ -41,6 +41,10 @@ export class ProcessoSeletivoComponent implements OnInit {
     this.router.navigate(['/processo-seletivo', processo.id], {state: {data:processo, modo: 'edicao'}});
   }
 
+  selecionarCandidato(processo: IProcessoSeletivo) {
+    this.router.navigate(['/processo-seletivo/selecao'], {state: {data: processo}});
+  }
+
   deletar(processo: IProcessoSeletivo) {
     if (processo.situacao !== 'CANCELADO') {
       this.notificacaoService.abrirModal(ModalConfirmarCancelamentoExclusaoComponent, {data: [{processo},{titulo: 'Exclusão de processo seletivo'}]}).afterClosed().subscribe(excluir => {
@@ -48,6 +52,10 @@ export class ProcessoSeletivoComponent implements OnInit {
           this.processoSeletivoService.deletar(processo.id).subscribe(resp => {
             if (resp.ok) {
               const modal = this.notificacaoService.abrirModal(ModalSucessoComponent, {data: {titulo: 'Processo seletivo excluído com sucesso'}})
+              setTimeout(() => {                
+                modal.close();
+                this.carregar();
+              }, 3000)
               modal.afterClosed().subscribe(() => {
                 this.carregar();
               })

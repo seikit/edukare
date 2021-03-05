@@ -6,9 +6,10 @@ import { CommonModule } from '@angular/common';
 import { ProcessoSeletivoDetalhesComponent } from './processo-seletivo-detalhes/processo-seletivo-detalhes.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProcessoSeletivoCadastroComponent } from './processo-seletivo-cadastro/processo-seletivo-cadastro.component';
+import { SelecaoComponent } from './selecao/selecao.component';
 
 @NgModule({
-  declarations: [ProcessoSeletivoComponent, ProcessoSeletivoDetalhesComponent, ProcessoSeletivoCadastroComponent],
+  declarations: [ProcessoSeletivoComponent, ProcessoSeletivoDetalhesComponent, ProcessoSeletivoCadastroComponent, SelecaoComponent],
   imports: [
     BrowserModule,
     CommonModule,

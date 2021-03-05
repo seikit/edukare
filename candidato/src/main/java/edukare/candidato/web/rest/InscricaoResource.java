@@ -2,8 +2,8 @@ package edukare.candidato.web.rest;
 
 import edukare.candidato.domain.Candidato;
 import edukare.candidato.domain.Inscricao;
-import edukare.candidato.dto.CandidatoDto;
 import edukare.candidato.dto.InscricaoDto;
+import edukare.candidato.enumeration.Situacao;
 import edukare.candidato.services.CandidatoService;
 import edukare.candidato.services.InscricaoService;
 import org.slf4j.Logger;
@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -39,6 +41,12 @@ public class InscricaoResource {
                     .body(insc.get());
         }
         return ResponseEntity.badRequest().build();
+    }
+
+    @PutMapping("/atualizar-situacao")
+    private ResponseEntity<List<Inscricao>> atualizarSituacaoInscricoes(@RequestBody List<Inscricao> inscricoes) {
+        log.debug("REST para atualizar a situação da inscrição");
+        return ResponseEntity.ok(this.inscricaoService.atualizarSituacaoInscricoes(inscricoes));
     }
 
     @GetMapping("/candidato")
@@ -76,6 +84,17 @@ public class InscricaoResource {
             return ResponseEntity.ok(insc.get());
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("processo/{id}")
+    private ResponseEntity<Set<Inscricao>> carregarInscricoesAtivasDoProcessoSeletivo(@PathVariable Long id) {
+        log.debug("REST para carregar inscrições ativas do processo seletivo.");
+
+        Set<Inscricao> inscricoes = inscricaoService.carregarTodasInscricoesAtivasDoProcesso(id);
+        if (inscricoes.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(inscricoes);
     }
 
     @DeleteMapping("/{id}")

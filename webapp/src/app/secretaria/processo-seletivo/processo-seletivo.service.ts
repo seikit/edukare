@@ -18,8 +18,8 @@ export class ProcessoSeletivoService {
   constructor(private http: HttpClient, private util: UtilService) { }
 
   criar(processo: IProcessoSeletivo): Observable<ResponseType> {
-    const obj = this.converterDataParaDataServidor(processo);
-    return this.http.post<IProcessoSeletivo>( this.PROCESSO_URL + '/processo', obj, { observe: 'response'});
+    const obj = this.converterDataParaDataServidor(processo);    
+    return this.http.post<IProcessoSeletivo>( this.PROCESSO_URL + '/v1/processos', obj, { observe: 'response'});
   }
   
   carregar(): Observable<ArrayResponseType> {    
@@ -27,7 +27,7 @@ export class ProcessoSeletivoService {
   }
 
   deletar(id: number | undefined): Observable<ResponseType> {
-    return this.http.delete<IProcessoSeletivo>(this.PROCESSO_URL + `/processo/${id}`, {observe: 'response'});
+    return this.http.delete<IProcessoSeletivo>(this.PROCESSO_URL + `/v1/processos/${id}`, {observe: 'response'});
   }
 
   cancelar(processo: IProcessoSeletivo): Observable<ResponseType> {
@@ -37,7 +37,7 @@ export class ProcessoSeletivoService {
 
   atualizar(processo: IProcessoSeletivo): Observable<ResponseType> { 
     const obj = this.converterDataParaDataServidor(processo);
-    return this.http.put<IProcessoSeletivo>(this.PROCESSO_URL + '/processo', obj, {observe: 'response'});
+    return this.http.put<IProcessoSeletivo>(this.PROCESSO_URL + '/v1/processos', obj, {observe: 'response'});
   }
 
   converterDataParaDataServidor(processo: IProcessoSeletivo): IProcessoSeletivo | undefined {
@@ -55,5 +55,4 @@ export class ProcessoSeletivoService {
   carregarProcessoPorId(processoId: number): Observable<ResponseType> {
     return this.http.get<IProcessoSeletivo>(this.PROCESSO_URL + `/v1/processos/${processoId}`, {observe: 'response'});
   }
-
 }

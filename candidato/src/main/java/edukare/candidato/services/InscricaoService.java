@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class InscricaoService {
@@ -121,5 +119,24 @@ public class InscricaoService {
             }
         }
         return Optional.empty();
+    }
+
+    public Set<Inscricao> carregarTodasInscricoesAtivasDoProcesso(Long id) {
+        log.debug("Request para carregar todas inscrições ativas do processo seletivo: ${id}");
+        return inscricaoRepository.findAllBySituacaoAndProcessoSeletivoId(Situacao.ATIVA, id);
+    }
+
+    public List<Inscricao> atualizarSituacaoInscricoes(List<Inscricao> inscricoes) {
+        log.debug("Request para atualizar a situação da inscrição");
+
+        List<Inscricao> atualizarInscricoes = new ArrayList<>();
+        for (Inscricao i: inscricoes) {
+            Optional<Inscricao> inscricaoCarregada = this.carregarInscricaoPorId(i.getId());
+            if(inscricaoCarregada.isPresent()) {
+                inscricaoCarregada.get().setSituacao(i.getSituacao());
+                atualizarInscricoes.add(inscricaoCarregada.get());
+            }
+        }
+        return this.inscricaoRepository.saveAll(atualizarInscricoes);
     }
 }
