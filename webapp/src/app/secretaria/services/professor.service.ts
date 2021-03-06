@@ -18,4 +18,12 @@ export class ProfessorService {
   efetivarInscritosEm(professores: IProfessor[]): Observable<ArrayResponseType> {
     return this.http.post<IProfessor[]>(this.PROCESSO_URL + '/v1/professores', professores, { observe: 'response' });
   }
+
+  carregarProfessores(): Observable<ArrayResponseType> {
+    return this.http.get<IProfessor[]>(this.PROCESSO_URL + '/v1/professores', {observe: 'response'});
+  }
+
+  encaminharProfessorParaEscola(professores: IProfessor[]): Observable<ArrayResponseType> {    
+    return this.http.post<IProfessor[]>(this.PROCESSO_URL + '/v1/professores/encaminhar', professores, {observe: 'response'});
+  }
 }

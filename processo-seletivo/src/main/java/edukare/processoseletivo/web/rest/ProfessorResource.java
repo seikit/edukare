@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1/professores")
@@ -24,5 +23,17 @@ public class ProfessorResource {
     public ResponseEntity<List<Professor>> efetivarCandidatosEmProfessores(@RequestBody List<Professor> professores, @RequestHeader("Authorization") String token) {
         log.debug("REST para efetivar candidatos em professores");
         return ResponseEntity.ok(this.professorService.efetivarEmProfessor(professores, token));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Professor>> carregarProfessores() {
+        log.debug("REST para carregar todos professores");
+        return ResponseEntity.ok(this.professorService.carregarTodosProfessores());
+    }
+
+    @PostMapping("/encaminhar")
+    public ResponseEntity<List<Professor>> encaminharProfessores(@RequestBody List<Professor> professores) {
+        log.debug("REST para atualizar vários professores");
+        return ResponseEntity.ok(this.professorService.encaminharProfessores(professores));
     }
 }

@@ -21,4 +21,8 @@ export class EscolaService {
         const parametros = this.utilService.criarParametrosUrl({'email': email});
         return this.http.get<Escola>(this.ESCOLA_URL + '/v1/escolas', {params: parametros, observe: 'response'});
     }
+
+    carregarEscolas(): Observable<ArrayResponseType> {        
+        return this.http.get<Escola[]>(this.ESCOLA_URL + '/v1/escolas/todas', {observe: 'response'});
+    }
 }

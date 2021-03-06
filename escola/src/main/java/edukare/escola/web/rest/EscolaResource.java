@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -31,5 +32,11 @@ public class EscolaResource {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(escola.get());
+    }
+
+    @GetMapping("/todas")
+    public ResponseEntity<List<Escola>> carregarTodasEscola() {
+        log.debug("REST para carregar todas escolas");
+        return ResponseEntity.ok(this.escolaService.carregarTodasEscolas());
     }
 }
