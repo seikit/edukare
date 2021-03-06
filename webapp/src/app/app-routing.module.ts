@@ -5,6 +5,7 @@ import { EncaminhamentoComponent } from './secretaria/encaminhamento/encaminhame
 import { ProcessoSeletivoCadastroComponent } from './secretaria/processo-seletivo-cadastro/processo-seletivo-cadastro.component';
 import { ProcessoSeletivoDetalhesComponent } from './secretaria/processo-seletivo-detalhes/processo-seletivo-detalhes.component';
 import { ProcessoSeletivoComponent } from './secretaria/processo-seletivo/processo-seletivo.component';
+import { RelatorioComponent } from './secretaria/relatorio/relatorio.component';
 import { SelecaoComponent } from './secretaria/selecao/selecao.component';
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'processo-seletivo/selecao', component: SelecaoComponent},
   {path: 'processo-seletivo/encaminhamento', component: EncaminhamentoComponent},
+  {path: 'processo-seletivo/relatorios', component: RelatorioComponent},
   {path: 'processo-seletivo', component: ProcessoSeletivoComponent},
   {path: 'processo-seletivo/novo', component: ProcessoSeletivoCadastroComponent},
   {path: 'processo-seletivo/:id', component: ProcessoSeletivoDetalhesComponent},

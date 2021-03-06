@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ModalPadraoComponent } from './shared/modais/modal-padrao/modal-padrao.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { OAuthModule } from 'angular-oauth2-oidc';
     SharedModule,
     SecretariaModule,
     HttpClientModule,
+    HighchartsChartModule,
     OAuthModule.forRoot({
       resourceServer: {
           allowedUrls: ['http://localhost:8080/'],

@@ -1,0 +1,19 @@
+.flex {
+    display: flex;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.sb {
+    justify-content: space-between;
+}
+
+.flex-item {
+    flex: 1 0 21%;
+}
+
+mat-card {
+    max-width: 600px;    
+}
