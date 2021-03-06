@@ -8,6 +8,7 @@ import edukare.candidato.dto.InscricaoDto;
 import edukare.candidato.dto.ProcessoDto;
 import edukare.candidato.enumeration.Situacao;
 import edukare.candidato.feignClients.ProcessoSeletivoServiceClient;
+import edukare.candidato.interfaces.ISeriesGrafico;
 import edukare.candidato.repository.InscricaoRepository;
 
 import org.slf4j.Logger;
@@ -36,6 +37,11 @@ public class InscricaoService {
     public Inscricao salvar(Inscricao inscricao) {
         log.debug("Request para salvar uma inscricao");
         return this.inscricaoRepository.save(inscricao);
+    }
+
+    public List<ISeriesGrafico> carregarSeriesGraficoInscricoes() {
+        log.debug("Request para carregar series para montar gráfico de inscritos");
+        return this.inscricaoRepository.carregarSeriesGraficoInscricoes();
     }
 
     public Optional<Inscricao> inscreverCandidato(InscricaoDto inscricaoDto) {

@@ -1,4 +1,4 @@
-export interface IGraficoDemanda {
+export interface IGraficoSeries {
     name: string;
     y: number;
 }

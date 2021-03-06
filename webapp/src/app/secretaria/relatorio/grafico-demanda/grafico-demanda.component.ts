@@ -29,7 +29,7 @@ export class GraficoDemandaComponent implements OnInit {
       enabled: false
     },
     title: {
-        text: 'Demanda por escolas'
+        text: 'Demanda de professores por escolas'
     },
     tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
