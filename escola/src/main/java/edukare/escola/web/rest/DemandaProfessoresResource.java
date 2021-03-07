@@ -1,6 +1,7 @@
 package edukare.escola.web.rest;
 
 import edukare.escola.domain.DemandaProfessores;
+import edukare.escola.interfaces.IDemandaGrafico;
 import edukare.escola.services.DemandaProfessoresService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,18 @@ public class DemandaProfessoresResource {
     public ResponseEntity<List<DemandaProfessores>> carregarTodasDemandas() {
         log.debug("REST para carregar todas as demandas");
         return ResponseEntity.ok(this.demandaProfessoresService.carregarTodasDemandas());
+    }
+
+    @GetMapping("/grafico")
+    public ResponseEntity<List<IDemandaGrafico>> carregarDadosGraficoPizza() {
+        log.debug("REST para carregar demandas para montar o gráfico de pizza");
+        return ResponseEntity.ok(this.demandaProfessoresService.carregarDadosDemandasGrafico());
+    }
+
+    @GetMapping("/grafico/disciplinas")
+    public ResponseEntity<List<IDemandaGrafico>> carregarDemandasPorDisciplina() {
+        log.debug("REST para carregar demandas por disciplina");
+        return ResponseEntity.ok(this.demandaProfessoresService.carregarDemandasPorDisciplina());
     }
 
     @GetMapping("/{id}")

@@ -1,6 +1,7 @@
 package edukare.escola.services;
 
 import edukare.escola.domain.DemandaProfessores;
+import edukare.escola.interfaces.IDemandaGrafico;
 import edukare.escola.repository.DemandaProfessoresRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,5 +38,16 @@ public class DemandaProfessoresService {
 
     public Set<DemandaProfessores> carregarDemandasPorEscolaId(Long id) {
         return this.demandaProfessoresRepository.findDemandaProfessoresByEscolaId(id);
+    }
+
+    public List<IDemandaGrafico> carregarDadosDemandasGrafico() {
+        log.debug("Request para carregar dados para o gráfico de demandas por escola");
+        return this.demandaProfessoresRepository.carregarDadosDemandasGrafico();
+    }
+
+    public List<IDemandaGrafico> carregarDemandasPorDisciplina() {
+        log.debug("Request para carregar dados para o gráfico de demandas por disciplina");
+        return this.demandaProfessoresRepository.carregarDemandasPorDisciplina();
+
     }
 }

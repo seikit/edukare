@@ -8,9 +8,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProcessoSeletivoCadastroComponent } from './processo-seletivo-cadastro/processo-seletivo-cadastro.component';
 import { SelecaoComponent } from './selecao/selecao.component';
 import { EncaminhamentoComponent } from './encaminhamento/encaminhamento.component';
+import { RelatorioComponent } from './relatorio/relatorio.component';
+import { GraficoDemandaComponent } from './relatorio/grafico-demanda/grafico-demanda.component';
+import { GraficoInscritosProcessoComponent } from './relatorio/grafico-inscritos-processo/grafico-inscritos-processo.component';
+import { GraficoEfetivadosComponent } from './relatorio/grafico-efetivados/grafico-efetivados.component';
+import { GraficoEfetivadosEncaminhadosComponent } from './relatorio/grafico-efetivados-encaminhados/grafico-efetivados-encaminhados.component';
+import { GraficoDemandaDisciplinaComponent } from './relatorio/grafico-demanda-disciplina/grafico-demanda-disciplina.component';
 
 @NgModule({
-  declarations: [ProcessoSeletivoComponent, ProcessoSeletivoDetalhesComponent, ProcessoSeletivoCadastroComponent, SelecaoComponent, EncaminhamentoComponent],
+  declarations: [ProcessoSeletivoComponent, ProcessoSeletivoDetalhesComponent, ProcessoSeletivoCadastroComponent, SelecaoComponent, EncaminhamentoComponent, RelatorioComponent, GraficoDemandaComponent, GraficoInscritosProcessoComponent, GraficoEfetivadosComponent, GraficoEfetivadosEncaminhadosComponent, GraficoDemandaDisciplinaComponent],
   imports: [
     BrowserModule,
     CommonModule,

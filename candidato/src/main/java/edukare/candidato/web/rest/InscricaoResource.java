@@ -4,6 +4,7 @@ import edukare.candidato.domain.Candidato;
 import edukare.candidato.domain.Inscricao;
 import edukare.candidato.dto.InscricaoDto;
 import edukare.candidato.enumeration.Situacao;
+import edukare.candidato.interfaces.ISeriesGrafico;
 import edukare.candidato.services.CandidatoService;
 import edukare.candidato.services.InscricaoService;
 import org.slf4j.Logger;
@@ -73,6 +74,13 @@ public class InscricaoResource {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(insc.get());
+    }
+
+    @GetMapping("/grafico")
+    private ResponseEntity<List<ISeriesGrafico>> carregarSeriesGraficoInscricoes() {
+        log.debug("REST para carregar séries para montar gráfico de inscrições");
+        return ResponseEntity.ok(this.inscricaoService.carregarSeriesGraficoInscricoes());
+
     }
 
     @GetMapping("/ativas/candidato")

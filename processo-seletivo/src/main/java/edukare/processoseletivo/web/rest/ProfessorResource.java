@@ -1,6 +1,7 @@
 package edukare.processoseletivo.web.rest;
 
 import edukare.processoseletivo.domain.Professor;
+import edukare.processoseletivo.interfaces.ISeriesGrafico;
 import edukare.processoseletivo.services.ProfessorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,18 @@ public class ProfessorResource {
     public ResponseEntity<List<Professor>> carregarProfessores() {
         log.debug("REST para carregar todos professores");
         return ResponseEntity.ok(this.professorService.carregarTodosProfessores());
+    }
+
+    @GetMapping("/grafico/efetivados")
+    public ResponseEntity<List<ISeriesGrafico>> carregarSeriesCandidatosEfetivados() {
+        log.debug("REST para carregar series de candidatos efetivados em professores");
+        return ResponseEntity.ok(this.professorService.carregarSeriesCandidatosEfetivados());
+    }
+
+    @GetMapping("/grafico/efetivados-encaminhados")
+    public ResponseEntity<List<ISeriesGrafico>> carregarSeriesProfessoresEncaminhados() {
+        log.debug("REST para carregar series de professores encaminhados");
+        return ResponseEntity.ok(this.professorService.carregarSeriesProfessoresEncaminhados());
     }
 
     @PostMapping("/encaminhar")

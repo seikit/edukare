@@ -1,6 +1,7 @@
 package edukare.processoseletivo.domain;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Professor {
@@ -15,6 +16,9 @@ public class Professor {
 
     @Column(nullable = false)
     private String processoSeletivoTitulo;
+
+    @Column(nullable = false)
+    private LocalDateTime dataEfetivacao;
 
     @Column(nullable = false)
     private Long inscricaoId;
@@ -68,6 +72,14 @@ public class Professor {
 
     public void setProcessoSeletivoTitulo(String processoSeletivoTitulo) {
         this.processoSeletivoTitulo = processoSeletivoTitulo;
+    }
+
+    public LocalDateTime getDataEfetivacao() {
+        return dataEfetivacao;
+    }
+
+    public void setDataEfetivacao(LocalDateTime dataEfetivacao) {
+        this.dataEfetivacao = dataEfetivacao;
     }
 
     public Long getInscricaoId() {
@@ -148,6 +160,7 @@ public class Professor {
                 "id=" + id +
                 ", processoSeletivoId=" + processoSeletivoId +
                 ", processoSeletivoTitulo='" + processoSeletivoTitulo + '\'' +
+                ", dataEfetivação='" + dataEfetivacao + '\'' +
                 ", inscricaoId=" + inscricaoId +
                 ", nomeCompleto='" + nomeCompleto + '\'' +
                 ", cpf='" + cpf + '\'' +
