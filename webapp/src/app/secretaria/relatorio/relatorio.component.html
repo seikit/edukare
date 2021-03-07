@@ -1,20 +1,31 @@
 <body>
     <header class="flex sb">
-        <h1>Relatórios gráficos</h1>
-        <button mat-raised-button>Salvar<mat-icon>picture_as_pdf</mat-icon></button>      
+        <h1>Relatórios gráficos</h1>        
     </header>
       
     <main>        
         <section class="flex wrap">            
-            <mat-card class="flex-item">                                          
+            <mat-card class="flex-item">
                 <mat-card-content>
                     <app-grafico-demanda></app-grafico-demanda>
                 </mat-card-content>
             </mat-card>
 
-            <mat-card class="flex-item">                                          
+            <mat-card class="flex-item">
                 <mat-card-content>
                     <app-grafico-inscritos-processo></app-grafico-inscritos-processo>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="flex-item">
+                <mat-card-content>
+                    <app-grafico-efetivados></app-grafico-efetivados>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="flex-item">
+                <mat-card-content>
+                    <app-grafico-efetivados-encaminhados></app-grafico-efetivados-encaminhados>
                 </mat-card-content>
             </mat-card>
         </section>

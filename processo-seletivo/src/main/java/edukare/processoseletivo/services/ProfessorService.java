@@ -4,12 +4,16 @@ import edukare.processoseletivo.domain.Professor;
 import edukare.processoseletivo.dto.InscricaoDto;
 import edukare.processoseletivo.enumeration.SituacaoInscricao;
 import edukare.processoseletivo.feignClients.*;
+import edukare.processoseletivo.interfaces.ISeriesGrafico;
 import edukare.processoseletivo.repository.ProfessorRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +33,7 @@ public class ProfessorService {
         log.debug("Request para efetiva o candidato em professor");
         List<InscricaoDto> inscricoes = new ArrayList<>();
         for (Professor p: professores) {
+            p.setDataEfetivacao(LocalDateTime.now());
             InscricaoDto i = new InscricaoDto(p.getInscricaoId(), SituacaoInscricao.PROCESSADA);
             inscricoes.add(i);
         }
@@ -61,6 +66,22 @@ public class ProfessorService {
     public Optional<Professor> carregarProfessorPorId(Long id) {
         log.debug("Request para carregar um professor por id");
         return this.professorRepository.findById(id);
+    }
+
+    public List<ISeriesGrafico> carregarSeriesCandidatosEfetivados() {
+        log.debug("Request para carregar series de candidatos efetivados em professores");
+        LocalDateTime inicio = LocalDateTime.of(LocalDate.now().getYear(), Month.JANUARY, 1, 0,0);
+        LocalDateTime fim = LocalDateTime.of(LocalDate.now().getYear(), Month.DECEMBER, Month.DECEMBER.maxLength(),23,59);
+
+        return this.professorRepository.carregarSeriesCandidatosEfetivados(inicio, fim);
+    }
+
+    public List<ISeriesGrafico> carregarSeriesProfessoresEncaminhados() {
+        log.debug("Request para carregar series de professores encaminhados");
+        LocalDateTime inicio = LocalDateTime.of(LocalDate.now().getYear(), Month.JANUARY, 1, 0,0);
+        LocalDateTime fim = LocalDateTime.of(LocalDate.now().getYear(), Month.DECEMBER, Month.DECEMBER.maxLength(),23,59);
+
+        return this.professorRepository.carregarSeriesProfessoresEncaminhados(inicio, fim);
     }
 
 }

@@ -13,6 +13,7 @@ type ArrayResponseType = HttpResponse<IGraficoSeries[]>;
 export class GraficoService {
   ESCOLA_URL = env.GATEWAY_URL + env.ESCOLA_MS_URL;
   CANDIDATO_URL = env.GATEWAY_URL + env.CANDIDATO_MS_URL;
+  PROCESSO_URL = env.GATEWAY_URL + env.PROCESSO_MS_URL;
 
   constructor(private http: HttpClient) { }
 
@@ -22,5 +23,13 @@ export class GraficoService {
 
   carregarInscritos(): Observable<ArrayResponseType> {
     return this.http.get<IGraficoSeries[]>(this.CANDIDATO_URL + '/v1/inscricoes/grafico', {observe: 'response'});
+  }
+
+  carregarEfetivados(): Observable<ArrayResponseType> {
+    return this.http.get<IGraficoSeries[]>(this.PROCESSO_URL + '/v1/professores/grafico/efetivados', {observe: 'response'});
+  }
+
+  carregarEfetivadosEncaminhados(): Observable<ArrayResponseType> {
+    return this.http.get<IGraficoSeries[]>(this.PROCESSO_URL + '/v1/professores/grafico/efetivados-encaminhados', {observe: 'response'});
   }
 }

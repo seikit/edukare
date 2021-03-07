@@ -5,35 +5,35 @@ import { GraficoService } from '../../services/grafico.service';
 HC_exporting(Highcharts);
 
 @Component({
-  selector: 'app-grafico-inscritos-processo',
-  templateUrl: './grafico-inscritos-processo.component.html',
-  styleUrls: ['./grafico-inscritos-processo.component.scss']
+  selector: 'app-grafico-efetivados',
+  templateUrl: './grafico-efetivados.component.html',
+  styleUrls: ['./grafico-efetivados.component.scss']
 })
-export class GraficoInscritosProcessoComponent implements OnInit {
+export class GraficoEfetivadosComponent implements OnInit {
 
   constructor(private graficoService: GraficoService) { }
 
   ngOnInit(): void {
-    this.graficoService.carregarInscritos().subscribe(res => {      
+    this.graficoService.carregarEfetivados().subscribe(res => {      
       if(res.ok && res.body) {        
-        this.configuracaoGrafico.series[0].data = res.body;                
-        Highcharts.chart('container', this.configuracaoGrafico);
+        this.configuracaoGrafico.series[0].data = res.body;        
+        Highcharts.chart('efetivados', this.configuracaoGrafico);
       }
     });
   }
 
   configuracaoGrafico:any = {
     chart: {
-      type: 'column'      
+      type: 'column'
     },
     title: {
-        text: 'Total de inscritos por processo seletivo'
+        text: 'Total de efetivados por processo seletivo'
     },
     credits: {
       enabled: false
     },
     tooltip: {
-      pointFormat: 'Total de inscritos <b>{point.y:.1f}</b>'
+      pointFormat: 'Total de efetivados <b>{point.y:.1f}</b>'
     },
     xAxis: {
       type: 'category',
@@ -52,7 +52,7 @@ export class GraficoInscritosProcessoComponent implements OnInit {
         }
     },
     series: [{
-      name: 'Inscritos',
+      name: 'Efetivados',
       data: [],
       dataLabels: {
           enabled: true,
@@ -68,7 +68,5 @@ export class GraficoInscritosProcessoComponent implements OnInit {
       }
     }]
   }
-
-
 
 }
