@@ -33,4 +33,13 @@ export class DadosPessoaisService {
   excluirTitulo(id: number) {
     return this.http.delete(this.CANDIDATO_URL + `/v1/titulos/${id}`, {observe: 'response'});
   }
+
+  exportarDadosCandidato(usuarioLogado: string | undefined) {
+    const parametro = this.utilService.criarParametrosUrl({'email': usuarioLogado});
+    return this.http.get(this.CANDIDATO_URL + '/v1/candidatos/relatorio', { params: parametro, responseType: 'arraybuffer', observe: 'body'}).subscribe( res => {
+      const file = new Blob([res], {type: 'application/pdf'});
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL, '_blank');
+    });
+  }
 }

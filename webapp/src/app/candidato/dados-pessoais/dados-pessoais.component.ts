@@ -98,7 +98,7 @@ export class DadosPessoaisComponent implements OnInit {
 
   })
 
-  constructor(private fb: FormBuilder, private notificacaoService: NotificacaoService, private DadosPessoaisService: DadosPessoaisService, private authService: AuthService) { 
+  constructor(private fb: FormBuilder, private notificacaoService: NotificacaoService, private dadosPessoaisService: DadosPessoaisService, private authService: AuthService) { 
     this.authService.usuarioLogado.subscribe((usuario: Usuario) => {
       this.usuarioLogado = usuario;
     })
@@ -111,7 +111,7 @@ export class DadosPessoaisComponent implements OnInit {
   
   ngOnInit(): void {
       this.form.get('dadosPessoais')?.get('emailUsuario')?.setValue(this.usuarioLogado.email);
-      this.DadosPessoaisService.carregarDados(this.usuarioLogado.email).subscribe( data => {
+      this.dadosPessoaisService.carregarDados(this.usuarioLogado.email).subscribe( data => {
         if (data.ok && data.body) {
           const size = data.body.educacao.titulos.length;
           for (let i = 0; i < size-1; i++) {
@@ -125,7 +125,7 @@ export class DadosPessoaisComponent implements OnInit {
   submit(dadosCandidato: IDadosCandidato): void {    
     if (this.form.valid) { 
       if (this.form.get('dadosPessoais')?.get('id')?.value) {
-        this.DadosPessoaisService.editar(dadosCandidato).subscribe(data => {
+        this.dadosPessoaisService.editar(dadosCandidato).subscribe(data => {
           if (data.ok) {
             const modal = this.notificacaoService.abrirModal(ModalSucessoComponent, {data: {titulo: "Dados editados com sucesso!"}})
             setTimeout(() => {
@@ -136,7 +136,7 @@ export class DadosPessoaisComponent implements OnInit {
         return;
       }
       
-      this.DadosPessoaisService.criar(dadosCandidato).subscribe(data => {
+      this.dadosPessoaisService.criar(dadosCandidato).subscribe(data => {
         if (data.ok) {
           const modal = this.notificacaoService.abrirModal(ModalSucessoComponent, {data: {titulo: "Dados cadastrados com sucesso!"}})
           setTimeout(() => {
@@ -165,7 +165,7 @@ export class DadosPessoaisComponent implements OnInit {
     if (index !== 0 && tituloId) {            
       this.notificacaoService.abrirModal(ModalConfirmarExclusaoGenericoComponent, {data: {'index': index, 'titulo': 'Excluir título!'}}).afterClosed().subscribe(excluir => {
         if (excluir == true) {
-          this.DadosPessoaisService.excluirTitulo(tituloId).subscribe(resp => {
+          this.dadosPessoaisService.excluirTitulo(tituloId).subscribe(resp => {
             if (resp.ok) {
               this.titulos.removeAt(index);
               const modal = this.notificacaoService.abrirModal(ModalSucessoComponent, {data: {titulo: 'Título excluído'}})
@@ -179,6 +179,9 @@ export class DadosPessoaisComponent implements OnInit {
     } else {
       this.titulos.removeAt(index);
     }
+  }
 
+  exportarDadosCandidato(): void {    
+    this.dadosPessoaisService.exportarDadosCandidato(this.usuarioLogado.email);
   }
 }

@@ -2,16 +2,23 @@ package edukare.candidato.web.rest;
 
 import edukare.candidato.domain.Candidato;
 import edukare.candidato.dto.CandidatoDto;
+import edukare.candidato.relatorios.RelatorioCandidato;
 import edukare.candidato.services.CandidatoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1/candidatos")
@@ -39,6 +46,24 @@ public class CandidatoResource {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(new CandidatoDto().candidatoToCandidatoDto(optionalCandidato.get()));
+    }
+
+    @GetMapping(value = "/relatorio", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity relatorioDemanda(@RequestParam String email) throws IOException {
+        Optional<Candidato> candidato = this.candidatoService.findByEmail(email);
+        if(candidato.isPresent()) {
+            ByteArrayInputStream bis = RelatorioCandidato.relatorioCandidato(candidato.get());
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition", "inline; filename=candidato.pdf");
+
+            return ResponseEntity
+                    .ok()
+                    .headers(headers)
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(new InputStreamResource(bis));
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping()
