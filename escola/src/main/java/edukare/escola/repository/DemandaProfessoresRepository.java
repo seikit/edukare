@@ -17,4 +17,9 @@ public interface DemandaProfessoresRepository extends JpaRepository<DemandaProfe
     @Query(value = " select escola as name, escola_id, sum(quantidade) as y from demanda_professores " +
             "group by escola_id, escola", nativeQuery = true)
     List<IDemandaGrafico> carregarDadosDemandasGrafico();
+
+    @Query(value = " select disciplina as name, sum(quantidade) as y from demanda_professores " +
+            "group by disciplina", nativeQuery = true)
+    List<IDemandaGrafico> carregarDemandasPorDisciplina();
+
 }

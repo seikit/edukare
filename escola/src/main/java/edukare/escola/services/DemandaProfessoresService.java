@@ -43,6 +43,11 @@ public class DemandaProfessoresService {
     public List<IDemandaGrafico> carregarDadosDemandasGrafico() {
         log.debug("Request para carregar dados para o gráfico de demandas por escola");
         return this.demandaProfessoresRepository.carregarDadosDemandasGrafico();
+    }
+
+    public List<IDemandaGrafico> carregarDemandasPorDisciplina() {
+        log.debug("Request para carregar dados para o gráfico de demandas por disciplina");
+        return this.demandaProfessoresRepository.carregarDemandasPorDisciplina();
 
     }
 }

@@ -21,6 +21,10 @@ export class GraficoService {
     return this.http.get<IGraficoSeries[]>(this.ESCOLA_URL + '/v1/demandas/grafico', {observe: 'response'});
   }
 
+  carregarDemandasPorDisciplina(): Observable<ArrayResponseType> {
+    return this.http.get<IGraficoSeries[]>(this.ESCOLA_URL + '/v1/demandas/grafico/disciplinas', {observe: 'response'});
+  }
+
   carregarInscritos(): Observable<ArrayResponseType> {
     return this.http.get<IGraficoSeries[]>(this.CANDIDATO_URL + '/v1/inscricoes/grafico', {observe: 'response'});
   }

@@ -35,6 +35,12 @@ public class DemandaProfessoresResource {
         return ResponseEntity.ok(this.demandaProfessoresService.carregarDadosDemandasGrafico());
     }
 
+    @GetMapping("/grafico/disciplinas")
+    public ResponseEntity<List<IDemandaGrafico>> carregarDemandasPorDisciplina() {
+        log.debug("REST para carregar demandas por disciplina");
+        return ResponseEntity.ok(this.demandaProfessoresService.carregarDemandasPorDisciplina());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<DemandaProfessores> carregarDemandaPorId(@PathVariable Long id) {
         log.debug("REST para carregar uma demanda.");

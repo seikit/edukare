@@ -13,9 +13,10 @@ import { GraficoDemandaComponent } from './relatorio/grafico-demanda/grafico-dem
 import { GraficoInscritosProcessoComponent } from './relatorio/grafico-inscritos-processo/grafico-inscritos-processo.component';
 import { GraficoEfetivadosComponent } from './relatorio/grafico-efetivados/grafico-efetivados.component';
 import { GraficoEfetivadosEncaminhadosComponent } from './relatorio/grafico-efetivados-encaminhados/grafico-efetivados-encaminhados.component';
+import { GraficoDemandaDisciplinaComponent } from './relatorio/grafico-demanda-disciplina/grafico-demanda-disciplina.component';
 
 @NgModule({
-  declarations: [ProcessoSeletivoComponent, ProcessoSeletivoDetalhesComponent, ProcessoSeletivoCadastroComponent, SelecaoComponent, EncaminhamentoComponent, RelatorioComponent, GraficoDemandaComponent, GraficoInscritosProcessoComponent, GraficoEfetivadosComponent, GraficoEfetivadosEncaminhadosComponent],
+  declarations: [ProcessoSeletivoComponent, ProcessoSeletivoDetalhesComponent, ProcessoSeletivoCadastroComponent, SelecaoComponent, EncaminhamentoComponent, RelatorioComponent, GraficoDemandaComponent, GraficoInscritosProcessoComponent, GraficoEfetivadosComponent, GraficoEfetivadosEncaminhadosComponent, GraficoDemandaDisciplinaComponent],
   imports: [
     BrowserModule,
     CommonModule,
