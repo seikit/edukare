@@ -1,3 +1,15 @@
+.flex-header {
+    display: flex;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.sb {
+    justify-content: space-between;
+}
+
 .flex-container {
     display: flex;
     flex-wrap: wrap;
