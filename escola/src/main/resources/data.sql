@@ -1,4 +1,6 @@
 insert into demanda_professores (id, ano, disciplina, semestre, escola, escola_id, quantidade, justificativa) values (1, 2021, 'Português', 2, 'Machado de Assis',1, 1, 'Estudo');
+insert into demanda_professores (id, ano, disciplina, semestre, escola, escola_id, quantidade, justificativa) values (4, 2021, 'Inglês', 1, 'Machado de Assis',1, 1, 'SaúdeSaúdeSaúdeSaúdeSaúdeSaúdeSaúdeSaúdeSaúdeSaúdeSaúdeSaúdeSaúdeSaúdeSaúdeSaúdeSaúdeSaúdeSaúdeSaúdeSaúdeSaúde');
+
 insert into demanda_professores (id, ano, disciplina, semestre, escola, escola_id, quantidade, justificativa) values (2, 2021, 'Matemática', 2, 'Monteiro Lobato',2, 1, 'Saúde');
 insert into demanda_professores (id, ano, disciplina, semestre, escola, escola_id, quantidade, justificativa) values (3, 2021, 'Matemática', 1, 'Monteiro Lobato',2, 10, 'Saúde');
 

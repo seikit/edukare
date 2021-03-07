@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth/auth.service';
@@ -17,7 +18,7 @@ import { EscolaService } from '../services/escola.service';
 })
 export class DemandaComponent implements OnInit {
   demandas: IDemanda[] = []
-
+  escolaLogada: Escola = new Escola();
   constructor(private escolaService: EscolaService, private authService: AuthService, private router: Router, private demandaService: DemandaService, private notificacaoService: NotificacaoService) {
     
   }
@@ -31,10 +32,10 @@ export class DemandaComponent implements OnInit {
     this.authService.usuarioLogado.subscribe( (usuario: Usuario) => {
       this.escolaService.carregarEscolaDoUsuarioLogado(usuario.email).subscribe(res => {
         if (res.body && res.ok) {
-          const esc: Escola = res.body;
-          this.escolaService.escola$.next(new Escola(esc.id, esc.nome));
+          this.escolaLogada = res.body;
+          this.escolaService.escola$.next(new Escola(this.escolaLogada.id, this.escolaLogada.nome));
 
-          this.demandaService.carregarDemandasDaEscola(esc.id).subscribe( res => {
+          this.demandaService.carregarDemandasDaEscola(this.escolaLogada.id).subscribe( res => {
             if (res.body && res.ok) {
               this.demandas = res.body;
             }
@@ -71,4 +72,8 @@ export class DemandaComponent implements OnInit {
       }
     })
   }
+
+  carregarRelatorio(): void {    
+    this.demandaService.carregarRelatorio(this.escolaLogada.id);
+  } 
 }

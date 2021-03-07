@@ -2,13 +2,19 @@ package edukare.escola.web.rest;
 
 import edukare.escola.domain.DemandaProfessores;
 import edukare.escola.interfaces.IDemandaGrafico;
+import edukare.escola.relatorios.RelatorioDemanda;
 import edukare.escola.services.DemandaProfessoresService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -93,5 +99,21 @@ public class DemandaProfessoresResource {
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping(value = "/relatorio", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity relatorioDemanda(@RequestParam Long escolaId) throws IOException {
+        Set<DemandaProfessores> damandas = this.demandaProfessoresService.carregarDemandasPorEscolaId(escolaId);
+
+        ByteArrayInputStream bis = RelatorioDemanda.relatorioDemanda(damandas);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=demanda.pdf");
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(bis));
     }
 }
