@@ -5,14 +5,21 @@ import edukare.candidato.domain.Inscricao;
 import edukare.candidato.dto.InscricaoDto;
 import edukare.candidato.enumeration.Situacao;
 import edukare.candidato.interfaces.ISeriesGrafico;
+import edukare.candidato.relatorios.RelatorioCandidato;
+import edukare.candidato.relatorios.RelatorioInscricoes;
 import edukare.candidato.services.CandidatoService;
 import edukare.candidato.services.InscricaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +68,24 @@ public class InscricaoResource {
         Set<Inscricao> inscricoes = inscricaoService.carregarTodasInscricoesDoCandidato(email);
         if (!inscricoes.isEmpty()) {
             return ResponseEntity.ok(inscricoes);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping(value = "/relatorio", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity relatorioDemanda(@RequestParam String email) throws IOException {
+        Set<Inscricao> inscricoes = this.inscricaoService.carregarTodasInscricoesDoCandidato(email);
+        if(!inscricoes.isEmpty()) {
+            ByteArrayInputStream bis = RelatorioInscricoes.relatorioInscricao(inscricoes);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition", "inline; filename=inscricao.pdf");
+
+            return ResponseEntity
+                    .ok()
+                    .headers(headers)
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(new InputStreamResource(bis));
         }
         return ResponseEntity.notFound().build();
     }

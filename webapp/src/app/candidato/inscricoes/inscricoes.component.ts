@@ -53,9 +53,9 @@ export class InscricoesComponent implements OnInit {
           })
       }
     })
-      
   }
 
-  
-
+  exportarDadosInscricoes(): void {
+    this.inscricoesService.exportarDadosInscricoes(this.usuarioLogado.email);
+  }
 }
