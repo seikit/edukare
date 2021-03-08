@@ -1,5 +1,8 @@
 <body>
-    <header><h1>Minhas inscrições</h1></header>
+    <header class="flex-container flex-container-wrap flex-container-sb">
+        <h1>Minhas inscrições</h1>
+        <button mat-raised-button (click)="exportarDadosInscricoes()"><mat-icon>import_export</mat-icon>PDF</button>
+    </header>
     <main class="flex-container flex-container-wrap">
         <div *ngFor="let insc of inscricoes">
             <mat-card class="margem-10 container-size">

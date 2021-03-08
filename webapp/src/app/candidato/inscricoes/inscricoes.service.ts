@@ -34,5 +34,14 @@ export class InscricoesService {
     cancelarInscricao(inscricao: IInscricao): Observable<ResponseType> {
         return this.http.put<IInscricao>(this.CANDIDATO_URL + `/v1/inscricoes/`,inscricao, {observe: 'response'});
     }
+
+    exportarDadosInscricoes(email: string | undefined) {
+        const parametro = this.utilService.criarParametrosUrl({'email': email});
+        return this.http.get(this.CANDIDATO_URL + '/v1/inscricoes/relatorio', { params: parametro, responseType: 'arraybuffer', observe: 'body'}).subscribe( res => {
+        const file = new Blob([res], {type: 'application/pdf'});
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL, '_blank');
+        });
+    }
     
 }
