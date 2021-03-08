@@ -80,6 +80,9 @@ export class ProcessoSeletivoComponent implements OnInit {
         });
       }
     });
+  }
 
+  exportarDadosProcessos(): void {    
+    this.processoSeletivoService.exportarDadosProcesso();
   }
 }

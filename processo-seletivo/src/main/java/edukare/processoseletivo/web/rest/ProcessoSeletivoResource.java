@@ -1,16 +1,22 @@
 package edukare.processoseletivo.web.rest;
 
 import edukare.processoseletivo.domain.ProcessoSeletivo;
+import edukare.processoseletivo.relatorios.RelatorioProcessos;
 import edukare.processoseletivo.services.ProcessoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -90,6 +96,24 @@ public class ProcessoSeletivoResource {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(processo.get());
+    }
+
+    @GetMapping(value = "/relatorio", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity carregarProcessosRelatorio() throws IOException {
+        List<ProcessoSeletivo> processos = this.processoService.carregarTodosProcessos();
+        if(!processos.isEmpty()) {
+            ByteArrayInputStream bis = RelatorioProcessos.gerarRelatorio(processos);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition", "inline; filename=processos.pdf");
+
+            return ResponseEntity
+                    .ok()
+                    .headers(headers)
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(new InputStreamResource(bis));
+        }
+        return ResponseEntity.notFound().build();
     }
 
 

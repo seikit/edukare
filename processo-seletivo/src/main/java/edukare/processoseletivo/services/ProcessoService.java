@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -58,4 +59,11 @@ public class ProcessoService {
     public Set<ProcessoSeletivo> carregarProcessosInscricoesAbertas() {
         return this.processoRepository.findProcessoSeletivoByDtInicioInscricaoLessThanAndDtEncerramentoInscricaoGreaterThan(LocalDate.now(), LocalDate.now());
     }
+
+    public List<ProcessoSeletivo> carregarTodosProcessos() {
+        log.debug("Request para carregar todos os processo");
+        return this.processoRepository.findAll();
+    }
+
+
 }
