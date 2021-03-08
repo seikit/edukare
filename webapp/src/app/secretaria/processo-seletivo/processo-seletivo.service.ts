@@ -55,4 +55,12 @@ export class ProcessoSeletivoService {
   carregarProcessoPorId(processoId: number): Observable<ResponseType> {
     return this.http.get<IProcessoSeletivo>(this.PROCESSO_URL + `/v1/processos/${processoId}`, {observe: 'response'});
   }
+
+  exportarDadosProcesso() {
+    return this.http.get(this.PROCESSO_URL + '/v1/processos/relatorio', { responseType: 'arraybuffer', observe: 'body'}).subscribe( res => {
+      const file = new Blob([res], {type: 'application/pdf'});
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL, '_blank');
+    });
+  }
 }
