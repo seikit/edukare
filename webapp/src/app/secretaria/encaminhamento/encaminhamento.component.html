@@ -1,7 +1,10 @@
 <body>    
-    <header class="flex-header sb">
-      <h1>Encaminhamento de professores</h1>      
-      <button class="header-item" [disabled]="!selecionados.hasValue()" mat-raised-button (click)="encaminharProfessores()">Encaminhar professores<mat-icon>school</mat-icon></button>
+    <header class="flex-header wrap sb">
+      <h1>Encaminhamento de professores</h1>
+      <div>
+          <button class="margem-d-10" [disabled]="!selecionados.hasValue()" mat-raised-button (click)="encaminharProfessores()">Encaminhar professores<mat-icon>school</mat-icon></button>
+          <button mat-raised-button type="button" (click)="carregarRelatorio()"><mat-icon>import_export</mat-icon>Exportar PDF</button>
+      </div>
     </header>
 
       

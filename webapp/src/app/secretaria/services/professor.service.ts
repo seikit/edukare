@@ -10,7 +10,7 @@ type ArrayResponseType = HttpResponse<IProfessor[]>;
 @Injectable({
   providedIn: 'root'
 })
-export class ProfessorService {
+export class ProfessorService {  
   PROCESSO_URL = env.GATEWAY_URL + env.PROCESSO_MS_URL;
 
   constructor(private http: HttpClient) { }
@@ -25,5 +25,13 @@ export class ProfessorService {
 
   encaminharProfessorParaEscola(professores: IProfessor[]): Observable<ArrayResponseType> {    
     return this.http.post<IProfessor[]>(this.PROCESSO_URL + '/v1/professores/encaminhar', professores, {observe: 'response'});
+  }
+
+  carregarRelatorio() {
+    return this.http.get(this.PROCESSO_URL + `/v1/professores/relatorio`, {responseType: 'arraybuffer', observe: 'body' } ).subscribe( res => {        
+      const file = new Blob([res], {type: 'application/pdf'});
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL, '_blank');
+    });;
   }
 }
