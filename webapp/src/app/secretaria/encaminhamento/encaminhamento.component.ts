@@ -74,4 +74,8 @@ export class EncaminhamentoComponent implements OnInit {
     professor.escolaIdEncaminhamento = escola?.id;
     this.dados.data.push(professor);
   }
+
+  carregarRelatorio(): void {
+    this.professorService.carregarRelatorio();
+  }
 }

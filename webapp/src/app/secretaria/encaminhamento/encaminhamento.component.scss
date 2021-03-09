@@ -2,6 +2,14 @@
     display: flex;    
 }
 
+.wrap {
+    flex-wrap: wrap;
+}
+
+.margem-d-10 {
+    margin-right: 10px;
+}
+
 .sb {
     justify-content: space-between;
 }
