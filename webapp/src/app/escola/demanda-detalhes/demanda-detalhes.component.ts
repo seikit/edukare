@@ -33,7 +33,7 @@ export class DemandaDetalhesComponent implements OnInit {
     this.demanda = history.state?.data;
     this.modo = history.state?.modo;
 
-    this.demandaService.carregarDisciplinas().subscribe(res => {
+    this.demandaService.carregarDisciplinasAtivas().subscribe(res => {
       if (res.ok && res.body) {
         this.disciplinas = res.body.map(d => d.nome);
       }

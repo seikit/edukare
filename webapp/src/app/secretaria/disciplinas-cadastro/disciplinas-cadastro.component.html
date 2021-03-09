@@ -1,0 +1,25 @@
+<body>
+    <header class="flex">
+        <h1>Cadastro de disciplina</h1>
+    </header>
+    <main>
+        <div class="center-form">
+            <form [formGroup]="formDisciplina" (ngSubmit)="validarForm(formDisciplina.value)" class="flex colunas">
+                <mat-form-field>
+                    <mat-label>Nome</mat-label>
+                    <input matInput #nome maxlength="50" formControlName="nome">
+                    <mat-hint align="end">{{nome.value.length}} / 50</mat-hint>
+                </mat-form-field>
+    
+                <mat-form-field>
+                    <mat-label>Ativa</mat-label>
+                    <mat-select matNativeControl formControlName="ativa" #ativa>                                              
+                        <mat-option value='S'>Sim</mat-option>
+                        <mat-option value='N'>Não</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button mat-raised-button type="submit" [disabled]="!formDisciplina.valid"><mat-icon>add</mat-icon>Cadastrar disciplina</button>
+            </form>
+        </div>
+    </main>
+</body>

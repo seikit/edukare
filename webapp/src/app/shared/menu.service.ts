@@ -15,7 +15,9 @@ export class MenuService {
     {titulo: 'Home', link: '/home', icone: 'home'},
     {titulo: 'Processo seletivo', link: '/processo-seletivo', icone: 'input'},
     {titulo: 'Encaminhamento', link: 'processo-seletivo/encaminhamento', icone: 'arrow_right_alt'},
+    {titulo: 'Disciplinas', link: 'disciplina', icone: 'auto_stories'},
     {titulo: 'Relatórios', link: 'processo-seletivo/relatorios', icone: 'assessment'}
+
   ];
 
   private menuCandidato: IMenu[] = [    

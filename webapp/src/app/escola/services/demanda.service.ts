@@ -29,8 +29,8 @@ export class DemandaService {
     return this.http.post<IDemanda>(this.ESCOLA_URL + '/v1/demandas', demanda, {observe: 'response'});
   }
 
-  carregarDisciplinas() {
-    return this.http.get<IDisciplina[]>(this.ESCOLA_URL + '/v1/disciplinas', {observe: 'response'});
+  carregarDisciplinasAtivas() {
+    return this.http.get<IDisciplina[]>(this.ESCOLA_URL + '/v1/disciplinas/ativas', {observe: 'response'});
   }
 
   deletar(demandaId: number) {
