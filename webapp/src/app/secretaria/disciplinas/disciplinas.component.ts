@@ -49,4 +49,8 @@ export class DisciplinasComponent implements OnInit {
       }
     })
   }
+
+  exportarDisciplinas(): void {
+    this.disciplinaService.exportarDisciplinas();
+  }
 }
