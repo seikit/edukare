@@ -1,0 +1,29 @@
+<body>
+    <header class="flex wrap sb">
+        <div>
+            <h1>Disciplinas</h1>
+        </div>
+        <div>
+            <button mat-raised-button class="flex-item" (click)="criar()"><mat-icon>add</mat-icon>Adicionar disciplinas</button>
+            <button mat-raised-button><mat-icon>import_export</mat-icon>Exportar PDF</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="flex wrap">
+            <div *ngFor="let dis of disciplinas">
+                <mat-card class="card-size flex-item">
+                    <mat-card-title>Disciplina: {{dis.id}}</mat-card-title>                    
+                    <mat-card-content>
+                        <p>Nome: {{dis.nome}}</p>
+                        <p>Ativa: {{dis.ativa}}</p>
+                    </mat-card-content>
+                    <mat-card-actions>                        
+                        <button mat-raised-button (click)="editar(dis)"><mat-icon>create</mat-icon></button>
+                        <button mat-raised-button (click)="deletar(dis)"><mat-icon>delete</mat-icon></button>                   
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </section>
+    </main>
+</body>

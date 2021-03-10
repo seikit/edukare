@@ -25,7 +25,7 @@ export class DemandaCadastroComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.demandaService.carregarDisciplinas().subscribe(res => {
+    this.demandaService.carregarDisciplinasAtivas().subscribe(res => {
       if (res.ok && res.body) {
         this.disciplinas = res.body;
       }
