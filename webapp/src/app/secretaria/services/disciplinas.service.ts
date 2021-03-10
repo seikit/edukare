@@ -10,7 +10,7 @@ type ArrayResponseType = HttpResponse<IDisciplina[]>;
 @Injectable({
   providedIn: 'root'
 })
-export class DisciplinasService {
+export class DisciplinasService {  
   ESCOLA_URL = env.GATEWAY_URL + env.ESCOLA_MS_URL;
 
   constructor(private http: HttpClient) { }
@@ -31,5 +31,11 @@ export class DisciplinasService {
     return this.http.delete(this.ESCOLA_URL + `/v1/disciplinas/${disciplinaId}`, {observe: 'response'});
   }
 
-
+  exportarDisciplinas() {
+    return this.http.get(this.ESCOLA_URL + '/v1/disciplinas/relatorio', { responseType: 'arraybuffer', observe: 'body'}).subscribe( res => {
+      const file = new Blob([res], {type: 'application/pdf'});
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL, '_blank');
+    });
+  }
 }
