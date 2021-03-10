@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalConfirmarExclusaoGenericoComponent } from 'src/app/shared/modais/modal-confirmar-excluir-generico/modal-confirmar-exclusao-generico/modal-confirmar-exclusao-generico.component';
 import { ModalSucessoComponent } from 'src/app/shared/modais/modal-sucesso/modal-sucesso.component';
 import { NotificacaoService } from 'src/app/shared/notificacao.service';
 import { IDisciplina } from '../models/disciplina';
@@ -32,17 +33,20 @@ export class DisciplinasComponent implements OnInit {
   }
 
   editar(disciplina: IDisciplina): void {
-    // this.router.navigate(['/disciplina', processo.id], {state: {data:processo, modo: 'edicao'}});
-    this.disciplinaService.editar(disciplina).subscribe(res => {
-      if(res.ok && res.body) {
-        this.notificacaoService.abrirModal(ModalSucessoComponent, {data: {titulo: "Disciplina editada com suscesso!"}}).afterClosed().subscribe(() => {
-          this.router.navigate(['disciplina']);
-        })
-      }
-    })
+    this.router.navigate(['/disciplina', disciplina.id], {state: {data: disciplina, modo: 'edicao'}});
   }
 
   deletar(disciplina: IDisciplina): void {
-
+    this.notificacaoService.abrirModal(ModalConfirmarExclusaoGenericoComponent, {data: {'index': disciplina.id, 'titulo': 'Excluir disciplina ?'}}).afterClosed().subscribe(excluir => {
+      if(excluir) {
+        this.disciplinaService.deletar(disciplina.id).subscribe(res => {
+          if(res.ok) {
+            this.notificacaoService.abrirModal(ModalSucessoComponent, {data: {titulo: "Disciplina excluída com suscesso!"}}).afterClosed().subscribe(() => {
+              this.carregar();
+            })
+          }
+        });
+      }
+    })
   }
 }

@@ -27,8 +27,8 @@ export class DisciplinasService {
     return this.http.put<IDisciplina>(this.ESCOLA_URL + '/v1/disciplinas', disciplina, {observe: 'response'});
   }
 
-  deletar(): void {
-
+  deletar(disciplinaId: number): Observable<any> {
+    return this.http.delete(this.ESCOLA_URL + `/v1/disciplinas/${disciplinaId}`, {observe: 'response'});
   }
 
 
