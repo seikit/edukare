@@ -18,6 +18,12 @@ public class Disciplina {
     public Disciplina() {
     }
 
+    public Disciplina(Long id, String nome, String ativa) {
+        this.id = id;
+        this.nome = nome;
+        this.ativa = ativa;
+    }
+
     public Long getId() {
         return id;
     }

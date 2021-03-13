@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -32,7 +33,10 @@ public class DisciplinaResource {
     @PostMapping
     public ResponseEntity<Disciplina> salvarDisciplina(@RequestBody Disciplina disciplina) {
         log.debug("REST para cadastrar uma disciplina");
-        return ResponseEntity.ok(this.disciplinaService.salvar(disciplina));
+//        return ResponseEntity.created(this.disciplinaService.salvar(disciplina));
+        Disciplina d = this.disciplinaService.salvar(disciplina);
+        return ResponseEntity.created(
+                URI.create("/api/v1/disciplinas/"+d.getId())).build();
     }
 
     @GetMapping("/{id}")
