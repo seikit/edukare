@@ -197,7 +197,7 @@ class CandidatoResourceIT {
     void relatorioDemanda() throws Exception {
         candidatoRepository.saveAndFlush(candidato);
 
-        mockMvc. perform(get("/api/v1/candidatos/relatorio?email={id}", candidato.getEmailUsuario()))
+        mockMvc.perform(get("/api/v1/candidatos/relatorio?email={id}", candidato.getEmailUsuario()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_PDF_VALUE))
                 .andExpect(header().string("Content-Disposition", "inline; filename=candidato.pdf"));
