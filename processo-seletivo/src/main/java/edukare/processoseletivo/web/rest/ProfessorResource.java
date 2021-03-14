@@ -65,7 +65,7 @@ public class ProfessorResource {
             ByteArrayInputStream bis = RelatorioProfessor.gerarRelatorio(professores);
 
             HttpHeaders headers = new HttpHeaders();
-            headers.add("Content-Disposition", "inline; filename=processos.pdf");
+            headers.add("Content-Disposition", "inline; filename=professor.pdf");
 
             return ResponseEntity
                     .ok()
