@@ -21,7 +21,7 @@ public class Etapa {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate data;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "processo_seletivo_id")
     @JsonIgnore
     private ProcessoSeletivo processoSeletivo;

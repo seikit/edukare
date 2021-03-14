@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: processo-seletivo
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:db
+    username: sa
+    initialization-mode: never
+  jpa:
+    repositories.bootstrap-mode: default
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+  cloud:
+    consul:
+      host: ${CONSUL_HOST:localhost}
+      port: 8500
+      discovery:
+        instance-id: ${spring.application.name}:${random.value}
+        register-health-check: true
+        prefer-ip-address: true
+        enabled: false
+  liquibase:
+    enabled: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://${KEYCLOAK_HOST:localhost}:9080/auth/realms/edukare/protocol/openid-connect/certs
+server:
+  port: 8081

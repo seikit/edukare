@@ -28,9 +28,8 @@ public class ProcessoSeletivo {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dtEncerramentoInscricao;
 
-    @OneToMany(mappedBy = "processoSeletivo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "processoSeletivo")
     private Set<Etapa> etapas;
-
 
     public ProcessoSeletivo() {}
     public ProcessoSeletivo(String titulo, String descricao) {

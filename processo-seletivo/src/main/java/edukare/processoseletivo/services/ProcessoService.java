@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -30,15 +31,15 @@ public class ProcessoService {
 
     public ProcessoSeletivo save(ProcessoSeletivo processoSeletivo) {
         log.debug("Request para criar um novo processo seletivo.");
-        ProcessoSeletivo p = processoRepository.save(processoSeletivo);
-        p.getEtapas().forEach(e -> e.setProcessoSeletivo(p));
-        return processoRepository.save(p);
+//        ProcessoSeletivo p = processoRepository.save(processoSeletivo);
+//        p.getEtapas().forEach(e -> e.setProcessoSeletivo(p));
+        return processoRepository.save(processoSeletivo);
     }
 
     public ProcessoSeletivo atualizar(ProcessoSeletivo processoSeletivo) {
         log.debug("Request para atualizar um processo seletivo");
-        processoSeletivo.getEtapas().forEach(e -> e.setProcessoSeletivo(processoSeletivo));
-        return processoRepository.save(processoSeletivo);
+//        processoSeletivo.getEtapas().forEach(e -> e.setProcessoSeletivo(processoSeletivo));
+        return processoRepository.saveAndFlush(processoSeletivo);
     }
 
     public Optional<ProcessoSeletivo> findById(Long id) {
