@@ -73,7 +73,7 @@ public class InscricaoResource {
     }
 
     @GetMapping(value = "/relatorio", produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity relatorioDemanda(@RequestParam String email) throws IOException {
+    public ResponseEntity relatorioInscricao(@RequestParam String email) throws IOException {
         Set<Inscricao> inscricoes = this.inscricaoService.carregarTodasInscricoesDoCandidato(email);
         if(!inscricoes.isEmpty()) {
             ByteArrayInputStream bis = RelatorioInscricoes.relatorioInscricao(inscricoes);
