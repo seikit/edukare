@@ -6,12 +6,13 @@
     <h1 class="app-name-pos">{{perfil}}</h1>    
     
     <div>
+      <button mat-icon-button *ngIf="!estaLogado" (click)="cadastrarUsuario()"> <mat-icon>person_add</mat-icon></button>
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>settings</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item *ngIf="!estaLogado" (click)="logar()">Login</button>
-        <button mat-menu-item *ngIf="estaLogado" (click)="deslogar()">Logout</button>        
+        <button mat-menu-item *ngIf="!estaLogado" (click)="logar()">Entrar</button>
+        <button mat-menu-item *ngIf="estaLogado" (click)="deslogar()">Sair</button>        
       </mat-menu>
     </div>
   </mat-toolbar>

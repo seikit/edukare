@@ -39,12 +39,12 @@ export class MenuService {
     if (this.loginService.estaLogado()) {
       let roles = this.authService.getRoles();        
       
-      if (roles.includes('CIDADAO')) {
-        this.menu.push(...this.menuCandidato);
-      } else if (roles.includes('SECRETARIA')) {
+      if (roles.includes('SECRETARIA')) {
         this.menu.push(...this.menuSecretaria)
       } else if (roles.includes('ESCOLA')){
         this.menu.push(...this.menuEscola);
+      } else {
+        this.menu.push(...this.menuCandidato);
       }
     }    
     return this.menu;
