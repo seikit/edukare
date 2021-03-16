@@ -11,8 +11,8 @@
         <mat-icon>settings</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item *ngIf="!estaLogado" (click)="logar()">Login</button>
-        <button mat-menu-item *ngIf="estaLogado" (click)="deslogar()">Logout</button>        
+        <button mat-menu-item *ngIf="!estaLogado" (click)="logar()">Entrar</button>
+        <button mat-menu-item *ngIf="estaLogado" (click)="deslogar()">Sair</button>        
       </mat-menu>
     </div>
   </mat-toolbar>

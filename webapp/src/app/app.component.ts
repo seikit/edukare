@@ -79,12 +79,12 @@ export class AppComponent {
   
   getPapel() {
     const roles = this.authService.getRoles();
-    if (roles.includes('CIDADAO')) {
-      this.perfil = 'Candidato';
-    } else if (roles.includes('SECRETARIA')) {
+    if (roles.includes('SECRETARIA')) {
       this.perfil = 'Secretaria';
     } else if (roles.includes('ESCOLA')) {
       this.perfil = 'Escola';
+    } else {
+      this.perfil = 'Candidato';
     }
   }
 }
