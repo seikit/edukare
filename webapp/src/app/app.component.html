@@ -6,6 +6,7 @@
     <h1 class="app-name-pos">{{perfil}}</h1>    
     
     <div>
+      <button mat-icon-button *ngIf="!estaLogado" (click)="cadastrarUsuario()"> <mat-icon>person_add</mat-icon></button>
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>settings</mat-icon>
       </button>

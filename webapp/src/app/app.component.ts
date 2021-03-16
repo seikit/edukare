@@ -61,6 +61,10 @@ export class AppComponent {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
+  cadastrarUsuario(): void {
+    this.authService.cadastrarNovoUsuario();
+  }
+
   logar() {
     this.loginService.logar();    
   }

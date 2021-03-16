@@ -1,13 +1,15 @@
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { OAuthService, UserInfo } from "angular-oauth2-oidc";
 import { BehaviorSubject } from "rxjs";
 import { Usuario } from "../models/usuario";
+import { env } from "src/environments/environment";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   usuarioLogado = new BehaviorSubject<Usuario>(new Usuario());
 
-  constructor(private oauthService: OAuthService) {}
+  constructor(private oauthService: OAuthService, private router: Router) {}
 
   getRoles(): string[] {
     const token = this.oauthService.getAccessToken();
@@ -23,7 +25,10 @@ export class AuthService {
       usu.email = usuario.email;
       usu.name = usuario.name;
       this.usuarioLogado.next(usu);
-    })
-    
+    })    
+  }
+
+  cadastrarNovoUsuario(): void {
+    window.location.href = env.KEYCLOAK_REGISTRO_URL + env.REDIRECT_HOME;    
   }
 }

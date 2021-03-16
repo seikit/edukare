@@ -8,6 +8,8 @@ export const env = {
   PROCESSO_MS_URL: '/processo-seletivo/api',
   CANDIDATO_MS_URL: '/candidato/api',
   ESCOLA_MS_URL: '/escola/api',
+  KEYCLOAK_REGISTRO_URL: 'http://localhost:9080/auth/realms/edukare/protocol/openid-connect/registrations?response_type=code&client_id=webapp&redirect_uri=',
+  REDIRECT_HOME: 'http://localhost:4200/home'
 };
 
 /*
