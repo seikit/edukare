@@ -30,12 +30,13 @@ export class AppComponent {
   }
 
   authConfig: AuthConfig = {
-    issuer: 'http://localhost:9080/auth/realms/edukare',
+    issuer: env.KEYCLOAK_ISSUER,
     redirectUri: window.location.origin + "/home",
     clientId: 'webapp',
     scope: 'openid profile email offline_access',
     responseType: 'code',    
-    showDebugInformation: true
+    showDebugInformation: true,
+    requireHttps: false
   }
 
   private configure() {
@@ -65,7 +66,7 @@ export class AppComponent {
     this.authService.cadastrarNovoUsuario();
   }
 
-  logar() {
+  logar() {    
     this.loginService.logar();    
   }
   

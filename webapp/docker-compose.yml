@@ -6,4 +6,4 @@ services:
     build:
       context: .      
     ports:
-      - 8089:80
+      - 4200:8080
