@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: Service
+metadata:  
+  name: keycloak-svc
+  namespace: default  
+  annotations:
+      cloud.google.com/neg: '{"ingress": true}'
+spec:  
+  selector:
+    run: keycloak  
+  type: LoadBalancer
+  ports:     
+    - port: 8080
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: keycloak
+  template:
+    metadata:
+      labels:
+        run: keycloak
+    spec:
+      containers:
+      - name: keycloak
+        image: gcr.io/edukare/keycloak:12.0.2
+        ports:
+        - containerPort: 8080
+        env:
+         - name: KEYCLOAK_USER
+           valueFrom:
+            secretKeyRef:
+              key: KEYCLOAK_USER
+              name: keycloak-credentials
+         - name: KEYCLOAK_PASSWORD
+           valueFrom:
+            secretKeyRef:
+              key: KEYCLOAK_PASSWORD
+              name: keycloak-credentials
+         - name: DB_VENDOR
+           valueFrom:
+            secretKeyRef:
+              key: DB_VENDOR
+              name: keycloak-credentials
+         - name: DB_ADDR
+           valueFrom:
+            secretKeyRef:
+              key: DB_ADDR
+              name: keycloak-credentials
+         - name: DB_PORT
+           valueFrom:
+            secretKeyRef:
+              key: DB_PORT
+              name: keycloak-credentials
+         - name: DB_DATABASE
+           valueFrom:
+            secretKeyRef:
+              key: DB_DATABASE
+              name: keycloak-credentials
+         - name: DB_USER
+           valueFrom:
+            secretKeyRef:
+              key: DB_USER
+              name: keycloak-credentials
+         - name: DB_PASSWORD
+           valueFrom:
+            secretKeyRef:
+              key: DB_PASSWORD
+              name: keycloak-credentials
