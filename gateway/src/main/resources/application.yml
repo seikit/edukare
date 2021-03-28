@@ -51,7 +51,7 @@ spring:
             client-secret: 7ffcac9a-228b-4632-a37d-6d369f5df39b
         provider:
           keycloak:
-            issuer-uri: http://${KEYCLOAK_HOST:localhost}:9080/auth/realms/edukare
+            issuer-uri: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:9080}/auth/realms/edukare
 
 server:
   port: 8080
