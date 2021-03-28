@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: uris
+data:  
+  KEYCLOAK_HOST: 
+  KEYCLOAK_PORT: 
