@@ -1,13 +1,12 @@
 version: "2"
 services:
   gateway-app:
-    mem_limit: 256M
-    mem_reservation: 128M
+    build: .
+    container_name: gateway
     environment:
       KEYCLOAK_HOST: keycloak
       CONSUL_HOST: consul
-    build: .
-    container_name: gateway
+    
     ports:
       - 8080:8080
 networks:
