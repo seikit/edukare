@@ -2,9 +2,7 @@ version: "2"
 services:
   candidato:
     build: .
-    container_name: candidato
-    mem_limit: 256m
-    mem_reservation: 128M
+    container_name: candidato    
     environment:
       KEYCLOAK_HOST: keycloak
       CONSUL_HOST: consul
