@@ -9,7 +9,6 @@ import edukare.candidato.domain.Endereco;
 import edukare.candidato.domain.Titulo;
 import edukare.candidato.dto.CandidatoDto;
 import edukare.candidato.repository.CandidatoRepository;
-import edukare.candidato.repository.EnderecoRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
