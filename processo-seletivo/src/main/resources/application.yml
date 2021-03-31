@@ -1,14 +1,16 @@
 spring:
   application:
     name: processo-seletivo
-  datasource:
-    driverClassName: org.h2.Driver
-    url: jdbc:h2:mem:db
-    username: sa
+  datasource:    
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/processo
+    username: processoapp
+    password: 
   jpa:
     repositories.bootstrap-mode: default
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+    hibernate:
+      ddl-auto: update
   cloud:
     consul:
       host: ${CONSUL_HOST:localhost}
