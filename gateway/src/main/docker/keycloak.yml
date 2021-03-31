@@ -10,9 +10,14 @@ services:
       - ./realm-config/realm-export.json:/realm-config/realm-export.json
     environment:
       - KEYCLOAK_IMPORT=/realm-config/realm-export.json
-      - KEYCLOAK_USER=admin
-      - KEYCLOAK_PASSWORD=admin
-      - DB_VENDOR=h2
+      - KEYCLOAK_USER=
+      - KEYCLOAK_PASSWORD=
+      - DB_VENDOR=postgres
+      - DB_ADDR=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=
+      - DB_USER=
+      - DB_PASSWORD=
     ports:
       - 9080:9080
       - 9443:9443

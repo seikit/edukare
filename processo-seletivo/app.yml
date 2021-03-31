@@ -6,6 +6,7 @@ services:
     environment:
       KEYCLOAK_HOST: keycloak
       CONSUL_HOST: consul
+      DB_HOST: postgres
     ports:
       - 8081:8081
 
