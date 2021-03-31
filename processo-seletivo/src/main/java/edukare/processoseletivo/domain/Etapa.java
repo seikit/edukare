@@ -11,8 +11,7 @@ import java.util.Objects;
 public class Etapa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "etapa_sequence")
-    @SequenceGenerator(name = "etapa_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String titulo;
@@ -20,11 +19,6 @@ public class Etapa {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate data;
-
-    @ManyToOne
-    @JoinColumn(name = "processo_seletivo_id")
-    @JsonIgnore
-    private ProcessoSeletivo processoSeletivo;
 
     public Etapa() {
     }
@@ -65,14 +59,6 @@ public class Etapa {
 
     public void setData(LocalDate data) {
         this.data = data;
-    }
-
-    public ProcessoSeletivo getProcessoSeletivo() {
-        return processoSeletivo;
-    }
-
-    public void setProcessoSeletivo(ProcessoSeletivo processoSeletivo) {
-        this.processoSeletivo = processoSeletivo;
     }
 
     @Override

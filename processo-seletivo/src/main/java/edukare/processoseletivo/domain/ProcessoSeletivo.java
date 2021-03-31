@@ -12,8 +12,7 @@ import java.util.Set;
 public class ProcessoSeletivo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "processo_sequence")
-    @SequenceGenerator(name = "processo_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String titulo;
@@ -28,7 +27,8 @@ public class ProcessoSeletivo {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dtEncerramentoInscricao;
 
-    @OneToMany(mappedBy = "processoSeletivo")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "etapa_id")
     private Set<Etapa> etapas;
 
     public ProcessoSeletivo() {}
