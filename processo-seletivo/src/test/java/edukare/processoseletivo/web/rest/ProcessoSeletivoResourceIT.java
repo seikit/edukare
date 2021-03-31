@@ -86,7 +86,6 @@ class ProcessoSeletivoResourceIT {
         processo.setDtEncerramentoInscricao(DATA_FIM_INSCRICAO);
 
         Etapa etapa = new Etapa();
-        etapa.setId(ET_ID);
         etapa.setTitulo(ET_TITULO);
         etapa.setDescricao(ET_DESCRICAO);
         etapa.setData(ET_DATA);

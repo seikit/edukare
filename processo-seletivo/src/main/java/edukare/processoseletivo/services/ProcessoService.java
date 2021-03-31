@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ProcessoService {
@@ -31,8 +32,6 @@ public class ProcessoService {
 
     public ProcessoSeletivo save(ProcessoSeletivo processoSeletivo) {
         log.debug("Request para criar um novo processo seletivo.");
-//        ProcessoSeletivo p = processoRepository.save(processoSeletivo);
-//        p.getEtapas().forEach(e -> e.setProcessoSeletivo(p));
         return processoRepository.save(processoSeletivo);
     }
 
