@@ -3,21 +3,20 @@ package edukare.processoseletivo.services;
 import edukare.processoseletivo.domain.ProcessoSeletivo;
 import edukare.processoseletivo.enumeration.Situacao;
 import edukare.processoseletivo.repository.ProcessoRepository;
-import org.apache.tomcat.jni.Proc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class ProcessoService {
@@ -74,6 +73,35 @@ public class ProcessoService {
     public Integer carregarQuantitativoProcessosConcluidos() {
         log.debug("Request para carregar o quantitativo de processos realizados no ano corrente");
         return this.processoRepository.countAllBySituacaoAndAno(Situacao.CONCLUIDO, LocalDate.now().getYear());
+    }
+
+    @Scheduled(cron = "@midnight")
+    public void abrirInscricao() {
+        log.debug("Rodando Cron para abrir a inscrição do processo");
+        List<ProcessoSeletivo> processos = this.processoRepository.findAllBySituacaoAndAno(Situacao.NOVO, LocalDate.now().getYear());
+
+        for(ProcessoSeletivo processo: processos) {
+            if(processo.getSituacao().situacao.equals("NOVO") && LocalDate.now().isEqual(processo.getDtInicioInscricao())) {
+                processo.setSituacao(Situacao.INSCRICAO);
+            }
+            this.processoRepository.save(processo);
+        }
+
+    }
+
+    @Scheduled(cron = "59 23 * * * *")
+    public void fecharInscricao() {
+        log.debug("Rodando Cron para fechar a inscrição do processo");
+        List<ProcessoSeletivo> processos = this.processoRepository.findAllBySituacaoAndAno(Situacao.INSCRICAO, LocalDate.now().getYear());
+
+        for(ProcessoSeletivo processo: processos) {
+            if(processo.getSituacao().situacao.equals("INSCRICAO") && LocalDate.now().isEqual(processo.getDtEncerramentoInscricao())) {
+                processo.setSituacao(Situacao.SELECAO);
+            }
+
+            this.processoRepository.save(processo);
+        }
+
     }
 
 

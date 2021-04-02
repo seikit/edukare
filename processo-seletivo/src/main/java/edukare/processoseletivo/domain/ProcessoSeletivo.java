@@ -30,7 +30,7 @@ public class ProcessoSeletivo {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dtEncerramentoInscricao;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "etapa_id")
     private Set<Etapa> etapas;
 
