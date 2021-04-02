@@ -7,6 +7,7 @@ import { MatDatepicker } from '@angular/material/datepicker';
 import * as _moment from 'moment';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { ModalConfirmarExclusaoGenericoComponent } from 'src/app/shared/modais/modal-confirmar-excluir-generico/modal-confirmar-exclusao-generico/modal-confirmar-exclusao-generico.component';
+import { ModalPadraoComponent } from 'src/app/shared/modais/modal-padrao/modal-padrao.component';
 import { ModalSucessoComponent } from 'src/app/shared/modais/modal-sucesso/modal-sucesso.component';
 import { Usuario } from 'src/app/shared/models/usuario';
 import { NotificacaoService } from 'src/app/shared/notificacao.service';
@@ -110,7 +111,7 @@ export class DadosPessoaisComponent implements OnInit {
   }
   
   ngOnInit(): void {
-      this.form.get('dadosPessoais')?.get('emailUsuario')?.setValue(this.usuarioLogado.email);
+    this.form.get('dadosPessoais')?.get('emailUsuario')?.setValue(this.usuarioLogado.email);
       this.dadosPessoaisService.carregarDados(this.usuarioLogado.email).subscribe( data => {
         if (data.ok && data.body) {
           const size = data.body.educacao.titulos.length;
@@ -123,7 +124,8 @@ export class DadosPessoaisComponent implements OnInit {
   }
 
   submit(dadosCandidato: IDadosCandidato): void {    
-    if (this.form.valid) { 
+    if (this.form.valid) {
+      this.form.get('dadosPessoais')?.get('emailUsuario')?.setValue(this.usuarioLogado.email);      
       if (this.form.get('dadosPessoais')?.get('id')?.value) {
         this.dadosPessoaisService.editar(dadosCandidato).subscribe(data => {
           if (data.ok) {
@@ -145,9 +147,11 @@ export class DadosPessoaisComponent implements OnInit {
           
         }
       });
-    }    
+    } else {
+      this.notificacaoService.abrirModal(ModalPadraoComponent, {data: {titulo: 'Campo inválido!', mensagem: 'Revise os dados de cadastro.'}});
+    }
   }
-
+  
   criarFormGroupTitulo(): FormGroup {
     return this.fb.group({
       id: [''],
