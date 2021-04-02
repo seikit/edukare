@@ -12,7 +12,7 @@ import java.util.Set;
 @Repository
 public interface ProcessoRepository extends JpaRepository<ProcessoSeletivo, Long> {
 
-    Set<ProcessoSeletivo> findProcessoSeletivoByDtInicioInscricaoLessThanAndDtEncerramentoInscricaoGreaterThan(LocalDate hoje, LocalDate hj);
+    Set<ProcessoSeletivo> findAllBySituacao(Situacao situacao);
     List<ProcessoSeletivo> findAllBySituacaoAndAno(Situacao situacao, Integer ano);
     Integer countAllBySituacaoAndAno(Situacao situacao, Integer ano);
 

@@ -31,7 +31,7 @@ public class ProcessoSeletivo {
     private LocalDate dtEncerramentoInscricao;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "etapa_id")
+    @JoinColumn(name = "processo_seletivo_id")
     private Set<Etapa> etapas;
 
     public ProcessoSeletivo() {}

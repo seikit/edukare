@@ -33,7 +33,7 @@ export class ProcessosComponent implements OnInit {
   }
 
   carregarProcessos() {
-    this.processoService.carregar().subscribe(data => {
+    this.processoService.carregarProcessosAbertos().subscribe(data => {
       if (data.ok && data.body) {
         this.processos = data.body;
       }

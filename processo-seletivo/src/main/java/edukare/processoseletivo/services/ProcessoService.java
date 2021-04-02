@@ -57,7 +57,7 @@ public class ProcessoService {
     }
 
     public Set<ProcessoSeletivo> carregarProcessosInscricoesAbertas() {
-        return this.processoRepository.findProcessoSeletivoByDtInicioInscricaoLessThanAndDtEncerramentoInscricaoGreaterThan(LocalDate.now(), LocalDate.now());
+        return this.processoRepository.findAllBySituacao(Situacao.INSCRICAO);
     }
 
     public List<ProcessoSeletivo> carregarTodosProcessos() {
