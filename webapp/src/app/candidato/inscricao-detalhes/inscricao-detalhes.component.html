@@ -1,0 +1,122 @@
+<body>
+    <header>
+        <h1>Detalhes da inscrição: {{inscricao.id}}</h1>
+    </header>
+    <main class="center">
+        <section class="container-size">
+            <mat-form-field>
+                <mat-label>Situação</mat-label>
+                <input matInput type="text" value="{{inscricao.situacao}}" disabled>                                    
+            </mat-form-field>
+        
+            <mat-form-field>
+                <mat-label>Data de inscrição</mat-label>
+                <input matInput type="text" value="{{inscricao.dataInscricao | date:'dd/MM/yyyy' }}" disabled>                                                                
+            </mat-form-field>
+        
+            <mat-form-field>
+                <mat-label>Processo seletivo</mat-label>
+                <input matInput type="text" value="{{inscricao.processoSeletivoId}}" disabled>                                                                
+            </mat-form-field>
+        
+            <mat-form-field>
+                <mat-label>Nome completo</mat-label>
+                <input matInput type="text" value="{{inscricao.nomeCompleto}}" disabled>                                                                
+            </mat-form-field>
+        
+            <mat-form-field>
+                <mat-label>CPF</mat-label>
+                <input matInput type="text" value="{{inscricao.cpf}}" disabled>                                                                
+            </mat-form-field>
+        
+            <mat-form-field>
+                <mat-label>CPF</mat-label>
+                <input matInput type="text" value="{{inscricao.cpf}}" disabled>                                                                
+            </mat-form-field>
+        
+            <mat-form-field>
+                <mat-label>Filiação 1</mat-label>
+                <input matInput type="text" value="{{inscricao.filiacao1}}" disabled>                                                                
+            </mat-form-field>
+        
+            <mat-form-field>
+                <mat-label>Filiação 2</mat-label>
+                <input matInput type="text" value="{{inscricao.filiacao2}}" disabled>                                                                
+            </mat-form-field>
+            
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput type="text" value="{{inscricao.email}}" disabled>                                                                
+            </mat-form-field>                                
+        
+            <mat-form-field>
+                <mat-label>Celular</mat-label>
+                <input matInput type="text" value="{{inscricao.celular}}" disabled>
+            </mat-form-field>
+        
+            <mat-form-field>
+                <mat-label>Telefone</mat-label>
+                <input matInput type="text" value="{{inscricao.telefoneFixo}}" disabled>
+            </mat-form-field>
+        
+            <mat-form-field>
+                <mat-label>Naturalidade</mat-label>
+                <input matInput type="text" value="{{inscricao.naturalidade}}" disabled>
+            </mat-form-field>
+        
+            <mat-form-field>
+                <mat-label>Rua</mat-label>
+                <input matInput type="text" value="{{inscricao.rua}}" disabled>
+            </mat-form-field>
+        
+            <mat-form-field>
+                <mat-label>Número</mat-label>
+                <input matInput type="text" value="{{inscricao.numero}}" disabled>
+            </mat-form-field>
+        
+            <mat-form-field>
+                <mat-label>Bairro</mat-label>
+                <input matInput type="text" value="{{inscricao.bairro}}" disabled>
+            </mat-form-field>
+        
+            <mat-form-field>
+                <mat-label>Cidade Residência</mat-label>
+                <input matInput type="text" value="{{inscricao.cidadeResidencia}}" disabled>
+            </mat-form-field>
+        
+            <mat-form-field>
+                <mat-label>Estado Residência</mat-label>
+                <input matInput type="text" value="{{inscricao.estadoResidencia}}" disabled>
+            </mat-form-field>
+        
+            <mat-form-field>
+                <mat-label>Nível de escolaridade</mat-label>
+                <input matInput type="text" value="{{inscricao.nivelEscolaridade}}" disabled>
+            </mat-form-field>
+            
+            <div class="margem-t-10"></div>
+
+            <div *ngFor="let t of inscricao.titulos, index as i">
+                <h4>Título: {{i + 1}} </h4>
+                
+                <mat-form-field>
+                    <mat-label>Instituição de ensino</mat-label>
+                    <input matInput type="text" value="{{t.instituicaoEnsino}}" disabled>
+                </mat-form-field>
+        
+                <mat-form-field>
+                    <mat-label>Título do curso</mat-label>
+                    <input matInput type="text" value="{{t.tituloCurso}}" disabled>
+                </mat-form-field>
+        
+                <mat-form-field>
+                    <mat-label>Ano de conclusão</mat-label>
+                    <input matInput type="text" value="{{t.anoConclusao}}" disabled>
+                </mat-form-field>
+                
+                <div class="margem-b-10"></div>
+                
+            </div>
+        </section>
+    </main>
+</body>

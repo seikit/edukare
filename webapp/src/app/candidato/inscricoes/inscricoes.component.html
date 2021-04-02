@@ -3,146 +3,20 @@
         <h1>Minhas inscrições</h1>
         <button mat-raised-button (click)="exportarDadosInscricoes()"><mat-icon>import_export</mat-icon>PDF</button>
     </header>
-    <main class="flex-container flex-container-wrap">
-        <div *ngFor="let insc of inscricoes">
-            <mat-card class="margem-10 container-size">
+    <main>
+        <section class="flex-container flex-container-wrap">
+            <mat-card class="margem-10" *ngFor="let insc of inscricoes" >
                 <mat-card-header>
                     <mat-card-title>Número de inscrição: {{insc.id}}</mat-card-title>                    
-                </mat-card-header>
-
-                <mat-card-content>
-                    <mat-accordion multi>                        
-                        <mat-expansion-panel>
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>Detalhes da inscrição</mat-panel-title>
-                                <mat-panel-description>
-                                    Situação: {{insc.situacao}}         
-                                  </mat-panel-description>                   
-                            </mat-expansion-panel-header>
-                                
-                            <section>
-                                <mat-form-field>
-                                    <mat-label>Situação</mat-label>
-                                    <input matInput type="text" value="{{insc.situacao}}" disabled>                                    
-                                </mat-form-field>
-
-                                 <mat-form-field>
-                                    <mat-label>Data de inscrição</mat-label>
-                                    <input matInput type="text" value="{{insc.dataInscricao | date:'dd/MM/yyyy' }}" disabled>                                                                
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <mat-label>Processo seletivo</mat-label>
-                                    <input matInput type="text" value="{{insc.processoSeletivoId}}" disabled>                                                                
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <mat-label>Nome completo</mat-label>
-                                    <input matInput type="text" value="{{insc.nomeCompleto}}" disabled>                                                                
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <mat-label>CPF</mat-label>
-                                    <input matInput type="text" value="{{insc.cpf}}" disabled>                                                                
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <mat-label>CPF</mat-label>
-                                    <input matInput type="text" value="{{insc.cpf}}" disabled>                                                                
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <mat-label>Filiação 1</mat-label>
-                                    <input matInput type="text" value="{{insc.filiacao1}}" disabled>                                                                
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <mat-label>Filiação 2</mat-label>
-                                    <input matInput type="text" value="{{insc.filiacao2}}" disabled>                                                                
-                                </mat-form-field>
-                                
-                                <mat-form-field>
-                                    <mat-label>Email</mat-label>
-                                    <input matInput type="text" value="{{insc.email}}" disabled>                                                                
-                                </mat-form-field>                                
-
-                                <mat-form-field>
-                                    <mat-label>Celular</mat-label>
-                                    <input matInput type="text" value="{{insc.celular}}" disabled>
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <mat-label>Telefone</mat-label>
-                                    <input matInput type="text" value="{{insc.telefoneFixo}}" disabled>
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <mat-label>Naturalidade</mat-label>
-                                    <input matInput type="text" value="{{insc.naturalidade}}" disabled>
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <mat-label>Rua</mat-label>
-                                    <input matInput type="text" value="{{insc.rua}}" disabled>
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <mat-label>Número</mat-label>
-                                    <input matInput type="text" value="{{insc.numero}}" disabled>
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <mat-label>Bairro</mat-label>
-                                    <input matInput type="text" value="{{insc.bairro}}" disabled>
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <mat-label>Cidade Residência</mat-label>
-                                    <input matInput type="text" value="{{insc.cidadeResidencia}}" disabled>
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <mat-label>Estado Residência</mat-label>
-                                    <input matInput type="text" value="{{insc.estadoResidencia}}" disabled>
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <mat-label>Nível de escolaridade</mat-label>
-                                    <input matInput type="text" value="{{insc.nivelEscolaridade}}" disabled>
-                                </mat-form-field>
-
-                                <div *ngFor="let t of insc.titulos, index as i">
-                                    <h4>Título: {{i + 1}} </h4>
-                                    
-                                    <mat-form-field>
-                                        <mat-label>Instituição de ensino</mat-label>
-                                        <input matInput type="text" value="{{t.instituicaoEnsino}}" disabled>
-                                    </mat-form-field>
-
-                                    <mat-form-field>
-                                        <mat-label>Título do curso</mat-label>
-                                        <input matInput type="text" value="{{t.tituloCurso}}" disabled>
-                                    </mat-form-field>
-
-                                    <mat-form-field>
-                                        <mat-label>Ano de conclusão</mat-label>
-                                        <input matInput type="text" value="{{t.anoConclusao}}" disabled>
-                                    </mat-form-field>
-                                    
-                                    <div class="margem-b-10"></div>
-                                    
-                                </div>
-                            </section>
-
-                        </mat-expansion-panel>
-                    </mat-accordion>
-                </mat-card-content>
-
-                <mat-card-actions *ngIf="insc.situacao !== 'CANCELADA'" class="flex-container">                    
-                    <button mat-raised-button class="grow" (click)="cancelar(insc)">Cancelar<mat-icon>cancel</mat-icon></button>                    
+                    <mat-card-subtitle>Situação: {{insc.situacao}}</mat-card-subtitle>                    
+                </mat-card-header>                
+                
+                <mat-card-actions class="flex-container">
+                    <button mat-raised-button (click)=visualizar(insc) class="grow"><mat-icon>zoom_in</mat-icon></button>
+                    <button mat-raised-button *ngIf="insc.situacao !=='CANCELADA'" (click)="cancelar(insc)" class="grow"><mat-icon>cancel</mat-icon></button>                    
                 </mat-card-actions>
             </mat-card>
-        </div>
+        </section>
         
     </main>
     <footer></footer>

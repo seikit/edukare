@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IProcessoSeletivo } from 'src/app/secretaria/models/processo-seletivo';
 import { ProcessoSeletivoService } from 'src/app/secretaria/processo-seletivo/processo-seletivo.service';
 import { AuthService } from 'src/app/shared/auth/auth.service';
@@ -20,7 +20,7 @@ export class InscricoesComponent implements OnInit {
   inscricoes: IInscricao[];
   usuarioLogado: Usuario = new Usuario();
 
-  constructor(private authService: AuthService, private notificacaoService: NotificacaoService, private route: ActivatedRoute, private inscricoesService : InscricoesService, private processoService: ProcessoSeletivoService) {
+  constructor(private authService: AuthService, private notificacaoService: NotificacaoService, private route: ActivatedRoute, private inscricoesService : InscricoesService, private processoService: ProcessoSeletivoService, private router: Router) {
     this.inscricoes = [];
     this.authService.usuarioLogado.subscribe((usu: Usuario) => {
       this.usuarioLogado = usu;
@@ -57,5 +57,9 @@ export class InscricoesComponent implements OnInit {
 
   exportarDadosInscricoes(): void {
     this.inscricoesService.exportarDadosInscricoes(this.usuarioLogado.email);
+  }
+
+  visualizar(inscricao: IInscricao): void {
+    this.router.navigate(['candidato/inscricao', inscricao.id], {state: {data: inscricao}});
   }
 }

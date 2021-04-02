@@ -6,10 +6,11 @@ import { DadosPessoaisComponent } from './dados-pessoais/dados-pessoais.componen
 import { InscricoesComponent } from './inscricoes/inscricoes.component';
 import { SharedModule } from '../shared/shared.module';
 import { ProcessosComponent } from './processos/processos.component';
+import { InscricaoDetalhesComponent } from './inscricao-detalhes/inscricao-detalhes.component';
 
 
 @NgModule({
-  declarations: [DadosPessoaisComponent, InscricoesComponent, ProcessosComponent],
+  declarations: [DadosPessoaisComponent, InscricoesComponent, ProcessosComponent, InscricaoDetalhesComponent],
   imports: [
     CommonModule,
     CandidatoRoutingModule,
