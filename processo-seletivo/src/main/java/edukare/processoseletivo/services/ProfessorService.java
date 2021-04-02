@@ -39,13 +39,14 @@ public class ProfessorService {
     @Transactional
     public List<Professor> efetivarEmProfessor(List<Professor> professores, String token) {
         log.debug("Request para efetivar o candidato em professor");
-        List<InscricaoDto> inscricoes = new ArrayList<>();
         for (Professor p: professores) {
             p.setDataEfetivacao(LocalDateTime.now());
-            InscricaoDto i = new InscricaoDto(p.getInscricaoId(), SituacaoInscricao.PROCESSADA);
-            inscricoes.add(i);
         }
 
+        List<InscricaoDto> inscricoes = this.candidatoClient.carregarTodasInscricoesAtivas(professores.get(0).getProcessoSeletivoId(), token);
+        inscricoes.forEach(insc-> {
+           insc.setSituacao(SituacaoInscricao.PROCESSADA);
+        });
         this.candidatoClient.atualizarSituacaoInscricao(inscricoes, token);
         this.processoService.atualizarSituacaoProcesso(professores.get(0).getProcessoSeletivoId(), Situacao.CONCLUIDO);
 

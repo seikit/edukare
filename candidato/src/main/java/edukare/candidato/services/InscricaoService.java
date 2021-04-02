@@ -120,7 +120,7 @@ public class InscricaoService {
         Optional<ProcessoDto> processo = processoSeletivoServiceClient.carregarProcessoPorId(token, inscricao.getProcessoSeletivoId());
         if (processo.isPresent()) {
             ProcessoDto p = processo.get();
-            if (!p.getSituacao().equals("CANCELADO") && LocalDate.now().isBefore(p.getDtEncerramentoInscricao())) {
+            if (!p.getSituacao().equals("CANCELADO") && LocalDate.now().isBefore(p.getDtEncerramentoInscricao()) && !p.getSituacao().equals("CONCLUIDO")) {
                 inscricao.setSituacao(Situacao.CANCELADA);
                 return Optional.of(this.salvar(inscricao));
             }

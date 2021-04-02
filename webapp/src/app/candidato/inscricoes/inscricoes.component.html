@@ -13,7 +13,7 @@
                 
                 <mat-card-actions class="flex-container">
                     <button mat-raised-button (click)=visualizar(insc) class="grow"><mat-icon>zoom_in</mat-icon></button>
-                    <button mat-raised-button *ngIf="insc.situacao !=='CANCELADA'" (click)="cancelar(insc)" class="grow"><mat-icon>cancel</mat-icon></button>                    
+                    <button mat-raised-button *ngIf="validaCancelamento(insc)" (click)="cancelar(insc)" class="grow"><mat-icon>cancel</mat-icon></button>                    
                 </mat-card-actions>
             </mat-card>
         </section>
