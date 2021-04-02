@@ -1,17 +1,20 @@
 package edukare.processoseletivo.services;
 
+import edukare.processoseletivo.domain.ProcessoSeletivo;
 import edukare.processoseletivo.domain.Professor;
 import edukare.processoseletivo.dto.InscricaoDto;
 import edukare.processoseletivo.enumeration.Situacao;
 import edukare.processoseletivo.enumeration.SituacaoInscricao;
 import edukare.processoseletivo.feignClients.*;
 import edukare.processoseletivo.interfaces.ISeriesGrafico;
+import edukare.processoseletivo.repository.ProcessoRepository;
 import edukare.processoseletivo.repository.ProfessorRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -30,8 +33,12 @@ public class ProfessorService {
     @Autowired
     private CandidatoClient candidatoClient;
 
+    @Autowired
+    private ProcessoService processoService;
+
+    @Transactional
     public List<Professor> efetivarEmProfessor(List<Professor> professores, String token) {
-        log.debug("Request para efetiva o candidato em professor");
+        log.debug("Request para efetivar o candidato em professor");
         List<InscricaoDto> inscricoes = new ArrayList<>();
         for (Professor p: professores) {
             p.setDataEfetivacao(LocalDateTime.now());
@@ -40,6 +47,7 @@ public class ProfessorService {
         }
 
         this.candidatoClient.atualizarSituacaoInscricao(inscricoes, token);
+        this.processoService.atualizarSituacaoProcesso(professores.get(0).getProcessoSeletivoId(), Situacao.CONCLUIDO);
 
         return this.professorRepository.saveAll(professores);
     }

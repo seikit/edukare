@@ -10,6 +10,7 @@ import { IProfessor, Professor } from '../models/professor';
 import { NotificacaoService } from 'src/app/shared/notificacao.service';
 import { ModalConfirmacaoComponent } from 'src/app/shared/modais/modal-confirmacao/modal-confirmacao.component';
 import { Router } from '@angular/router';
+import { ModalSucessoComponent } from 'src/app/shared/modais/modal-sucesso/modal-sucesso.component';
 
 @Component({
   selector: 'app-selecao',
@@ -55,7 +56,15 @@ export class SelecaoComponent implements OnInit {
         this.professorService.efetivarInscritosEm(professores).subscribe( res => {
           if (res.ok) {
             this.selecionados.clear();
-            this.router.navigate(['processo-seletivo']);
+
+            const modal = this.notificacaoService.abrirModal(ModalSucessoComponent, {data: {titulo: 'Candidatos efetivos com sucesso!'}})
+              setTimeout(() => {
+                modal.close();
+                this.router.navigate(['processo-seletivo']);
+              }, 3000)
+              modal.afterClosed().subscribe(() => {                
+                this.router.navigate(['processo-seletivo']);
+              })
           }
         });
       }
