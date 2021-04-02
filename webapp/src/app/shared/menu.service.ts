@@ -12,7 +12,7 @@ export class MenuService {
 
   private menu: IMenu[] = [];
   private menuSecretaria: IMenu[] = [
-    {titulo: 'Home', link: '/home', icone: 'home'},
+    {titulo: 'Transparência', link: '/transparencia', icone: 'dashboard'},
     {titulo: 'Processo seletivo', link: '/processo-seletivo', icone: 'input'},
     {titulo: 'Encaminhamento', link: 'processo-seletivo/encaminhamento', icone: 'arrow_right_alt'},
     {titulo: 'Disciplinas', link: 'disciplina', icone: 'auto_stories'},
@@ -21,14 +21,14 @@ export class MenuService {
   ];
 
   private menuCandidato: IMenu[] = [    
-    {titulo: 'Home', link: '/home', icone: 'home'},
+    {titulo: 'Transparência', link: '/transparencia', icone: 'dashboard'},
     {titulo: 'Processos seletivos', link: `candidato/processos`, icone: 'input'},
     {titulo: 'Dados pessoais', link:`candidato/dados-pessoais`, icone: 'account_box'},
     {titulo: 'Minhas inscrições', link:`candidato/inscricoes`, icone:'create'}
   ]
 
   private menuEscola: IMenu[] = [
-    {titulo: 'Home', link: '/home', icone: 'home'},
+    {titulo: 'Transparência', link: '/transparencia', icone: 'dashboard'},
     {titulo: 'Demandas', link: `escola`, icone: 'input'}
   ]
 

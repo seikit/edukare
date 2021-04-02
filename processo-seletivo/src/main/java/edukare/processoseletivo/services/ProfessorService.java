@@ -2,6 +2,7 @@ package edukare.processoseletivo.services;
 
 import edukare.processoseletivo.domain.Professor;
 import edukare.processoseletivo.dto.InscricaoDto;
+import edukare.processoseletivo.enumeration.Situacao;
 import edukare.processoseletivo.enumeration.SituacaoInscricao;
 import edukare.processoseletivo.feignClients.*;
 import edukare.processoseletivo.interfaces.ISeriesGrafico;
@@ -48,6 +49,11 @@ public class ProfessorService {
         return this.professorRepository.findAll();
     }
 
+    public List<Professor> carregarTodosProfessoresDoProcesso(Long id) {
+        log.debug("Request para carregar todos os professores de um processo");
+        return this.professorRepository.findAllByProcessoSeletivoId(id);
+    }
+
     public List<Professor> encaminharProfessores(List<Professor> professores) {
         log.debug("Request para encaminhar professores para escola.");
         List<Professor> prfAtualizar = new ArrayList<>();
@@ -84,4 +90,17 @@ public class ProfessorService {
         return this.professorRepository.carregarSeriesProfessoresEncaminhados(inicio, fim);
     }
 
+    public Integer carregarQuantitativoAprovadosNoAno() {
+        log.debug("Request para carregar o quantitativo de aprovados no ano corrente");
+        LocalDateTime inicio = LocalDateTime.of(LocalDate.now().getYear(), Month.JANUARY, 1, 0,0);
+        LocalDateTime fim = LocalDateTime.of(LocalDate.now().getYear(), Month.DECEMBER, Month.DECEMBER.maxLength(),23,59);
+        return this.professorRepository.countAllByDataEfetivacaoBetween(inicio, fim);
+    }
+
+    public Integer carregarQuantitativoAEncaminhadosNoAno() {
+        log.debug("Request para carregar o quantitativo de encaminhados no ano corrente");
+        LocalDateTime inicio = LocalDateTime.of(LocalDate.now().getYear(), Month.JANUARY, 1, 0,0);
+        LocalDateTime fim = LocalDateTime.of(LocalDate.now().getYear(), Month.DECEMBER, Month.DECEMBER.maxLength(),23,59);
+        return this.professorRepository.countAllByDataEfetivacaoBetweenAndEncaminhado(inicio, fim, true);
+    }
 }

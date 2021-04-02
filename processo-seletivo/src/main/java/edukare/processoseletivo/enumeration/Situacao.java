@@ -2,8 +2,9 @@ package edukare.processoseletivo.enumeration;
 
 public enum Situacao {
     NOVO("NOVO"),
+    INSCRICAO("INSCRICAO"),
     CANCELADO("CANCELADO"),
-    SUSPENSO("SUSPENSO");
+    CONCLUIDO("CONCLUIDO");
 
     public final String situacao;
 

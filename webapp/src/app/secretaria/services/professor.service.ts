@@ -27,6 +27,18 @@ export class ProfessorService {
     return this.http.post<IProfessor[]>(this.PROCESSO_URL + '/v1/professores/encaminhar', professores, {observe: 'response'});
   }
 
+  carregarProfessoresDoProcesso(id: number): Observable<ArrayResponseType> {
+    return this.http.get<IProfessor[]>(this.PROCESSO_URL + `/v1/professores/processo/${id}`, {observe: 'response'});
+  }
+
+  carregarQuantitativoAprovadosNoAnoCorrente(): Observable<number> {
+    return this.http.get<number>(this.PROCESSO_URL + '/v1/professores/transparencia/total-aprovados', {observe: 'body'});
+  }
+
+  carregarQuantitativoEncaminhadosNoAnoCorrente(): Observable<number> {
+    return this.http.get<number>(this.PROCESSO_URL + '/v1/professores/transparencia/total-encaminhados', {observe: 'body'});
+  } 
+
   carregarRelatorio() {
     return this.http.get(this.PROCESSO_URL + `/v1/professores/relatorio`, {responseType: 'arraybuffer', observe: 'body' } ).subscribe( res => {        
       const file = new Blob([res], {type: 'application/pdf'});

@@ -12,8 +12,8 @@ import { RelatorioComponent } from './secretaria/relatorio/relatorio.component';
 import { SelecaoComponent } from './secretaria/selecao/selecao.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent},
+  {path: '', redirectTo: '/transparencia', pathMatch: 'full'},
+  {path: 'transparencia', component: HomeComponent},
   {path: 'processo-seletivo/selecao', component: SelecaoComponent},
   {path: 'processo-seletivo/encaminhamento', component: EncaminhamentoComponent},
   {path: 'processo-seletivo/relatorios', component: RelatorioComponent},

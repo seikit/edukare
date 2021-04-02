@@ -12,7 +12,8 @@ import java.util.Set;
 public class ProcessoSeletivo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "processo_sequence")
+    @SequenceGenerator(name = "processo_sequence", allocationSize = 1, initialValue = 1)
     private Long id;
 
     private String titulo;
@@ -20,6 +21,8 @@ public class ProcessoSeletivo {
 
     @Enumerated(EnumType.STRING)
     private Situacao situacao;
+
+    private Integer ano;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dtInicioInscricao;
@@ -69,6 +72,14 @@ public class ProcessoSeletivo {
         this.situacao = situacao;
     }
 
+    public Integer getAno() {
+        return ano;
+    }
+
+    public void setAno(Integer ano) {
+        this.ano = ano;
+    }
+
     public LocalDate getDtInicioInscricao() {
         return dtInicioInscricao;
     }
@@ -109,12 +120,18 @@ public class ProcessoSeletivo {
         return Objects.hash(id, titulo, descricao);
     }
 
+
     @Override
     public String toString() {
         return "ProcessoSeletivo{" +
                 "id=" + id +
                 ", titulo='" + titulo + '\'' +
                 ", descricao='" + descricao + '\'' +
+                ", situacao=" + situacao +
+                ", ano=" + ano +
+                ", dtInicioInscricao=" + dtInicioInscricao +
+                ", dtEncerramentoInscricao=" + dtEncerramentoInscricao +
+                ", etapas=" + etapas +
                 '}';
     }
 }

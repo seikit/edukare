@@ -1,6 +1,7 @@
 package edukare.processoseletivo.web.rest;
 
 import edukare.processoseletivo.domain.ProcessoSeletivo;
+import edukare.processoseletivo.enumeration.Situacao;
 import edukare.processoseletivo.relatorios.RelatorioProcessos;
 import edukare.processoseletivo.services.ProcessoService;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -38,7 +40,7 @@ public class ProcessoSeletivoResource {
         if (processoSeletivo.getId() != null) {
             return ResponseEntity.badRequest().body(new ProcessoSeletivo());
         }
-
+        processoSeletivo.setAno(LocalDate.now().getYear());
         ProcessoSeletivo processo = processoService.save(processoSeletivo);
         return ResponseEntity
                 .created(new URI("/api/processo-seletivo/"+processo.getId()))
@@ -114,6 +116,20 @@ public class ProcessoSeletivoResource {
                     .body(new InputStreamResource(bis));
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/todos-concluidos-ano")
+    public ResponseEntity carregarTodosProcessosDoAnoCorrente() {
+        List<ProcessoSeletivo> processoSeletivos = processoService.carregarTodosProcessosConcluidosDoAnoCorrente();
+        return ResponseEntity
+                .ok()
+                .body(processoSeletivos);
+    }
+
+    @GetMapping("/transparencia/total-concluidos")
+    public ResponseEntity<Integer> carregarQuantitativoProcessosRealizadosNoAno(){
+        log.debug("REST para carregar o quantitativo dos processos");
+        return ResponseEntity.ok().body(processoService.carregarQuantitativoProcessosConcluidos());
     }
 
 

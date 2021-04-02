@@ -29,6 +29,6 @@ export class AuthService {
   }
 
   cadastrarNovoUsuario(): void {
-    window.location.href = env.KEYCLOAK_REGISTRO_URL + env.REDIRECT_HOME;    
+    window.location.href = env.KEYCLOAK_REGISTRO_URL + env.REDIRECT_TRANSPARENCIA;    
   }
 }

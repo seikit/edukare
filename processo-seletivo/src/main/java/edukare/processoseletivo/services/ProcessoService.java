@@ -1,6 +1,7 @@
 package edukare.processoseletivo.services;
 
 import edukare.processoseletivo.domain.ProcessoSeletivo;
+import edukare.processoseletivo.enumeration.Situacao;
 import edukare.processoseletivo.repository.ProcessoRepository;
 import org.apache.tomcat.jni.Proc;
 import org.slf4j.Logger;
@@ -63,6 +64,16 @@ public class ProcessoService {
     public List<ProcessoSeletivo> carregarTodosProcessos() {
         log.debug("Request para carregar todos os processo");
         return this.processoRepository.findAll();
+    }
+
+    public List<ProcessoSeletivo> carregarTodosProcessosConcluidosDoAnoCorrente() {
+        log.debug("Request para carregar todos os processo encerrados do ano corrente");
+        return this.processoRepository.findAllBySituacaoAndAno(Situacao.CONCLUIDO, LocalDate.now().getYear());
+    }
+
+    public Integer carregarQuantitativoProcessosConcluidos() {
+        log.debug("Request para carregar o quantitativo de processos realizados no ano corrente");
+        return this.processoRepository.countAllBySituacaoAndAno(Situacao.CONCLUIDO, LocalDate.now().getYear());
     }
 
 

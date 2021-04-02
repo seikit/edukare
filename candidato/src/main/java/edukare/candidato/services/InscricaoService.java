@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.*;
 
 @Service
@@ -144,5 +145,12 @@ public class InscricaoService {
             }
         }
         return this.inscricaoRepository.saveAll(atualizarInscricoes);
+    }
+
+    public Integer carregarQuantitativoInscritosAnoCorrente() {
+        log.debug("Request para carregar todos os inscritos do ano");
+        LocalDateTime inicio = LocalDateTime.of(LocalDate.now().getYear(), Month.JANUARY, 1, 0,0);
+        LocalDateTime fim = LocalDateTime.of(LocalDate.now().getYear(), Month.DECEMBER, Month.DECEMBER.maxLength(),23,59);
+        return this.inscricaoRepository.countAllByDataInscricaoBetweenAndSituacaoIn(inicio, fim, List.of(Situacao.ATIVA, Situacao.PROCESSADA));
     }
 }
