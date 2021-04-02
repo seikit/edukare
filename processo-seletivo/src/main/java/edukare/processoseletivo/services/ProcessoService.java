@@ -1,6 +1,7 @@
 package edukare.processoseletivo.services;
 
 import edukare.processoseletivo.domain.ProcessoSeletivo;
+import edukare.processoseletivo.domain.Professor;
 import edukare.processoseletivo.enumeration.Situacao;
 import edukare.processoseletivo.repository.ProcessoRepository;
 import org.slf4j.Logger;
@@ -73,6 +74,15 @@ public class ProcessoService {
     public Integer carregarQuantitativoProcessosConcluidos() {
         log.debug("Request para carregar o quantitativo de processos realizados no ano corrente");
         return this.processoRepository.countAllBySituacaoAndAno(Situacao.CONCLUIDO, LocalDate.now().getYear());
+    }
+
+    public ProcessoSeletivo atualizarSituacaoProcesso(Long id, Situacao situacao) {
+        log.debug("Request para atulizar a situação de um processo para uma situação");
+        Optional<ProcessoSeletivo> p = this.findById(id);
+        if(p.isPresent()) {
+            p.get().setSituacao(situacao);
+        }
+        return processoRepository.save(p.get());
     }
 
     @Scheduled(cron = "@midnight")
