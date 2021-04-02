@@ -1,6 +1,7 @@
 package edukare.processoseletivo.repository;
 
 import edukare.processoseletivo.domain.Professor;
+import edukare.processoseletivo.enumeration.Situacao;
 import edukare.processoseletivo.interfaces.ISeriesGrafico;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -25,4 +26,8 @@ public interface ProfessorRepository extends JpaRepository<Professor, Long> {
     List<ISeriesGrafico> carregarSeriesProfessoresEncaminhados(@Param("dtIncio") LocalDateTime dtIncio, @Param("dtFim") LocalDateTime dtFim);
 
 
+    List<Professor> findAllByProcessoSeletivoId(Long id);
+
+    Integer countAllByDataEfetivacaoBetween(LocalDateTime dtIncio, LocalDateTime dtFim);
+    Integer countAllByDataEfetivacaoBetweenAndEncaminhado(LocalDateTime dtIncio, LocalDateTime dtFim, Boolean encaminhado);
 }

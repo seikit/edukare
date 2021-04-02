@@ -11,7 +11,8 @@ import java.util.Objects;
 public class Etapa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "etapa_sequence")
+    @SequenceGenerator(name = "etapa_sequence", allocationSize = 1, initialValue = 1)
     private Long id;
 
     private String titulo;

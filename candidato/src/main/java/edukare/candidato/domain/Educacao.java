@@ -9,7 +9,7 @@ public class Educacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "educacao_sequence")
-    @SequenceGenerator(name = "educacao_sequence")
+    @SequenceGenerator(name = "educacao_sequence", initialValue = 1, allocationSize = 1)
     private Long id;
 
     @Column(nullable = false)

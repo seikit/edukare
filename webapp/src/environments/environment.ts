@@ -10,7 +10,7 @@ export const env = {
   ESCOLA_MS_URL: '/escola/api',
   KEYCLOAK_REGISTRO_URL: 'http://localhost:9080/auth/realms/edukare/protocol/openid-connect/registrations?response_type=code&client_id=webapp&redirect_uri=',
   KEYCLOAK_ISSUER: 'http://localhost:9080/auth/realms/edukare',
-  REDIRECT_HOME: 'http://localhost:4200/home'
+  REDIRECT_TRANSPARENCIA: 'http://localhost:4200/transparencia'
 };
 
 /*

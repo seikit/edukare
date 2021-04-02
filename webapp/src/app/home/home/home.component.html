@@ -1,1 +1,60 @@
-<p>home works!</p>
+<body>
+    <header class="flex wrap sb">
+        <div>
+            <h1>Olá, {{usuarioLogado}}</h1>
+            <h3>Acompanhe abaixo o mural da transparência para o ano corrente.</h3>            
+        </div>        
+    </header>
+
+    <main>
+        <section class="flex wrap">
+            <mat-card class="card-size flex-item">
+                <mat-card-title class="center-text">Processos realizados</mat-card-title>
+                <h1 class="quantitativo center-text">{{totalProcessos}}</h1>
+            </mat-card>
+            <mat-card class="card-size flex-item">
+                <mat-card-title class="center-text">Total de inscritos</mat-card-title>                
+                <h1 class="quantitativo center-text">{{totalInscritos}}</h1>
+            </mat-card>
+            <mat-card class="card-size flex-item">
+                <mat-card-title class="center-text">Total de aprovados</mat-card-title>
+                <h1 class="quantitativo center-text">{{totalAprovados}}</h1>
+            </mat-card>
+            <mat-card class="card-size flex-item">
+                <mat-card-title class="center-text">Total de encaminhados</mat-card-title>
+                <h1 class="quantitativo center-text">{{totalEncaminhados}}</h1>
+            </mat-card>
+        </section>
+
+        <mat-divider></mat-divider>
+        
+        <section class="flex center-content section">
+            <div>
+                <h2>Lista de aprovados</h2>
+                <mat-form-field>
+                    <mat-label>Selecione o processo</mat-label>
+                    <mat-select (selectionChange)="carregarAprovadosNoProcesso($event.value)">
+                        <mat-option value=""></mat-option>
+                        <mat-option value="{{proc.id}}" *ngFor="let proc of processos">{{proc.titulo}}</mat-option>
+                    </mat-select>
+                </mat-form-field>                
+                <div *ngIf="fonteDados.data.length > 0" class="container-table">
+                    <table mat-table [dataSource]="fonteDados" class="mat-elevation-z8">
+                        <ng-container matColumnDef="numeroProcesso">
+                            <th mat-header-cell *matHeaderCellDef class="center-text"> Processo </th>
+                            <td mat-cell *matCellDef="let element"> {{element.processoSeletivoId}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="nome">
+                            <th mat-header-cell *matHeaderCellDef class="center-text"> Nome </th>
+                            <td mat-cell *matCellDef="let element"> {{element.nomeCompleto}} </td>
+                        </ng-container>
+                        
+                        <tr mat-header-row *matHeaderRowDef="colunas"></tr>
+                        <tr mat-row *matRowDef="let row; columns: colunas;"></tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>

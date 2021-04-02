@@ -152,4 +152,10 @@ public class InscricaoResource {
         }
         return ResponseEntity.ok(insc.get());
     }
+
+    @GetMapping("/transparencia/total-inscritos")
+    public ResponseEntity<Integer> carregarQuantitativoInscritosAnoCorrente(){
+        log.debug("REST para carregar o quantitativo de inscritos no ano corrente");
+        return ResponseEntity.ok().body(this.inscricaoService.carregarQuantitativoInscritosAnoCorrente());
+    }
 }

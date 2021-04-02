@@ -17,10 +17,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-
-            .authorizeRequests(authz -> authz
-                .antMatchers("/actuator/health").permitAll()
-                .anyRequest().authenticated())
-            .oauth2ResourceServer(oauth2 -> oauth2.jwt());
+                .anonymous().and()
+                .authorizeRequests()
+                .antMatchers("/api/v1/transparencia/**").permitAll()
+                .and()
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt());
     }
 }

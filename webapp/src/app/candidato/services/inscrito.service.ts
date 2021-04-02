@@ -18,4 +18,8 @@ export class CandidatoService {
   carregarCandidatosDoProcesso(processoId: number | undefined): Observable<ArrayResponseType> {
     return this.http.get<IInscrito[]>(this.CANDIDATO_URL + `/v1/inscricoes/processo/${processoId}`, {observe: 'response'});
   }
+
+  carregarQuantitativoInscritosNoAno(): Observable<number>{
+    return this.http.get<number>(this.CANDIDATO_URL + '/v1/inscricoes/transparencia/total-inscritos', {observe: 'body'});
+  }
 }

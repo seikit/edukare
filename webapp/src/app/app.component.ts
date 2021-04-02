@@ -31,7 +31,7 @@ export class AppComponent {
 
   authConfig: AuthConfig = {
     issuer: env.KEYCLOAK_ISSUER,
-    redirectUri: window.location.origin + "/home",
+    redirectUri: window.location.origin + "/transparencia",
     clientId: 'webapp',
     scope: 'openid profile email offline_access',
     responseType: 'code',    

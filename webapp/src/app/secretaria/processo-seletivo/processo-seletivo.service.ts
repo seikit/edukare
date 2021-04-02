@@ -40,6 +40,14 @@ export class ProcessoSeletivoService {
     return this.http.put<IProcessoSeletivo>(this.PROCESSO_URL + '/v1/processos', obj, {observe: 'response'});
   }
 
+  carregarProcessosConcluidos(): Observable<ArrayResponseType> {
+    return this.http.get<IProcessoSeletivo[]>(this.PROCESSO_URL + '/v1/processos/todos-concluidos-ano', {observe: 'response'});
+  }
+
+  carregarQuantitativoConcluidos(): Observable<number> {
+    return this.http.get<number>(this.PROCESSO_URL + '/v1/processos/transparencia/total-concluidos', {observe: 'body'});
+  }
+
   converterDataParaDataServidor(processo: IProcessoSeletivo): IProcessoSeletivo | undefined {
     if (processo == undefined) return undefined;
     

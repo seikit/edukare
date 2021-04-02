@@ -40,6 +40,12 @@ public class ProfessorResource {
         return ResponseEntity.ok(this.professorService.carregarTodosProfessores());
     }
 
+    @GetMapping("/processo/{id}")
+    public ResponseEntity<List<Professor>> carregarProfessoresDoProcesso(@PathVariable Long id) {
+        log.debug("REST para carregar professores de um processo");
+        return ResponseEntity.ok(this.professorService.carregarTodosProfessoresDoProcesso(id));
+    }
+
     @GetMapping("/grafico/efetivados")
     public ResponseEntity<List<ISeriesGrafico>> carregarSeriesCandidatosEfetivados() {
         log.debug("REST para carregar series de candidatos efetivados em professores");
@@ -74,5 +80,17 @@ public class ProfessorResource {
                     .body(new InputStreamResource(bis));
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/transparencia/total-aprovados")
+    public ResponseEntity<Integer> carregarQuantitativoAprovadosNoAnoCorrente(){
+        log.debug("REST para carregar o quantitativo de aprovados no ano corrente");
+        return ResponseEntity.ok().body(professorService.carregarQuantitativoAprovadosNoAno());
+    }
+
+    @GetMapping("/transparencia/total-encaminhados")
+    public ResponseEntity<Integer> carregarQuantitativoEncaminhadosNoAnoCorrente(){
+        log.debug("REST para carregar o quantitativo de encaminhados no ano corrente");
+        return ResponseEntity.ok().body(professorService.carregarQuantitativoAEncaminhadosNoAno());
     }
 }
