@@ -48,7 +48,7 @@ export class InscricoesComponent implements OnInit {
                 this.carregarInscricoes();
               })
             } else {
-              this.notificacaoService.abrirModal(ModalPadraoComponent, {data: {titulo: 'Atenção!', mensagem: 'Não foi possível efetuar o cancelamento.'}})
+              this.notificacaoService.abrirModal(ModalPadraoComponent, {data: {titulo: 'Atenção!', mensagem: 'Cancelamento não realizado. Só é possível cancelar até a data de encerramento da inscrição.'}})
             }
           })
       }
@@ -61,5 +61,12 @@ export class InscricoesComponent implements OnInit {
 
   visualizar(inscricao: IInscricao): void {
     this.router.navigate(['candidato/inscricao', inscricao.id], {state: {data: inscricao}});
+  }
+
+  validaCancelamento(inscricao: IInscricao): boolean {
+    if(inscricao.situacao === 'CANCELADA' || inscricao.situacao === 'PROCESSADA') {
+      return false;
+    } 
+    return true;
   }
 }
