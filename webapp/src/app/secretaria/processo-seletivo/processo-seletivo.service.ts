@@ -22,8 +22,12 @@ export class ProcessoSeletivoService {
     return this.http.post<IProcessoSeletivo>( this.PROCESSO_URL + '/v1/processos', obj, { observe: 'response'});
   }
   
-  carregar(): Observable<ArrayResponseType> {    
+  carregar(): Observable<ArrayResponseType> {
     return this.http.get<IProcessoSeletivo[]>(this.PROCESSO_URL + '/v1/processos', { observe: 'response' });
+  }
+
+  carregarProcessosAbertos(): Observable<ArrayResponseType> {
+    return this.http.get<IProcessoSeletivo[]>(this.PROCESSO_URL + '/v1/processos/abertos', { observe: 'response' });
   }
 
   deletar(id: number | undefined): Observable<ResponseType> {
