@@ -12,7 +12,7 @@ public class Inscricao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "inscricao_sequence")
-    @SequenceGenerator(name = "inscricao_sequence")
+    @SequenceGenerator(name = "inscricao_sequence", initialValue = 1, allocationSize = 1)
     private Long id;
 
     @Column(nullable = false)
