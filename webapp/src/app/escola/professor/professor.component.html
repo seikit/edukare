@@ -1,0 +1,44 @@
+<body>
+    <header class="flex wrap sb">
+        <h1>Professores encaminhados</h1>     
+    </header>
+      
+    <main>
+        <section>
+            <mat-table [dataSource]="dados" class="mat-elevation-z8">
+                <ng-container matColumnDef="nome">
+                    <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+                    <mat-cell *matCellDef="let prf" data-label="Nome">{{prf.nomeCompleto}}</mat-cell>
+                </ng-container>
+                
+                <ng-container matColumnDef="cpf">
+                    <mat-header-cell *matHeaderCellDef> CPF </mat-header-cell>
+                    <mat-cell *matCellDef="let prf" data-label="CPF"> {{prf.cpf}} </mat-cell>
+                </ng-container>           
+    
+                <ng-container matColumnDef="celular">
+                    <mat-header-cell *matHeaderCellDef> Celular </mat-header-cell>
+                    <mat-cell *matCellDef="let prf" data-label="Celular"> {{prf.celular}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="fixo">
+                    <mat-header-cell *matHeaderCellDef> Fixo </mat-header-cell>
+                    <mat-cell *matCellDef="let prf" data-label="Fixo"> {{prf.telefoneFixo}} </mat-cell>
+                </ng-container>
+    
+                <ng-container matColumnDef="email">
+                    <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+                    <mat-cell *matCellDef="let prf" data-label="Email"> {{prf.email}} </mat-cell>
+                </ng-container>
+    
+                <ng-container matColumnDef="escolaEncaminhamento">
+                    <mat-header-cell *matHeaderCellDef> Escola </mat-header-cell>
+                    <mat-cell *matCellDef="let prf" data-label="Escola"> {{prf.escolaEncaminhamento}} </mat-cell>
+                </ng-container>            
+                
+                <mat-header-row *matHeaderRowDef="colunas"></mat-header-row>            
+                <mat-row *matRowDef="let row; columns: colunas;"></mat-row>
+            </mat-table>
+        </section>
+    </main>
+</body>

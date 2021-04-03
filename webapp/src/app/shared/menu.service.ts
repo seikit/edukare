@@ -29,7 +29,8 @@ export class MenuService {
 
   private menuEscola: IMenu[] = [
     {titulo: 'Transparência', link: '/transparencia', icone: 'dashboard'},
-    {titulo: 'Demandas', link: `escola`, icone: 'input'}
+    {titulo: 'Demandas', link: `escola`, icone: 'input'},
+    {titulo: 'Professores', link: `escola/professores`, icone: 'school'},
   ]
 
   

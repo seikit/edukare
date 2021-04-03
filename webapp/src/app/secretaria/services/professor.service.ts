@@ -15,6 +15,10 @@ export class ProfessorService {
 
   constructor(private http: HttpClient) { }
 
+  carregarProfessoresDaEscola(id: number): Observable<ArrayResponseType> {
+    return this.http.get<IProfessor[]>(this.PROCESSO_URL + `/v1/professores/escola/${id}`, {observe: 'response'});
+  }
+
   efetivarInscritosEm(professores: IProfessor[]): Observable<ArrayResponseType> {
     return this.http.post<IProfessor[]>(this.PROCESSO_URL + '/v1/professores', professores, { observe: 'response' });
   }

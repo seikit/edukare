@@ -112,4 +112,8 @@ public class ProfessorService {
         LocalDateTime fim = LocalDateTime.of(LocalDate.now().getYear(), Month.DECEMBER, Month.DECEMBER.maxLength(),23,59);
         return this.professorRepository.countAllByDataEfetivacaoBetweenAndEncaminhado(inicio, fim, true);
     }
+
+    public List<Professor> carregarProfessoresDaEscola(Long id) {
+        return this.professorRepository.findAllByEscolaIdEncaminhamento(id);
+    }
 }
