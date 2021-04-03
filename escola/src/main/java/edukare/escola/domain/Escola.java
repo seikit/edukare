@@ -8,7 +8,7 @@ public class Escola {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "escola_sequence")
-    @SequenceGenerator(name = "escola_sequence")
+    @SequenceGenerator(name = "escola_sequence", initialValue = 1, allocationSize = 1)
     private Long id;
 
     @Column(nullable = false)

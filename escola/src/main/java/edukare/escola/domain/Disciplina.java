@@ -6,7 +6,8 @@ import javax.persistence.*;
 public class Disciplina {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "disciplina_sequence")
+    @SequenceGenerator(name = "disciplina_sequence", initialValue = 1, allocationSize = 1)
     private Long id;
 
     @Column(nullable = false)
