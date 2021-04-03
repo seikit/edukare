@@ -7,7 +7,8 @@ import java.time.LocalDateTime;
 public class Professor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "professor_sequence")
+    @SequenceGenerator(name = "professor_sequence", initialValue = 1, allocationSize = 1)
     private Long id;
 
     @Column(nullable = false)
