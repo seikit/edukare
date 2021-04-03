@@ -34,6 +34,12 @@ public class ProfessorResource {
         return ResponseEntity.ok(this.professorService.efetivarEmProfessor(professores, token));
     }
 
+    @GetMapping("/escola/{id}")
+    public ResponseEntity<List<Professor>> carregarProfessoresDaEscola(@PathVariable Long id) {
+        log.debug("REST carregando professores de uma escola");
+        return ResponseEntity.ok(this.professorService.carregarProfessoresDaEscola(id));
+    }
+
     @GetMapping
     public ResponseEntity<List<Professor>> carregarProfessores() {
         log.debug("REST para carregar todos professores");

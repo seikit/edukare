@@ -30,4 +30,6 @@ public interface ProfessorRepository extends JpaRepository<Professor, Long> {
 
     Integer countAllByDataEfetivacaoBetween(LocalDateTime dtIncio, LocalDateTime dtFim);
     Integer countAllByDataEfetivacaoBetweenAndEncaminhado(LocalDateTime dtIncio, LocalDateTime dtFim, Boolean encaminhado);
+
+    List<Professor> findAllByEscolaIdEncaminhamento(Long id);
 }
