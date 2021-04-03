@@ -9,7 +9,7 @@ public class Endereco {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "endereco_sequence")
-    @SequenceGenerator(name = "endereco_sequence")
+    @SequenceGenerator(name = "endereco_sequence", initialValue = 1, allocationSize = 1)
     private Long id;
 
     @Column(nullable = false)

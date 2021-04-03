@@ -7,7 +7,7 @@ public class Candidato {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "candidato_sequence")
-    @SequenceGenerator(name = "candidato_sequence")
+    @SequenceGenerator(name = "candidato_sequence", initialValue = 1, allocationSize = 1)
     private Long id;
 
     @Column(nullable = false)
