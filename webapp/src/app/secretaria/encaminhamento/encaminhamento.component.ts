@@ -7,6 +7,7 @@ import { EscolaService } from 'src/app/escola/services/escola.service';
 import { Escola } from 'src/app/escola/models/escola';
 import { NotificacaoService } from 'src/app/shared/notificacao.service';
 import { ModalSucessoComponent } from 'src/app/shared/modais/modal-sucesso/modal-sucesso.component';
+import { ModalConfirmacaoComponent } from 'src/app/shared/modais/modal-confirmacao/modal-confirmacao.component';
 
 @Component({
   selector: 'app-encaminhamento',
@@ -53,16 +54,20 @@ export class EncaminhamentoComponent implements OnInit {
   }
 
   encaminharProfessores(): void {
-    const selecionados = this.selecionados.selected;
-    this.professorService.encaminharProfessorParaEscola(selecionados).subscribe(res => {
-      if(res.ok && res.body) {        
-        const modal = this.notificacaoService.abrirModal(ModalSucessoComponent, {data: {titulo: "Professores encaminhador a escola"}});        
-        setTimeout(() => {
-          modal.close();
-        }, 3000)        
-        modal.afterClosed().subscribe(() => {
-          this.carregarProfessores();
-        })
+    this.notificacaoService.abrirModal(ModalConfirmacaoComponent, {data: {titulo: 'Encaminhar os professores selecionados ? ', mensagem: ''}}).afterClosed().subscribe( (cancelar:boolean) => {
+      if(cancelar == true) {
+        const selecionados = this.selecionados.selected;
+        this.professorService.encaminharProfessorParaEscola(selecionados).subscribe(res => {
+          if(res.ok && res.body) {        
+            const modal = this.notificacaoService.abrirModal(ModalSucessoComponent, {data: {titulo: "Professores encaminhados"}});
+            setTimeout(() => {
+              modal.close();
+            }, 3000)        
+            modal.afterClosed().subscribe(() => {
+              this.carregarProfessores();
+            })
+          }
+        });
       }
     });
   }
