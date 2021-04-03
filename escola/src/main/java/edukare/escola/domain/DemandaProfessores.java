@@ -7,7 +7,7 @@ public class DemandaProfessores {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "demanda_professores_sequence")
-    @SequenceGenerator(name = "demanda_professores_sequence")
+    @SequenceGenerator(name = "demanda_professores_sequence", initialValue = 1, allocationSize = 1)
     private Long id;
 
     @Column(nullable = false)
