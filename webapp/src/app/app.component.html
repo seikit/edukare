@@ -1,6 +1,6 @@
 <div class="container" [class.eh-mobile]="mobileQuery.matches">
   <mat-toolbar color="primary" class="toolbar-pos sb">
-    <button mat-icon-button (click)="snav.toggle()">
+    <button *ngIf="estaLogado" mat-icon-button (click)="snav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
     <h1 class="app-name-pos">{{perfil}}</h1>    
