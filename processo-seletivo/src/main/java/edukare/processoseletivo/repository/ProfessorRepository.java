@@ -16,13 +16,13 @@ public interface ProfessorRepository extends JpaRepository<Professor, Long> {
 
     @Query(value = "select processo_seletivo_id, processo_seletivo_titulo as name, count(id) as y from professor " +
             "where data_efetivacao between :dtIncio and :dtFim " +
-            "group by processo_seletivo_id", nativeQuery = true)
+            "group by processo_seletivo_id, processo_seletivo_titulo", nativeQuery = true)
     List<ISeriesGrafico> carregarSeriesCandidatosEfetivados(@Param("dtIncio") LocalDateTime dtIncio, @Param("dtFim") LocalDateTime dtFim);
 
     @Query(value = "select p.escola_encaminhamento as name, count(p.id) as y from professor p " +
             "where p.data_efetivacao between :dtIncio and :dtFim " +
             "and p.encaminhado = true " +
-            "group by p.escola_id_encaminhamento", nativeQuery = true)
+            "group by p.escola_id_encaminhamento, p.escola_encaminhamento", nativeQuery = true)
     List<ISeriesGrafico> carregarSeriesProfessoresEncaminhados(@Param("dtIncio") LocalDateTime dtIncio, @Param("dtFim") LocalDateTime dtFim);
 
 
