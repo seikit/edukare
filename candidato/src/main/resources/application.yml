@@ -3,8 +3,8 @@ spring:
     name: candidato
   datasource:    
     url: jdbc:postgresql://${DB_HOST:localhost}:5432/candidato
-    username: candidatoapp
-    password: 
+    username: ${DB_USER:candidatoapp)
+    password: ${DB_PWD:candidato_pwd}
   jpa:
     repositories.bootstrap-mode: default
     database-platform: org.hibernate.dialect.PostgreSQLDialect

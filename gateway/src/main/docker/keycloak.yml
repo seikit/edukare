@@ -9,6 +9,7 @@ services:
     volumes:
       - ./realm-config/edukare-export.1.0.1.json:/realm-config/edukare-export.1.0.1.json
     environment:
+      - PROXY_ADDRESS_FORWARDING=true
       - KEYCLOAK_IMPORT=/realm-config/edukare-export.1.0.1.json
       - KEYCLOAK_USER=
       - KEYCLOAK_PASSWORD=
