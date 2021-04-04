@@ -3,8 +3,8 @@ spring:
     name: escola
   datasource:    
     url: jdbc:postgresql://${DB_HOST:localhost}:5432/escola
-    username: escolaapp
-    password: 
+    username: ${DB_USER:escolaapp}
+    password: ${DB_PWD:escola_pwd}
   jpa:
     repositories.bootstrap-mode: default
     database-platform: org.hibernate.dialect.PostgreSQLDialect

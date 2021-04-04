@@ -3,8 +3,8 @@ spring:
     name: processo-seletivo
   datasource:    
     url: jdbc:postgresql://${DB_HOST:localhost}:5432/processo
-    username: processoapp
-    password: 
+    username: ${DB_USER:processoapp}
+    password: ${DB_PWD:processo_pwd}
   jpa:
     repositories.bootstrap-mode: default
     database-platform: org.hibernate.dialect.PostgreSQLDialect
