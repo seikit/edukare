@@ -7,9 +7,9 @@ services:
               '0.0.0.0',
               '-Djboss.socket.binding.port-offset=1000']
     volumes:
-      - ./realm-config/realm-export.json:/realm-config/realm-export.json
+      - ./realm-config/edukare-export.1.0.1.json:/realm-config/edukare-export.1.0.1.json
     environment:
-      - KEYCLOAK_IMPORT=/realm-config/realm-export.json
+      - KEYCLOAK_IMPORT=/realm-config/edukare-export.1.0.1.json
       - KEYCLOAK_USER=
       - KEYCLOAK_PASSWORD=
       - DB_VENDOR=postgres
