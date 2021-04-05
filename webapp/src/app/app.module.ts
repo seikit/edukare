@@ -7,12 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { CommonModule, DatePipe } from '@angular/common';
 import { SecretariaModule } from './secretaria/secretaria.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ModalPadraoComponent } from './shared/modais/modal-padrao/modal-padrao.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { HomeModule } from './home/home.module';
+import { TokenInterceptor } from './shared/interceptor/token-interceptor';
 
 @NgModule({
   declarations: [
@@ -31,13 +32,13 @@ import { HomeModule } from './home/home.module';
     OAuthModule.forRoot({
       resourceServer: {
           allowedUrls: ['http://localhost:8080/'],
-          sendAccessToken: true
+          sendAccessToken: false
       }
   })
   ],
-  providers: [DatePipe,
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}}
-  ],
+  providers: [
+    DatePipe, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}},  
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
   entryComponents: [ModalPadraoComponent],
   bootstrap: [AppComponent],
   exports: []
