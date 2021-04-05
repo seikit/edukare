@@ -1,6 +1,6 @@
 export const env = {
   production: true,
-  GATEWAY_URL: 'http://gateway',
+  GATEWAY_URL: 'https://gateway.edukare.net.br',
   PROCESSO_MS_URL: '/processo-seletivo/api',
   CANDIDATO_MS_URL: '/candidato/api',
   ESCOLA_MS_URL: '/escola/api',
