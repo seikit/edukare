@@ -35,7 +35,7 @@ export class AppComponent {
     clientId: 'webapp',
     scope: 'openid profile email offline_access',
     responseType: 'code',    
-    showDebugInformation: true,
+    showDebugInformation: false,
     requireHttps: false
   }
 
