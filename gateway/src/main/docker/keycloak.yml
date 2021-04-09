@@ -11,14 +11,14 @@ services:
     environment:
       - PROXY_ADDRESS_FORWARDING=true
       - KEYCLOAK_IMPORT=/realm-config/edukare-export.1.0.1.json
-      - KEYCLOAK_USER=
-      - KEYCLOAK_PASSWORD=
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
       - DB_VENDOR=postgres
       - DB_ADDR=postgres
       - DB_PORT=5432
-      - DB_DATABASE=
-      - DB_USER=
-      - DB_PASSWORD=
+      - DB_DATABASE=keycloak
+      - DB_USER=keycloak
+      - DB_PASSWORD=keycloak
     ports:
       - 9080:9080
       - 9443:9443

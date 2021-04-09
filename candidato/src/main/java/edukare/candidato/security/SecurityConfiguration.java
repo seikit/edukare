@@ -11,15 +11,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) {
         web.ignoring()
-                .antMatchers("/h2-console/**");
+                .antMatchers("/h2-console/**")
+                .antMatchers("/api/v1/inscricoes/transparencia/total-inscritos");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .anonymous().and()
+        http    .authorizeRequests()
+                .antMatchers("/actuator/health").permitAll()
+                .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/transparencia/**").permitAll()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt());
     }
