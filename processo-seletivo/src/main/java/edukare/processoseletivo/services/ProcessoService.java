@@ -85,31 +85,36 @@ public class ProcessoService {
         return processoRepository.save(p.get());
     }
 
-    @Scheduled(cron = "@midnight")
+    @Scheduled(cron = "0 5 0 * * *")
     public void abrirInscricao() {
         log.debug("Rodando Cron para abrir a inscrição do processo");
         List<ProcessoSeletivo> processos = this.processoRepository.findAllBySituacaoAndAno(Situacao.NOVO, LocalDate.now().getYear());
 
         for(ProcessoSeletivo processo: processos) {
+            log.info("Achou processos para abrir inscrição");
             if(processo.getSituacao().situacao.equals("NOVO") && LocalDate.now().isEqual(processo.getDtInicioInscricao())) {
+                log.info("Abrindo inscrição. Processo: {} Situação: {} ",processo.getId(), processo.getSituacao());
                 processo.setSituacao(Situacao.INSCRICAO);
             }
             this.processoRepository.save(processo);
+            log.info("Inscrição aberta. Processo: {} Situação: {}", processo.getId(), processo.getSituacao());
         }
 
     }
 
-    @Scheduled(cron = "59 23 * * * *")
+    @Scheduled(cron = "0 55 23 * * *")
     public void fecharInscricao() {
         log.debug("Rodando Cron para fechar a inscrição do processo");
         List<ProcessoSeletivo> processos = this.processoRepository.findAllBySituacaoAndAno(Situacao.INSCRICAO, LocalDate.now().getYear());
 
         for(ProcessoSeletivo processo: processos) {
+            log.info("Achou processos para fechar inscrição");
             if(processo.getSituacao().situacao.equals("INSCRICAO") && LocalDate.now().isEqual(processo.getDtEncerramentoInscricao())) {
+                log.info("Fechando inscrição. Processo: {} Situação: {} ",processo.getId(), processo.getSituacao());
                 processo.setSituacao(Situacao.SELECAO);
             }
-
             this.processoRepository.save(processo);
+            log.info("Inscrição fechada. Processo: {} Situação: {}", processo.getId(), processo.getSituacao());
         }
 
     }
