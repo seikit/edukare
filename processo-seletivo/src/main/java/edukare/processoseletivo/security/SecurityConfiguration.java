@@ -15,7 +15,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/professores/transparencia/total-aprovados")
                 .antMatchers("/api/v1/professores/transparencia/total-encaminhados")
                 .antMatchers("/api/v1/processos/transparencia/total-concluidos")
-                .antMatchers("/api/v1/processos/todos-concluidos-ano");
+                .antMatchers("/api/v1/processos/todos-concluidos-ano")
+                .antMatchers("/api/v1/professores/processo/**");
+
     }
 
     @Override
